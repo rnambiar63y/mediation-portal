@@ -1,0 +1,15 @@
+{
+  "name": "Mediation Management Portal",
+  "short_name": "Mediation App",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f6f9",
+  "theme_color": "#1B3B6F",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2666/2666505.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
