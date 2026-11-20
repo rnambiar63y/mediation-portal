@@ -1,698 +1,561 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Court-Annexed Mediation Center Register & Portal</title>
-    <meta name="theme-color" content="#1B3B6F">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2666/2666505.png">
-    <style>
-        :root {
-            --primary: #1B3B6F;
-            --primary-light: #e8eef7;
-            --bg: #f4f6f9;
-            --card-bg: #ffffff;
-            --text: #222222;
-            --muted: #5f6368;
-            --success: #2e7d32;
-            --danger: #c62828;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--bg); color: var(--text); }
-        
-        /* App Bar */
-        header { background: var(--primary); color: white; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        header h1 { margin: 0; font-size: 1.2rem; }
-        select.role-select { padding: 8px 12px; border-radius: 6px; border: none; font-weight: 600; color: var(--primary); cursor: pointer; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Court-Annexed Mediation Center Register & Portal</title>
+  <style>
+    :root {
+      --primary: #1a365d;
+      --primary-light: #2b4c7e;
+      --accent: #2563eb;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --pending-bg: #fef3c7;
+      --pending-text: #92400e;
+    }
 
-        /* Role Banner */
-        .role-banner { background: var(--primary-light); padding: 10px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d0dceb; font-weight: 600; color: var(--primary); font-size: 0.9rem; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.5; }
 
-        /* Main Container */
-        .container { max-width: 1050px; margin: 20px auto; padding: 0 16px; }
-        .top-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
-        
-        /* Buttons */
-        .btn { background: var(--primary); color: white; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
-        .btn:hover { background: #132a50; }
-        .btn-success { background: var(--success); }
-        .btn-success:hover { background: #1b5e20; }
-        .btn-danger { background: var(--danger); }
-        .btn-secondary { background: #e0e0e0; color: #333; }
-        .btn-secondary:hover { background: #d0d0d0; }
-        .btn-sm { padding: 6px 12px; font-size: 0.82rem; }
+    /* Top Header */
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .brand { font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .header-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 
-        /* Register Table / Cards */
-        .case-card { background: var(--card-bg); border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: flex-start; cursor: pointer; border-left: 5px solid #1B3B6F; transition: transform 0.1s; gap: 15px; }
-        .case-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.12); }
-        .case-card.settled { border-left-color: var(--success); }
-        .case-card.not-settled { border-left-color: var(--danger); }
-        .folio-tag { display: inline-block; background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 3px 8px; border-radius: 4px; font-size: 0.85rem; margin-right: 8px; }
-        .case-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; color: #111; }
-        .case-meta { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
-        .badge { padding: 6px 12px; border-radius: 16px; font-size: 0.78rem; font-weight: 700; background: #eef2f6; color: #334155; white-space: nowrap; }
-        .badge.settled { background: #e8f5e9; color: var(--success); }
-        .badge.not-settled { background: #ffebee; color: var(--danger); }
+    .btn-header {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-header:hover { background: rgba(255,255,255,0.25); }
 
-        /* Modals */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55); justify-content: center; align-items: center; z-index: 1000; }
-        .modal { background: white; width: 94%; max-width: 720px; border-radius: 10px; padding: 24px; max-height: 92vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.25); }
-        .modal h2 { margin-top: 0; color: var(--primary); border-bottom: 2px solid var(--primary-light); padding-bottom: 10px; font-size: 1.2rem; }
-        .section-heading { font-size: 0.9rem; font-weight: 700; color: var(--primary); background: var(--primary-light); padding: 6px 10px; border-radius: 4px; margin: 16px 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-        @media (max-width: 600px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+    select.role-select {
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: #fff;
+      cursor: pointer;
+    }
 
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; color: #333; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 0.9rem; font-family: inherit; }
-        
-        .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 14px; flex-wrap: wrap; }
-        
-        /* Tabs inside Case Workspace */
-        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; margin-bottom: 16px; gap: 4px; }
-        .tab { padding: 8px 14px; cursor: pointer; font-weight: 600; font-size: 0.88rem; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px; }
-        .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
+    /* Sub-bar */
+    .subbar {
+      background: #e2e8f0;
+      padding: 8px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #334155;
+    }
 
-        .detail-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        .detail-table td { padding: 7px 8px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
-        .detail-table td.lbl { font-weight: 600; color: #555; width: 38%; }
+    /* Main Container */
+    .container { max-width: 1050px; margin: 24px auto; padding: 0 18px; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .toolbar h2 { font-size: 1.25rem; color: var(--primary); }
+    .toolbar p { font-size: 0.88rem; color: var(--muted); }
 
-        .posting-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; font-size: 0.88rem; }
-        .sig-box { border: 1px solid #cbd5e1; background: #f8fafc; padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-primary:hover { background: var(--primary-light); }
 
-        /* Print View Styling */
-        @media print {
-            body * { visibility: hidden; }
-            #printArea, #printArea * { visibility: visible; }
-            #printArea { position: absolute; left: 0; top: 0; width: 100%; padding: 20px; background: white; color: black; }
-        }
-        #printArea { display: none; }
-    </style>
+    /* Case Cards */
+    .case-list { display: flex; flex-direction: column; gap: 14px; }
+    .case-card {
+      background: var(--card);
+      border-radius: 8px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--primary);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .case-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .case-card.settled { border-left-color: #16a34a; }
+
+    .folio-badge {
+      background: #eff6ff;
+      color: var(--primary);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      margin-right: 8px;
+    }
+    .case-title { font-weight: 700; font-size: 1rem; color: #0f172a; }
+    .case-meta { font-size: 0.88rem; color: #475569; margin-top: 5px; }
+    .status-col { text-align: right; min-width: 140px; }
+    .status-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: var(--pending-bg);
+      color: var(--pending-text);
+    }
+    .case-card.settled .status-pill { background: var(--success-bg); color: var(--success-text); }
+    .location-note { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* Modal Styles */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: #fff;
+      width: 100%;
+      max-width: 640px;
+      max-height: 88vh;
+      overflow-y: auto;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .modal-header h3 { color: var(--primary); font-size: 1.2rem; }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--muted);
+      line-height: 1;
+    }
+
+    /* Manual Formatting */
+    .manual-section { margin-bottom: 16px; }
+    .manual-section h4 { color: var(--primary); font-size: 0.98rem; margin-bottom: 6px; }
+    .manual-section ul { padding-left: 20px; font-size: 0.9rem; color: #334155; }
+    .manual-section li { margin-bottom: 5px; }
+    .notice-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.86rem;
+      margin-top: 12px;
+    }
+
+    /* Form Fields */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label { font-size: 0.84rem; font-weight: 600; color: #334155; }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 8px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #1e293b;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0f172a;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 2000;
+    }
+    .toast.show { opacity: 1; }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+      .status-col { text-align: left; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>⚖️ Court-Annexed Mediation Center Portal</h1>
-    <div>
-        <select id="roleSelector" class="role-select" onchange="changeRole()">
-            <option value="CENTER ADMIN">Role: Center Admin (Register)</option>
-            <option value="MEDIATOR" selected>Role: Mediator</option>
-            <option value="ADVOCATE">Role: Advocate</option>
-            <option value="CLIENT">Role: Party / Client</option>
-        </select>
+  <header>
+    <div class="brand">⚖️ Court-Annexed Mediation Center Portal</div>
+    <div class="header-actions">
+      <button class="btn-header" onclick="openManual()">📖 User Manual</button>
+      <button class="btn-header" onclick="sharePortal()">🔗 Share App</button>
+      <select class="role-select" id="roleSelector" onchange="changeRole()">
+        <option value="MEDIATOR">Role: Mediator</option>
+        <option value="CENTER ADMIN (REGISTER)">Role: Center Admin (Register)</option>
+        <option value="ADVOCATE">Role: Advocate</option>
+        <option value="PARTY / CLIENT">Role: Party / Client</option>
+      </select>
     </div>
-</header>
+  </header>
 
-<div class="role-banner">
-    <span id="activeRoleText">👤 Active Role: MEDIATOR</span>
-    <span id="caseCountText">0 Registered Cases</span>
-</div>
+  <div class="subbar">
+    <div id="activeRoleDisplay">👤 Active Role: MEDIATOR</div>
+    <div id="caseCountDisplay">2 Registered Cases</div>
+  </div>
 
-<div class="container">
-    <div class="top-actions">
-        <div>
-            <h2 style="margin:0; font-size:1.15rem; color:var(--primary);">Mediation Center Case Register</h2>
-            <small style="color:var(--muted);">Click any Folio entry to record postings, draft settlement, or generate court return report</small>
-        </div>
-        <button id="intakeBtn" class="btn" onclick="openIntakeModal()">+ New Court Referral Entry</button>
+  <main class="container">
+    <div class="toolbar">
+      <div>
+        <h2>Mediation Center Case Register</h2>
+        <p>Click any Folio entry to record postings, draft settlement, or generate court return report</p>
+      </div>
+      <button class="btn-primary" id="newReferralBtn" onclick="openNewCaseModal()">+ New Court Referral Entry</button>
     </div>
-    <div id="casesContainer"></div>
-</div>
 
-<!-- CASE WORKSPACE MODAL -->
-<div id="detailsModal" class="modal-overlay" onclick="closeModalOnBg(event, 'detailsModal')">
+    <div class="case-list" id="caseList"></div>
+  </main>
+
+  <!-- USER MANUAL MODAL -->
+  <div class="modal-backdrop" id="manualModal">
     <div class="modal">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 id="detailHeader" style="border:none; margin:0; padding:0;">Folio Details</h2>
-            <span id="detailBadge" class="badge">Status</span>
-        </div>
-        
-        <div class="tabs" style="margin-top:12px;">
-            <div class="tab active" onclick="switchTab('tabRegister', this)">1. Register Info</div>
-            <div class="tab" onclick="switchTab('tabPostings', this)">2. Mediation Postings</div>
-            <div class="tab" onclick="switchTab('tabOutcome', this)">3. Outcome & Return to Court</div>
-        </div>
-
-        <!-- TAB 1: REGISTER DETAILS -->
-        <div id="tabRegister" class="tab-panel active">
-            <div id="registerDetailsContent"></div>
-        </div>
-
-        <!-- TAB 2: MEDIATION SITTINGS & NEXT POSTINGS -->
-        <div id="tabPostings" class="tab-panel">
-            <div id="mediatorPostingForm" style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:14px;">
-                <strong style="font-size:0.9rem; color:var(--primary);">Record Mediation Sitting & Next Posting Date</strong>
-                <div class="grid-2" style="margin-top:8px;">
-                    <div class="form-group">
-                        <label>Sitting Date</label>
-                        <input type="date" id="sittingDateInput">
-                    </div>
-                    <div class="form-group">
-                        <label>Next Mediation Posting Date</label>
-                        <input type="date" id="nextPostingDateInput">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Session / Proceeding Notes</label>
-                    <input type="text" id="sittingNoteInput" placeholder="e.g., Both parties present with counsel. Proposals exchanged. Adjourned for joint discussion.">
-                </div>
-                <button class="btn btn-sm" onclick="addPosting()">+ Add Posting Entry</button>
-            </div>
-            <div id="postingsList"></div>
-        </div>
-
-        <!-- TAB 3: OUTCOME, SIGNATURES & RETURN TO COURT -->
-        <div id="tabOutcome" class="tab-panel">
-            <div class="form-group">
-                <label>Mediation Outcome</label>
-                <select id="outcomeSelect" onchange="toggleOutcomeFields()">
-                    <option value="Pending / Ongoing">Pending / Ongoing</option>
-                    <option value="Settled">Settled (Agreement Prepared)</option>
-                    <option value="Not Settled">Not Settled (Returning to Court)</option>
-                </select>
-            </div>
-
-            <div id="settlementTermsBox" class="form-group" style="display:none;">
-                <label>Terms of Mediation Settlement Agreement (Prescribed Form)</label>
-                <textarea id="settlementTermsInput" rows="5" placeholder="Enter the agreed terms and conditions of settlement between Petitioner and Respondent..."></textarea>
-            </div>
-
-            <div id="notSettledNoteBox" style="display:none; background:#ffebee; color:#b71c1c; padding:10px 12px; border-radius:6px; font-size:0.88rem; margin-bottom:12px;">
-                <strong>Report Format:</strong> "THE MATTER IS NOT SETTLED, RETURNING TO THE COURT." (Requires party & mediator verification below before inward/outward register return).
-            </div>
-
-            <div class="section-heading">Signatures & Verification</div>
-            <div id="signaturesContainer"></div>
-
-            <div class="section-heading">Mediation Center Return Register</div>
-            <div class="grid-2">
-                <div class="form-group">
-                    <label>Date Handed Over by Mediator to Center</label>
-                    <input type="date" id="handoverDateInput">
-                </div>
-                <div class="form-group">
-                    <label>Date Returned to Referring Court</label>
-                    <input type="date" id="courtReturnDateInput">
-                </div>
-            </div>
-
-            <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
-                <button class="btn btn-success" onclick="saveOutcomeAndReturn()">Save Outcome & Register Entry</button>
-                <button class="btn" onclick="printOfficialReport()">🖨️ Print Official Court Report / Agreement</button>
-            </div>
-        </div>
-
-        <div class="modal-footer">
-            <button class="btn btn-secondary" onclick="closeModal('detailsModal')">Close</button>
-        </div>
+      <div class="modal-header">
+        <h3>📖 User Manual — Mediation Center Portal</h3>
+        <button class="close-btn" onclick="closeModal('manualModal')">&times;</button>
+      </div>
+      <div class="manual-section">
+        <h4>1. How to Share This Application</h4>
+        <ul>
+          <li>Click the <strong>🔗 Share App</strong> button in the top navigation bar to copy the live portal link (<code>https://rnambiar63y.github.io/mediation-portal/</code>) and paste it directly into WhatsApp, SMS, or Email.</li>
+          <li>No installation or login password is required—it works on Android, iPhone, tablets, and desktop browsers.</li>
+        </ul>
+      </div>
+      <div class="manual-section">
+        <h4>2. Switching User Roles (Top-Right Menu)</h4>
+        <ul>
+          <li><strong>Mediator:</strong> View assigned cases, update next mediation posting dates, record session notes, and mark matters as <em>Settled</em> or <em>Not Settled</em>.</li>
+          <li><strong>Center Admin (Register):</strong> Enter new court referrals using <strong>+ New Court Referral Entry</strong> and assign mediators.</li>
+          <li><strong>Advocate / Party / Client:</strong> View case posting dates and check mediation status.</li>
+        </ul>
+      </div>
+      <div class="manual-section">
+        <h4>3. Managing Case Folios & Court Return Reports</h4>
+        <ul>
+          <li><strong>Add a New Case:</strong> Click <strong>+ New Court Referral Entry</strong>, enter the Folio Number, Case No., Court Name, Parties, and Mediator, then click <em>Save Referral</em>.</li>
+          <li><strong>Update Posting / Generate Report:</strong> Click directly on any case card in the register to update the next posting date, change status, or print/save a Court Return Report.</li>
+        </ul>
+      </div>
+      <div class="notice-box">
+        <strong>Note on Data Privacy & Storage:</strong> Entries added in this browser are stored locally on your device for privacy and offline speed. Other users opening the shared link on their devices will see the standard template register unless data is exported or connected to a shared backend.
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" onclick="closeModal('manualModal')">Got It</button>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- NEW COURT REFERRAL INTAKE MODAL -->
-<div id="intakeModal" class="modal-overlay" onclick="closeModalOnBg(event, 'intakeModal')">
+  <!-- NEW / EDIT CASE MODAL -->
+  <div class="modal-backdrop" id="caseModal">
     <div class="modal">
-        <h2>New Mediation Center Register Entry</h2>
-        
-        <div class="section-heading">1. Folio & Court Memo Details</div>
-        <div class="grid-3">
-            <div class="form-group">
-                <label>Folio Number (F/XXX/Date)</label>
-                <input type="text" id="folioInput" placeholder="e.g., F/104/18-11-2026">
-            </div>
-            <div class="form-group">
-                <label>Case Type</label>
-                <select id="caseTypeInput">
-                    <option value="O.S.">O.S. (Original Suit)</option>
-                    <option value="O.P.">O.P. (Original Petition)</option>
-                    <option value="S.C.">S.C. (Sessions Case)</option>
-                    <option value="C.C.">C.C. (Calendar Case)</option>
-                    <option value="M.C.">M.C. (Maintenance Case)</option>
-                    <option value="Crl.M.C.">Crl.M.C. (Criminal Misc.)</option>
-                    <option value="A.S.">A.S. (Appeal Suit)</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Case Number (XXXX/Year)</label>
-                <input type="text" id="caseNoInput" placeholder="e.g., 142/2025">
-            </div>
+      <div class="modal-header">
+        <h3 id="caseModalTitle">New Court Referral Entry</h3>
+        <button class="close-btn" onclick="closeModal('caseModal')">&times;</button>
+      </div>
+      <form id="caseForm" onsubmit="saveCase(event)">
+        <input type="hidden" id="editIndex" value="-1" />
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Folio Number</label>
+            <input type="text" id="folio" placeholder="e.g., F/103/20-11-2026" required />
+          </div>
+          <div class="form-group">
+            <label>Case Number & Referring Court</label>
+            <input type="text" id="caseNo" placeholder="e.g., O.S. No. 55/2026 — Munsiff Court" required />
+          </div>
+          <div class="form-group">
+            <label>Petitioner / Plaintiff (with Phone)</label>
+            <input type="text" id="partyA" placeholder="Name (Mobile)" required />
+          </div>
+          <div class="form-group">
+            <label>Respondent / Defendant (with Phone)</label>
+            <input type="text" id="partyB" placeholder="Name (Mobile)" required />
+          </div>
+          <div class="form-group">
+            <label>Assigned Mediator</label>
+            <input type="text" id="mediator" value="Adv. M. Ravindran" required />
+          </div>
+          <div class="form-group">
+            <label>Mediation Status</label>
+            <select id="status">
+              <option value="Pending / Ongoing">Pending / Ongoing</option>
+              <option value="Settled">Settled</option>
+              <option value="Not Settled / Returned">Not Settled / Returned</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Next Mediation Posting</label>
+            <input type="text" id="nextPosting" placeholder="DD/MM/YYYY or None Scheduled" />
+          </div>
+          <div class="form-group">
+            <label>Court Report Due Date</label>
+            <input type="text" id="dueDate" placeholder="DD/MM/YYYY" />
+          </div>
+          <div class="form-group full">
+            <label>Proceedings / Settlement Notes (for Court Return Report)</label>
+            <textarea id="notes" rows="3" placeholder="Enter session summary or settlement terms..."></textarea>
+          </div>
         </div>
-        <div class="grid-2">
-            <div class="form-group">
-                <label>Name of the Referring Court</label>
-                <input type="text" id="courtNameInput" placeholder="e.g., Sub Court / District Court / Family Court">
-            </div>
-            <div class="form-group">
-                <label>Allotted Mediator Name</label>
-                <input type="text" id="mediatorInput" placeholder="e.g., Adv. M. Ravindran">
-            </div>
-        </div>
-
-        <div class="section-heading">2. Parties & Contact Numbers</div>
-        <div class="grid-2">
-            <div class="form-group">
-                <label>Petitioner / Plaintiff Name</label>
-                <input type="text" id="petNameInput" placeholder="Full Name">
-            </div>
-            <div class="form-group">
-                <label>Petitioner Phone Number</label>
-                <input type="text" id="petPhoneInput" placeholder="e.g., 98470XXXXX">
-            </div>
-            <div class="form-group">
-                <label>Respondent / Defendant Name</label>
-                <input type="text" id="respNameInput" placeholder="Full Name">
-            </div>
-            <div class="form-group">
-                <label>Respondent Phone Number</label>
-                <input type="text" id="respPhoneInput" placeholder="e.g., 94470XXXXX">
-            </div>
-        </div>
-
-        <div class="section-heading">3. Advocates & Contact Numbers</div>
-        <div class="grid-2">
-            <div class="form-group">
-                <label>Petitioner Advocate Name</label>
-                <input type="text" id="petAdvNameInput" placeholder="e.g., Adv. K. Balan">
-            </div>
-            <div class="form-group">
-                <label>Petitioner Advocate Phone</label>
-                <input type="text" id="petAdvPhoneInput" placeholder="Phone Number">
-            </div>
-            <div class="form-group">
-                <label>Respondent Advocate Name</label>
-                <input type="text" id="respAdvNameInput" placeholder="e.g., Adv. S. Nair">
-            </div>
-            <div class="form-group">
-                <label>Respondent Advocate Phone</label>
-                <input type="text" id="respAdvPhoneInput" placeholder="Phone Number">
-            </div>
-        </div>
-
-        <div class="section-heading">4. Register Dates</div>
-        <div class="grid-2">
-            <div class="form-group">
-                <label>Date of Reference (from Court)</label>
-                <input type="date" id="refDateInput">
-            </div>
-            <div class="form-group">
-                <label>Date of Reporting by Parties at Center</label>
-                <input type="date" id="partyReportDateInput">
-            </div>
-            <div class="form-group">
-                <label>Next Court Posting Date</label>
-                <input type="date" id="nextCourtDateInput">
-            </div>
-            <div class="form-group">
-                <label>Date for Reporting Mediation to Court</label>
-                <input type="date" id="mediationReportDueInput">
-            </div>
-        </div>
-
         <div class="modal-footer">
-            <button class="btn btn-secondary" onclick="closeModal('intakeModal')">Cancel</button>
-            <button class="btn" onclick="saveNewCase()">Enter in Register & Allot Mediator</button>
+          <button type="button" class="btn-secondary" id="printReportBtn" style="display:none;" onclick="printReport()">🖨️ Print Court Return Report</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('caseModal')">Cancel</button>
+          <button type="submit" class="btn-primary">Save Entry</button>
         </div>
+      </form>
     </div>
-</div>
+  </div>
 
-<!-- PRINTABLE OFFICIAL COURT REPORT / AGREEMENT -->
-<div id="printArea"></div>
+  <div class="toast" id="toast">Link copied to clipboard!</div>
 
-<script>
+  <script>
+    const PORTAL_URL = 'https://rnambiar63y.github.io/mediation-portal/';
+
     const defaultCases = [
-        {
-            folioNo: "F/101/12-11-2026",
-            courtName: "Principal Sub Court",
-            caseType: "O.S.",
-            caseNo: "142/2025",
-            petitioner: "K. Raman",
-            petitionerPhone: "9847012345",
-            respondent: "M. Suresh",
-            respondentPhone: "9447098765",
-            petAdvocate: "Adv. K. Balan",
-            petAdvPhone: "9846011122",
-            respAdvocate: "Adv. R. Menon",
-            respAdvPhone: "9446033344",
-            dateOfReference: "2026-11-05",
-            dateOfReporting: "2026-11-12",
-            nextCourtPosting: "2026-12-15",
-            dateForReportingMediation: "2026-12-10",
-            mediatorName: "Adv. M. Ravindran",
-            postings: [
-                { date: "2026-11-12", nextDate: "2026-11-20", note: "Parties reported at Mediation Center. Initial joint session held." }
-            ],
-            outcome: "Pending / Ongoing",
-            settlementTerms: "",
-            signatures: { petitioner: false, respondent: false, mediator: false },
-            handoverDate: "",
-            courtReturnDate: ""
-        },
-        {
-            folioNo: "F/102/14-11-2026",
-            courtName: "Family Court",
-            caseType: "O.P.",
-            caseNo: "88/2026",
-            petitioner: "Ananya P.",
-            petitionerPhone: "9895011223",
-            respondent: "Vipin Das",
-            respondentPhone: "9745044556",
-            petAdvocate: "Adv. S. Nair",
-            petAdvPhone: "9447122334",
-            respAdvocate: "Adv. P. Varma",
-            respAdvPhone: "9847155667",
-            dateOfReference: "2026-11-08",
-            dateOfReporting: "2026-11-14",
-            nextCourtPosting: "2026-12-05",
-            dateForReportingMediation: "2026-12-02",
-            mediatorName: "Adv. M. Ravindran",
-            postings: [
-                { date: "2026-11-14", nextDate: "2026-11-18", note: "Both parties and advocates present. Terms discussed." },
-                { date: "2026-11-18", nextDate: "", note: "Matter amicably settled. Agreement drafted." }
-            ],
-            outcome: "Settled",
-            settlementTerms: "1. Both parties agree to settle all pending claims amicably.\n2. The Respondent shall pay Rs. 2,50,000/- towards full and final settlement on or before 30/11/2026.\n3. Both parties agree to withdraw connected proceedings before the Hon'ble Court.",
-            signatures: { petitioner: true, respondent: true, mediator: true },
-            handoverDate: "2026-11-18",
-            courtReturnDate: ""
-        }
+      {
+        folio: 'F/101/12-11-2026',
+        caseNo: 'O.S. No. 142/2025 — Principal Sub Court',
+        partyA: 'K. Raman (9847012345)',
+        partyB: 'M. Suresh (9447098765)',
+        mediator: 'Adv. M. Ravindran',
+        nextPosting: '20/11/2026',
+        dueDate: '10/12/2026',
+        status: 'Pending / Ongoing',
+        notes: 'First joint session held. Parties exploring boundary measurement terms.'
+      },
+      {
+        folio: 'F/102/14-11-2026',
+        caseNo: 'O.P. No. 88/2026 — Family Court',
+        partyA: 'Ananya P. (9895011223)',
+        partyB: 'Vipin Das (9745044556)',
+        mediator: 'Adv. M. Ravindran',
+        nextPosting: 'None Scheduled',
+        dueDate: '02/12/2026',
+        status: 'Settled',
+        notes: 'Amicable settlement reached between parties. Mediation agreement signed.'
+      }
     ];
 
-    let cases = JSON.parse(localStorage.getItem('courtMediationRegisterV2')) || defaultCases;
-    let currentRole = 'MEDIATOR';
-    let selectedIndex = null;
-
-    function saveToStorage() {
-        localStorage.setItem('courtMediationRegisterV2', JSON.stringify(cases));
-    }
+    let cases = JSON.parse(localStorage.getItem('kasaragod_mediation_cases')) || defaultCases;
 
     function renderCases() {
-        const container = document.getElementById('casesContainer');
-        document.getElementById('caseCountText').innerText = `${cases.length} Registered Cases`;
-        container.innerHTML = '';
-
-        cases.forEach((c, index) => {
-            let statusClass = '';
-            if (c.outcome === 'Settled') statusClass = 'settled';
-            if (c.outcome === 'Not Settled') statusClass = 'not-settled';
-
-            const latestPosting = c.postings && c.postings.length > 0 ? c.postings[c.postings.length - 1] : null;
-            const nextMedDate = latestPosting && latestPosting.nextDate ? formatDate(latestPosting.nextDate) : 'None Scheduled';
-
-            const card = document.createElement('div');
-            card.className = `case-card ${statusClass}`;
-            card.onclick = () => openCaseWorkspace(index);
-
-            card.innerHTML = `
-                <div>
-                    <div class="case-title">
-                        <span class="folio-tag">${c.folioNo}</span>
-                        ${c.caseType} No. ${c.caseNo} — ${c.courtName}
-                    </div>
-                    <div class="case-meta">
-                        <strong>Parties:</strong> ${c.petitioner} (${c.petitionerPhone}) <strong>vs.</strong> ${c.respondent} (${c.respondentPhone})<br>
-                        <strong>Mediator:</strong> ${c.mediatorName} | <strong>Next Mediation Posting:</strong> ${nextMedDate} | <strong>Court Report Due:</strong> ${formatDate(c.dateForReportingMediation)}
-                    </div>
-                </div>
-                <div style="text-align:right;">
-                    <span class="badge ${statusClass}">${c.outcome}</span>
-                    <div style="font-size:0.78rem; color:#666; margin-top:6px;">
-                        ${c.courtReturnDate ? 'Returned: ' + formatDate(c.courtReturnDate) : 'At Mediation Center'}
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
+      const list = document.getElementById('caseList');
+      list.innerHTML = '';
+      cases.forEach((c, idx) => {
+        const isSettled = c.status === 'Settled';
+        const card = document.createElement('div');
+        card.className = `case-card ${isSettled ? 'settled' : ''}`;
+        card.onclick = () => openEditCaseModal(idx);
+        card.innerHTML = `
+          <div>
+            <div>
+              <span class="folio-badge">${c.folio}</span>
+              <span class="case-title">${c.caseNo}</span>
+            </div>
+            <div class="case-meta">
+              <strong>Parties:</strong> ${c.partyA} <em>vs.</em> ${c.partyB}<br/>
+              <strong>Mediator:</strong> ${c.mediator} | <strong>Next Mediation Posting:</strong> ${c.nextPosting || 'None Scheduled'} | <strong>Court Report Due:</strong> ${c.dueDate || 'N/A'}
+            </div>
+          </div>
+          <div class="status-col">
+            <span class="status-pill">${c.status}</span>
+            <div class="location-note">At Mediation Center</div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+      document.getElementById('caseCountDisplay').textContent = `${cases.length} Registered Case${cases.length === 1 ? '' : 's'}`;
     }
 
     function changeRole() {
-        currentRole = document.getElementById('roleSelector').value;
-        document.getElementById('activeRoleText').innerText = `👤 Active Role: ${currentRole}`;
-        const intakeBtn = document.getElementById('intakeBtn');
-        intakeBtn.style.display = (currentRole === 'CENTER ADMIN' || currentRole === 'MEDIATOR') ? 'inline-block' : 'none';
+      const role = document.getElementById('roleSelector').value;
+      document.getElementById('activeRoleDisplay').textContent = `👤 Active Role: ${role}`;
+      const canAdd = role === 'MEDIATOR' || role === 'CENTER ADMIN (REGISTER)';
+      document.getElementById('newReferralBtn').style.display = canAdd ? 'inline-block' : 'none';
     }
 
-    function openCaseWorkspace(index) {
-        selectedIndex = index;
-        const c = cases[index];
-
-        document.getElementById('detailHeader').innerText = `${c.folioNo} | ${c.caseType} No. ${c.caseNo}`;
-        const badge = document.getElementById('detailBadge');
-        badge.innerText = c.outcome;
-        badge.className = 'badge ' + (c.outcome === 'Settled' ? 'settled' : c.outcome === 'Not Settled' ? 'not-settled' : '');
-
-        // Populate Tab 1: Register Info
-        document.getElementById('registerDetailsContent').innerHTML = `
-            <table class="detail-table">
-                <tr><td class="lbl">Folio Number:</td><td><strong>${c.folioNo}</strong></td></tr>
-                <tr><td class="lbl">Referring Court:</td><td>${c.courtName}</td></tr>
-                <tr><td class="lbl">Case Number:</td><td>${c.caseType} No. ${c.caseNo}</td></tr>
-                <tr><td class="lbl">Petitioner / Plaintiff:</td><td>${c.petitioner} (Ph: ${c.petitionerPhone})</td></tr>
-                <tr><td class="lbl">Petitioner Advocate:</td><td>${c.petAdvocate} (Ph: ${c.petAdvPhone})</td></tr>
-                <tr><td class="lbl">Respondent / Defendant:</td><td>${c.respondent} (Ph: ${c.respondentPhone})</td></tr>
-                <tr><td class="lbl">Respondent Advocate:</td><td>${c.respAdvocate} (Ph: ${c.respAdvPhone})</td></tr>
-                <tr><td class="lbl">Allotted Mediator:</td><td><strong>${c.mediatorName}</strong></td></tr>
-                <tr><td class="lbl">Date of Reference:</td><td>${formatDate(c.dateOfReference)}</td></tr>
-                <tr><td class="lbl">Date of Party Reporting:</td><td>${formatDate(c.dateOfReporting)}</td></tr>
-                <tr><td class="lbl">Next Court Posting Date:</td><td>${formatDate(c.nextCourtPosting)}</td></tr>
-                <tr><td class="lbl">Date for Reporting Mediation:</td><td><strong>${formatDate(c.dateForReportingMediation)}</strong></td></tr>
-            </table>
-        `;
-
-        // Populate Tab 2: Postings
-        document.getElementById('sittingDateInput').value = new Date().toISOString().split('T')[0];
-        document.getElementById('nextPostingDateInput').value = '';
-        document.getElementById('sittingNoteInput').value = '';
-        renderPostings(c);
-
-        // Populate Tab 3: Outcome & Signatures
-        document.getElementById('outcomeSelect').value = c.outcome || 'Pending / Ongoing';
-        document.getElementById('settlementTermsInput').value = c.settlementTerms || '';
-        document.getElementById('handoverDateInput').value = c.handoverDate || '';
-        document.getElementById('courtReturnDateInput').value = c.courtReturnDate || '';
-        toggleOutcomeFields();
-        renderSignatures(c);
-
-        switchTab('tabRegister', document.querySelector('.tab'));
-        document.getElementById('detailsModal').style.display = 'flex';
+    function openManual() {
+      document.getElementById('manualModal').classList.add('open');
     }
 
-    function renderPostings(c) {
-        const list = document.getElementById('postingsList');
-        if (!c.postings || c.postings.length === 0) {
-            list.innerHTML = '<p style="color:#666; font-size:0.9rem;">No mediation sittings recorded yet.</p>';
-            return;
-        }
-        list.innerHTML = c.postings.map((p, i) => `
-            <div class="posting-item">
-                <div style="display:flex; justify-content:space-between; font-weight:600; color:var(--primary); margin-bottom:4px;">
-                    <span>Sitting #${i + 1} — Date: ${formatDate(p.date)}</span>
-                    <span>Next Posting: ${p.nextDate ? formatDate(p.nextDate) : 'Concluded'}</span>
-                </div>
-                <div>${p.note}</div>
-            </div>
-        `).join('');
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
     }
 
-    function addPosting() {
-        const c = cases[selectedIndex];
-        const date = document.getElementById('sittingDateInput').value;
-        const nextDate = document.getElementById('nextPostingDateInput').value;
-        const note = document.getElementById('sittingNoteInput').value;
-
-        if (!date || !note) {
-            alert("Please enter the Sitting Date and Proceeding Notes.");
-            return;
-        }
-
-        c.postings.push({ date, nextDate, note });
-        saveToStorage();
-        renderPostings(c);
-        renderCases();
-        document.getElementById('sittingNoteInput').value = '';
-        document.getElementById('nextPostingDateInput').value = '';
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3200);
     }
 
-    function toggleOutcomeFields() {
-        const val = document.getElementById('outcomeSelect').value;
-        document.getElementById('settlementTermsBox').style.display = (val === 'Settled') ? 'block' : 'none';
-        document.getElementById('notSettledNoteBox').style.display = (val === 'Not Settled') ? 'block' : 'none';
+    async function sharePortal() {
+      const shareData = {
+        title: 'Court-Annexed Mediation Center Portal',
+        text: 'Access the Court-Annexed Mediation Center Register & Portal:',
+        url: PORTAL_URL
+      };
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (err) {}
+      }
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(PORTAL_URL);
+        showToast('Portal link copied! Paste in WhatsApp or Email to share.');
+      } else {
+        prompt('Copy this link to share:', PORTAL_URL);
+      }
     }
 
-    function renderSignatures(c) {
-        const sigs = c.signatures || { petitioner: false, respondent: false, mediator: false };
-        document.getElementById('signaturesContainer').innerHTML = `
-            <div class="sig-box">
-                <div><strong>Petitioner:</strong> ${c.petitioner}</div>
-                <label style="cursor:pointer; font-weight:600; color:var(--primary);">
-                    <input type="checkbox" id="sigPet" ${sigs.petitioner ? 'checked' : ''}> Signed
-                </label>
-            </div>
-            <div class="sig-box">
-                <div><strong>Respondent:</strong> ${c.respondent}</div>
-                <label style="cursor:pointer; font-weight:600; color:var(--primary);">
-                    <input type="checkbox" id="sigResp" ${sigs.respondent ? 'checked' : ''}> Signed
-                </label>
-            </div>
-            <div class="sig-box">
-                <div><strong>Mediator:</strong> ${c.mediatorName}</div>
-                <label style="cursor:pointer; font-weight:600; color:var(--primary);">
-                    <input type="checkbox" id="sigMed" ${sigs.mediator ? 'checked' : ''}> Signed & Verified
-                </label>
-            </div>
-        `;
+    function openNewCaseModal() {
+      document.getElementById('caseForm').reset();
+      document.getElementById('editIndex').value = '-1';
+      document.getElementById('caseModalTitle').textContent = 'New Court Referral Entry';
+      document.getElementById('printReportBtn').style.display = 'none';
+      document.getElementById('caseModal').classList.add('open');
     }
 
-    function saveOutcomeAndReturn() {
-        const c = cases[selectedIndex];
-        c.outcome = document.getElementById('outcomeSelect').value;
-        c.settlementTerms = document.getElementById('settlementTermsInput').value;
-        c.signatures = {
-            petitioner: document.getElementById('sigPet').checked,
-            respondent: document.getElementById('sigResp').checked,
-            mediator: document.getElementById('sigMed').checked
-        };
-        c.handoverDate = document.getElementById('handoverDateInput').value;
-        c.courtReturnDate = document.getElementById('courtReturnDateInput').value;
-
-        saveToStorage();
-        renderCases();
-        openCaseWorkspace(selectedIndex);
-        alert("Outcome, signatures, and register return dates saved.");
+    function openEditCaseModal(idx) {
+      const c = cases[idx];
+      document.getElementById('editIndex').value = idx;
+      document.getElementById('caseModalTitle').textContent = `Folio Details — ${c.folio}`;
+      document.getElementById('folio').value = c.folio;
+      document.getElementById('caseNo').value = c.caseNo;
+      document.getElementById('partyA').value = c.partyA;
+      document.getElementById('partyB').value = c.partyB;
+      document.getElementById('mediator').value = c.mediator;
+      document.getElementById('status').value = c.status;
+      document.getElementById('nextPosting').value = c.nextPosting;
+      document.getElementById('dueDate').value = c.dueDate;
+      document.getElementById('notes').value = c.notes || '';
+      document.getElementById('printReportBtn').style.display = 'inline-block';
+      document.getElementById('caseModal').classList.add('open');
     }
 
-    function printOfficialReport() {
-        const c = cases[selectedIndex];
-        const isSettled = c.outcome === 'Settled';
-        const isNotSettled = c.outcome === 'Not Settled';
-
-        const reportTitle = isSettled 
-            ? "MEDIATION SETTLEMENT AGREEMENT" 
-            : isNotSettled 
-                ? "MEDIATION FAILURE REPORT — RETURNING TO COURT" 
-                : "MEDIATION STATUS REPORT";
-
-        const bodySection = isSettled
-            ? `<h3>Terms of Settlement Agreement:</h3>
-               <div style="border:1px solid #000; padding:14px; white-space:pre-wrap; min-height:120px; margin-bottom:20px;">${c.settlementTerms || '(Terms not entered)'}</div>`
-            : `<div style="border:2px solid #000; padding:16px; text-align:center; font-weight:bold; font-size:1.1rem; margin:20px 0;">
-                 THE MATTER IS NOT SETTLED, RETURNING TO THE COURT.
-               </div>`;
-
-        document.getElementById('printArea').innerHTML = `
-            <div style="font-family: 'Times New Roman', serif; max-width: 750px; margin: auto; line-height: 1.6;">
-                <h2 style="text-align:center; text-decoration:underline; margin-bottom:4px;">BEFORE THE MEDIATION CENTRE</h2>
-                <h3 style="text-align:center; margin-top:0;">${reportTitle}</h3>
-                
-                <table style="width:100%; border-collapse:collapse; margin-bottom:16px;" border="1" cellpadding="6">
-                    <tr><td><strong>Mediation Folio No:</strong> ${c.folioNo}</td><td><strong>Referring Court:</strong> ${c.courtName}</td></tr>
-                    <tr><td><strong>Case Number:</strong> ${c.caseType} No. ${c.caseNo}</td><td><strong>Date of Reference:</strong> ${formatDate(c.dateOfReference)}</td></tr>
-                    <tr><td><strong>Date of Reporting:</strong> ${formatDate(c.dateOfReporting)}</td><td><strong>Report Due Date:</strong> ${formatDate(c.dateForReportingMediation)}</td></tr>
-                </table>
-
-                <p><strong>Petitioner / Plaintiff:</strong> ${c.petitioner} (Counsel: ${c.petAdvocate})</p>
-                <p style="text-align:center; font-weight:bold;">VS.</p>
-                <p><strong>Respondent / Defendant:</strong> ${c.respondent} (Counsel: ${c.respAdvocate})</p>
-
-                ${bodySection}
-
-                <div style="margin-top:40px; display:flex; justify-content:space-between;">
-                    <div>
-                        <p>__________________________<br><strong>Petitioner</strong> (${c.petitioner})<br>${c.signatures?.petitioner ? '[Signed]' : '[Pending]'}</p>
-                        <p style="margin-top:24px;">__________________________<br><strong>Petitioner Advocate</strong></p>
-                    </div>
-                    <div>
-                        <p>__________________________<br><strong>Respondent</strong> (${c.respondent})<br>${c.signatures?.respondent ? '[Signed]' : '[Pending]'}</p>
-                        <p style="margin-top:24px;">__________________________<br><strong>Respondent Advocate</strong></p>
-                    </div>
-                </div>
-
-                <div style="margin-top:40px; text-align:right;">
-                    <p>__________________________<br><strong>Mediator (${c.mediatorName})</strong><br>${c.signatures?.mediator ? '[Verified & Signed]' : ''}</p>
-                </div>
-
-                <hr style="margin-top:30px;">
-                <p style="font-size:0.85rem;"><strong>Mediation Center Endorsement:</strong> Handed over by Mediator on ${formatDate(c.handoverDate)} | Returned to ${c.courtName} on ${formatDate(c.courtReturnDate)}.</p>
-            </div>
-        `;
-        window.print();
+    function saveCase(e) {
+      e.preventDefault();
+      const idx = parseInt(document.getElementById('editIndex').value, 10);
+      const entry = {
+        folio: document.getElementById('folio').value.trim(),
+        caseNo: document.getElementById('caseNo').value.trim(),
+        partyA: document.getElementById('partyA').value.trim(),
+        partyB: document.getElementById('partyB').value.trim(),
+        mediator: document.getElementById('mediator').value.trim(),
+        status: document.getElementById('status').value,
+        nextPosting: document.getElementById('nextPosting').value.trim() || 'None Scheduled',
+        dueDate: document.getElementById('dueDate').value.trim(),
+        notes: document.getElementById('notes').value.trim()
+      };
+      if (idx === -1) {
+        cases.unshift(entry);
+        showToast('New court referral added to register.');
+      } else {
+        cases[idx] = entry;
+        showToast('Folio entry updated.');
+      }
+      localStorage.setItem('kasaragod_mediation_cases', JSON.stringify(cases));
+      renderCases();
+      closeModal('caseModal');
     }
 
-    function openIntakeModal() {
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        const nextNum = 101 + cases.length;
-
-        document.getElementById('folioInput').value = `F/${nextNum}/${dd}-${mm}-${yyyy}`;
-        document.getElementById('partyReportDateInput').value = today.toISOString().split('T')[0];
-        document.getElementById('intakeModal').style.display = 'flex';
-    }
-
-    function saveNewCase() {
-        const folioNo = document.getElementById('folioInput').value.trim();
-        const caseNo = document.getElementById('caseNoInput').value.trim();
-        const courtName = document.getElementById('courtNameInput').value.trim();
-
-        if (!folioNo || !caseNo || !courtName) {
-            alert("Please enter at least the Folio Number, Court Name, and Case Number.");
-            return;
-        }
-
-        const newCase = {
-            folioNo,
-            courtName,
-            caseType: document.getElementById('caseTypeInput').value,
-            caseNo,
-            petitioner: document.getElementById('petNameInput').value || 'Petitioner',
-            petitionerPhone: document.getElementById('petPhoneInput').value || '-',
-            respondent: document.getElementById('respNameInput').value || 'Respondent',
-            respondentPhone: document.getElementById('respPhoneInput').value || '-',
-            petAdvocate: document.getElementById('petAdvNameInput').value || '-',
-            petAdvPhone: document.getElementById('petAdvPhoneInput').value || '-',
-            respAdvocate: document.getElementById('respAdvNameInput').value || '-',
-            respAdvPhone: document.getElementById('respAdvPhoneInput').value || '-',
-            dateOfReference: document.getElementById('refDateInput').value,
-            dateOfReporting: document.getElementById('partyReportDateInput').value,
-            nextCourtPosting: document.getElementById('nextCourtDateInput').value,
-            dateForReportingMediation: document.getElementById('mediationReportDueInput').value,
-            mediatorName: document.getElementById('mediatorInput').value || 'Assigned Mediator',
-            postings: [],
-            outcome: 'Pending / Ongoing',
-            settlementTerms: '',
-            signatures: { petitioner: false, respondent: false, mediator: false },
-            handoverDate: '',
-            courtReturnDate: ''
-        };
-
-        cases.unshift(newCase);
-        saveToStorage();
-        closeModal('intakeModal');
-        renderCases();
-    }
-
-    function switchTab(panelId, tabEl) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-        tabEl.classList.add('active');
-        document.getElementById(panelId).classList.add('active');
-    }
-
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function closeModalOnBg(e, id) { if (e.target.id === id) closeModal(id); }
-
-    function formatDate(dateStr) {
-        if (!dateStr) return '—';
-        const parts = dateStr.split('-');
-        return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dateStr;
+    function printReport() {
+      const idx = parseInt(document.getElementById('editIndex').value, 10);
+      if (idx < 0) return;
+      const c = cases[idx];
+      const win = window.open('', '_blank');
+      win.document.write(`
+        <html><head><title>Mediation Return Report - ${c.folio}</title>
+        <style>body{font-family:serif;padding:40px;line-height:1.6;}h2{text-align:center;text-decoration:underline;}table{width:100%;border-collapse:collapse;margin-top:20px;}td{border:1px solid #333;padding:10px;}</style>
+        </head><body>
+        <h2>COURT-ANNEXED MEDIATION CENTER — RETURN REPORT</h2>
+        <table>
+          <tr><td><strong>Mediation Folio No.</strong></td><td>${c.folio}</td></tr>
+          <tr><td><strong>Referring Court & Case No.</strong></td><td>${c.caseNo}</td></tr>
+          <tr><td><strong>Petitioner / Plaintiff</strong></td><td>${c.partyA}</td></tr>
+          <tr><td><strong>Respondent / Defendant</strong></td><td>${c.partyB}</td></tr>
+          <tr><td><strong>Name of Mediator</strong></td><td>${c.mediator}</td></tr>
+          <tr><td><strong>Mediation Outcome / Status</strong></td><td><strong>${c.status}</strong></td></tr>
+          <tr><td><strong>Proceedings / Terms</strong></td><td>${c.notes || 'As per mediation record.'}</td></tr>
+        </table>
+        <p style="margin-top:50px;">Date: ${new Date().toLocaleDateString('en-GB')}<span style="float:right;">Signature of Mediator</span></p>
+        <script>window.print();<\/script>
+        </body></html>
+      `);
+      win.document.close();
     }
 
     renderCases();
-</script>
-
+  </script>
 </body>
-</html>
+</html> 
