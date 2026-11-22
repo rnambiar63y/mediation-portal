@@ -1,43 +1,775 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mediation Portal</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Court-Annexed Mediation Center Register & Portal</title>
   <style>
     :root {
       --primary: #1a365d;
       --primary-light: #2b4c7e;
       --accent: #2563eb;
       --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --pending-bg: #fef3c7;
+      --pending-text: #92400e;
     }
-    body { background: var(--bg); font-family: sans-serif; padding: 20px; }
-    .dashboard { background: white; padding: 20px; margin-top: 20px; border-radius: 8px; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Top Header */
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .brand {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-header, select.header-select {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-header:hover, select.header-select:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    select.header-select option {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      background: var(--card);
+      padding: 16px 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .role-badge {
+      background: var(--primary-light);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Dashboard Views */
+    .dashboard-section {
+      display: none;
+    }
+
+    .dashboard-section.active {
+      display: block;
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .stat-card h4 {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .stat-card .value {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Table */
+    .card-panel {
+      background: var(--card);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .panel-header h3 {
+      color: var(--primary);
+      font-size: 1.15rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f8fafc;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .badge-settled {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .badge-pending {
+      background: var(--pending-bg);
+      color: var(--pending-text);
+    }
+
+    .action-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      color: var(--primary);
+    }
+
+    .action-btn:hover {
+      background: var(--bg);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--card);
+      width: 90%;
+      max-width: 440px;
+      padding: 24px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal h3 {
+      margin-bottom: 14px;
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 16px;
+    }
   </style>
 </head>
 <body>
 
-  <select id="roleSelect" onchange="switchRole()">
-    <option value="mediator">Mediator</option>
-    <option value="admin">Admin</option>
-    <option value="user">User</option>
-    <option value="guest">Guest</option>
-  </select>
+  <header>
+    <div class="brand">
+      <span>⚖️</span>
+      <span data-i18n="appTitle">Court-Annexed Mediation Portal</span>
+    </div>
+    <div class="header-actions">
+      <select id="langSelect" class="header-select" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="ml">മലയാളം (Malayalam)</option>
+        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+      </select>
+      <select id="roleSelect" class="header-select" onchange="switchRole()">
+        <option value="mediator" data-i18n="roleMediator">Role: Mediator</option>
+        <option value="admin" data-i18n="roleAdmin">Role: Admin</option>
+        <option value="user" data-i18n="roleUser">Role: User (Party)</option>
+        <option value="guest" data-i18n="roleGuest">Role: Guest</option>
+      </select>
+    </div>
+  </header>
 
-  <div id="mediatorView" class="dashboard">Mediator Dashboard - Access to mediation cases.</div>
-  <div id="adminView" class="dashboard" style="display:none;">Admin Dashboard - System management.</div>
-  <div id="userView" class="dashboard" style="display:none;">User Dashboard - View personal status.</div>
-  <div id="guestView" class="dashboard" style="display:none;">Guest Dashboard - Public information.</div>
+  <div class="container">
+    <!-- Search & Active Role Indicator -->
+    <div class="controls-bar">
+      <div class="search-box">
+        <input type="text" id="searchInput" onkeyup="filterRecords()" placeholder="Search by Case No, Party Name, or Mediator..." data-i18n-placeholder="searchPlaceholder" />
+      </div>
+      <div class="role-badge" id="activeRoleBadge">Mediator View</div>
+    </div>
+
+    <!-- 1. MEDIATOR DASHBOARD -->
+    <div id="mediatorView" class="dashboard-section active">
+      <div class="grid-cards">
+        <div class="stat-card">
+          <h4 data-i18n="assignedCases">Assigned Cases</h4>
+          <div class="value" id="medTotalCount">4</div>
+        </div>
+        <div class="stat-card">
+          <h4 data-i18n="settledCases">Settled</h4>
+          <div class="value" id="medSettledCount">2</div>
+        </div>
+        <div class="stat-card">
+          <h4 data-i18n="pendingCases">In Progress</h4>
+          <div class="value" id="medPendingCount">2</div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="panel-header">
+          <h3 data-i18n="mediatorRegisterTitle">Mediator Session Register</h3>
+          <button class="btn-primary" onclick="openModal()" data-i18n="addCaseBtn">+ Add Case Entry</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="thCaseNo">Case No</th>
+              <th data-i18n="thParties">Parties</th>
+              <th data-i18n="thNextDate">Next Sitting</th>
+              <th data-i18n="thStatus">Status</th>
+              <th data-i18n="thAction">Action</th>
+            </tr>
+          </thead>
+          <tbody id="mediatorTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 2. ADMIN DASHBOARD -->
+    <div id="adminView" class="dashboard-section">
+      <div class="grid-cards">
+        <div class="stat-card">
+          <h4 data-i18n="totalPortalCases">Total Center Cases</h4>
+          <div class="value" id="admTotalCount">4</div>
+        </div>
+        <div class="stat-card">
+          <h4 data-i18n="activeMediators">Active Mediators</h4>
+          <div class="value">6</div>
+        </div>
+        <div class="stat-card">
+          <h4 data-i18n="settlementRate">Settlement Rate</h4>
+          <div class="value">50%</div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="panel-header">
+          <h3 data-i18n="adminMasterTitle">Master Mediation Register & Allocation</h3>
+          <button class="btn-primary" onclick="openModal()" data-i18n="allocateNewBtn">+ Register & Allocate</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="thCaseNo">Case No</th>
+              <th data-i18n="thParties">Parties</th>
+              <th data-i18n="thMediator">Assigned Mediator</th>
+              <th data-i18n="thNextDate">Next Sitting</th>
+              <th data-i18n="thStatus">Status</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. USER (PARTY) DASHBOARD -->
+    <div id="userView" class="dashboard-section">
+      <div class="card-panel">
+        <div class="panel-header">
+          <h3 data-i18n="userCasesTitle">My Mediation Cases & Schedule</h3>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="thCaseNo">Case No</th>
+              <th data-i18n="thParties">Parties</th>
+              <th data-i18n="thMediator">Mediator</th>
+              <th data-i18n="thNextDate">Next Sitting</th>
+              <th data-i18n="thStatus">Status</th>
+            </tr>
+          </thead>
+          <tbody id="userTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. GUEST DASHBOARD -->
+    <div id="guestView" class="dashboard-section">
+      <div class="card-panel">
+        <div class="panel-header">
+          <h3 data-i18n="guestCauseListTitle">Public Daily Cause List (Read-Only)</h3>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="thCaseNo">Case No</th>
+              <th data-i18n="thNextDate">Sitting Date</th>
+              <th data-i18n="thStatus">Status</th>
+            </tr>
+          </thead>
+          <tbody id="guestTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Case Modal -->
+  <div class="modal-overlay" id="caseModal">
+    <div class="modal">
+      <h3 data-i18n="modalTitle">Add New Mediation Entry</h3>
+      <div class="form-group">
+        <label data-i18n="thCaseNo">Case No</label>
+        <input type="text" id="inputCaseNo" placeholder="e.g. OS 104/2026" />
+      </div>
+      <div class="form-group">
+        <label data-i18n="thParties">Parties</label>
+        <input type="text" id="inputParties" placeholder="e.g. Nair vs. Menon" />
+      </div>
+      <div class="form-group">
+        <label data-i18n="thMediator">Mediator</label>
+        <input type="text" id="inputMediator" placeholder="e.g. Adv. R. K. Nambiar" />
+      </div>
+      <div class="form-group">
+        <label data-i18n="thNextDate">Next Sitting Date</label>
+        <input type="date" id="inputDate" />
+      </div>
+      <div class="form-group">
+        <label data-i18n="thStatus">Status</label>
+        <select id="inputStatus">
+          <option value="Pending">Pending</option>
+          <option value="Settled">Settled</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn" onclick="closeModal()" data-i18n="cancelBtn">Cancel</button>
+        <button class="btn-primary" onclick="saveNewCase()" data-i18n="saveBtn">Save</button>
+      </div>
+    </div>
+  </div>
 
   <script>
+    // Sample Register Data
+    let cases = [
+      { id: 1, caseNo: "OS 45/2026", parties: "Ramesh Kumar vs. Suresh Babu", mediator: "Adv. R. Nambiar", date: "2026-11-25", status: "Pending" },
+      { id: 2, caseNo: "MC 112/2026", parties: "Anitha K. vs. Pradeep V.", mediator: "Adv. Meera Nair", date: "2026-11-24", status: "Settled" },
+      { id: 3, caseNo: "CC 89/2026", parties: "State Bank vs. Rajeshwari", mediator: "Adv. R. Nambiar", date: "2026-11-28", status: "Pending" },
+      { id: 4, caseNo: "OP 19/2026", parties: "Abdul Latheef vs. Jameela", mediator: "Adv. K. Krishnan", date: "2026-11-20", status: "Settled" }
+    ];
+
+    // Multilingual Translations
+    const translations = {
+      en: {
+        appTitle: "Court-Annexed Mediation Portal",
+        roleMediator: "Role: Mediator",
+        roleAdmin: "Role: Admin",
+        roleUser: "Role: User (Party)",
+        roleGuest: "Role: Guest",
+        searchPlaceholder: "Search by Case No, Party Name, or Mediator...",
+        assignedCases: "Assigned Cases",
+        settledCases: "Settled",
+        pendingCases: "In Progress",
+        mediatorRegisterTitle: "Mediator Session Register",
+        addCaseBtn: "+ Add Case Entry",
+        totalPortalCases: "Total Center Cases",
+        activeMediators: "Active Mediators",
+        settlementRate: "Settlement Rate",
+        adminMasterTitle: "Master Mediation Register & Allocation",
+        allocateNewBtn: "+ Register & Allocate",
+        userCasesTitle: "My Mediation Cases & Schedule",
+        guestCauseListTitle: "Public Daily Cause List (Read-Only)",
+        thCaseNo: "Case No",
+        thParties: "Parties",
+        thMediator: "Mediator",
+        thNextDate: "Next Sitting",
+        thStatus: "Status",
+        thAction: "Action",
+        modalTitle: "Add New Mediation Entry",
+        cancelBtn: "Cancel",
+        saveBtn: "Save",
+        badgeMediator: "Mediator View",
+        badgeAdmin: "Admin View",
+        badgeUser: "User / Party View",
+        badgeGuest: "Guest Public View",
+        toggleStatus: "Toggle Status"
+      },
+      ml: {
+        appTitle: "കോടതി അനുബന്ധ മീഡിയേഷൻ പോർട്ടൽ",
+        roleMediator: "റോൾ: മീഡിയേറ്റർ",
+        roleAdmin: "റോൾ: അഡ്മിൻ",
+        roleUser: "റോൾ: യൂസർ (കക്ഷി)",
+        roleGuest: "റോൾ: ഗസ്റ്റ്",
+        searchPlaceholder: "കേസ് നമ്പർ, കക്ഷിയുടെ പേര്, മീഡിയേറ്റർ എന്നിവ തിരയുക...",
+        assignedCases: "നൽകിയ കേസുകൾ",
+        settledCases: "തീർപ്പാക്കിയവ",
+        pendingCases: "നടപടിയിലുള്ളവ",
+        mediatorRegisterTitle: "മീഡിയേറ്റർ സെഷൻ രജിസ്റ്റർ",
+        addCaseBtn: "+ പുതിയ കേസ് ചേർക്കുക",
+        totalPortalCases: "ആകെ കേസുകൾ",
+        activeMediators: "സജീവ മീഡിയേറ്റർമാർ",
+        settlementRate: "തീർപ്പാക്കൽ നിരക്ക്",
+        adminMasterTitle: "മാസ്റ്റർ മീഡിയേഷൻ രജിസ്റ്റർ",
+        allocateNewBtn: "+ രജിസ്റ്റർ ചെയ്യുക",
+        userCasesTitle: "എന്റെ മീഡിയേഷൻ കേസുകൾ",
+        guestCauseListTitle: "പൊതു കോസ് ലിസ്റ്റ് (വായനയ്ക്ക് മാത്രം)",
+        thCaseNo: "കേസ് നമ്പർ",
+        thParties: "കക്ഷികൾ",
+        thMediator: "മീഡിയേറ്റർ",
+        thNextDate: "അടുത്ത സിറ്റിംഗ്",
+        thStatus: "നിലവിലെ അവസ്ഥ",
+        thAction: "നടപടി",
+        modalTitle: "പുതിയ മീഡിയേഷൻ വിവരങ്ങൾ ചേർക്കുക",
+        cancelBtn: "റദ്ദാക്കുക",
+        saveBtn: "സേവ് ചെയ്യുക",
+        badgeMediator: "മീഡിയേറ്റർ വ്യൂ",
+        badgeAdmin: "അഡ്മിൻ വ്യൂ",
+        badgeUser: "യൂസർ വ്യൂ",
+        badgeGuest: "ഗസ്റ്റ് വ്യൂ",
+        toggleStatus: "സ്റ്റാറ്റസ് മാറ്റുക"
+      },
+      kn: {
+        appTitle: "ನ್ಯಾಯಾಲಯದ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ ಪೋರ್ಟಲ್",
+        roleMediator: "ಪಾತ್ರ: ಮಧ್ಯಸ್ಥಿಕೆದಾರರು (Mediator)",
+        roleAdmin: "ಪಾತ್ರ: ನಿರ್ವಾಹಕರು (Admin)",
+        roleUser: "ಪಾತ್ರ: ಬಳಕೆದಾರರು (User)",
+        roleGuest: "ಪಾತ್ರ: ಅತಿಥಿ (Guest)",
+        searchPlaceholder: "ಪ್ರಕರಣ ಸಂಖ್ಯೆ, ಪಕ್ಷಗಾರರ ಹೆಸರು ಅಥವಾ ಮಧ್ಯಸ್ಥಿಕೆದಾರರನ್ನು ಹುಡುಕಿ...",
+        assignedCases: "ನಿಯೋಜಿಸಲಾದ ಪ್ರಕರಣಗಳು",
+        settledCases: "ಇತ್ಯರ್ಥಗೊಂಡವು",
+        pendingCases: "ಪ್ರಗತಿಯಲ್ಲಿದೆ",
+        mediatorRegisterTitle: "ಮಧ್ಯಸ್ಥಿಕೆದಾರರ ಅಧಿವೇಶನ ನೋಂದಣಿ",
+        addCaseBtn: "+ ಹೊಸ ಪ್ರಕರಣ ಸೇರಿಸಿ",
+        totalPortalCases: "ಒಟ್ಟು ಪ್ರಕರಣಗಳು",
+        activeMediators: "ಸಕ್ರಿಯ ಮಧ್ಯಸ್ಥಿಕೆದಾರರು",
+        settlementRate: "ಇತ್ಯರ್ಥ ದರ",
+        adminMasterTitle: "ಮಾಸ್ಟರ್ ಮಧ್ಯಸ್ಥಿಕೆ ನೋಂದಣಿ",
+        allocateNewBtn: "+ ನೋಂದಾಯಿಸಿ ಮತ್ತು ಹಂಚಿಕೆ ಮಾಡಿ",
+        userCasesTitle: "ನನ್ನ ಮಧ್ಯಸ್ಥಿಕೆ ಪ್ರಕರಣಗಳು",
+        guestCauseListTitle: "ಸಾರ್ವಜನಿಕ ದೈನಂದಿನ ಪಟ್ಟಿ",
+        thCaseNo: "ಪ್ರಕರಣ ಸಂಖ್ಯೆ",
+        thParties: "ಪಕ್ಷಗಾರರು",
+        thMediator: "ಮಧ್ಯಸ್ಥಿಕೆದಾರರು",
+        thNextDate: "ಮುಂದಿನ ದಿನಾಂಕ",
+        thStatus: "ಸ್ಥಿತಿ",
+        thAction: "ಕ್ರಿಯೆ",
+        modalTitle: "ಹೊಸ ಮಧ್ಯಸ್ಥಿಕೆ ವಿವರ ಸೇರಿಸಿ",
+        cancelBtn: "ರದ್ದುಮಾಡಿ",
+        saveBtn: "ಉಳಿಸಿ",
+        badgeMediator: "ಮಧ್ಯಸ್ಥಿಕೆದಾರರ ನೋಟ",
+        badgeAdmin: "ನಿರ್ವಾಹಕರ ನೋಟ",
+        badgeUser: "ಬಳಕೆದಾರರ ನೋಟ",
+        badgeGuest: "ಅತಿಥಿ ನೋಟ",
+        toggleStatus: "ಸ್ಥಿತಿ ಬದಲಿಸಿ"
+      }
+    };
+
+    let currentLang = 'en';
+
+    function changeLanguage() {
+      currentLang = document.getElementById('langSelect').value;
+      const dict = translations[currentLang];
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.textContent = dict[key];
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key]) el.placeholder = dict[key];
+      });
+
+      updateRoleBadge();
+      renderTables();
+    }
+
+    function updateRoleBadge() {
+      const role = document.getElementById('roleSelect').value;
+      const dict = translations[currentLang];
+      const badgeMap = {
+        mediator: dict.badgeMediator,
+        admin: dict.badgeAdmin,
+        user: dict.badgeUser,
+        guest: dict.badgeGuest
+      };
+      document.getElementById('activeRoleBadge').textContent = badgeMap[role];
+    }
+
     function switchRole() {
       const role = document.getElementById('roleSelect').value;
-      document.getElementById('mediatorView').style.display = role === 'mediator' ? 'block' : 'none';
-      document.getElementById('adminView').style.display = role === 'admin' ? 'block' : 'none';
-      document.getElementById('userView').style.display = role === 'user' ? 'block' : 'none';
-      document.getElementById('guestView').style.display = role === 'guest' ? 'block' : 'none';
+      document.querySelectorAll('.dashboard-section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(role + 'View').classList.add('active');
+      updateRoleBadge();
+      filterRecords();
     }
-  </script>
 
+    function toggleCaseStatus(id) {
+      const item = cases.find(c => c.id === id);
+      if (item) {
+        item.status = item.status === 'Pending' ? 'Settled' : 'Pending';
+        filterRecords();
+      }
+    }
+
+    function renderTables(filteredList = cases) {
+      const medBody = document.getElementById('mediatorTableBody');
+      const admBody = document.getElementById('adminTableBody');
+      const usrBody = document.getElementById('userTableBody');
+      const gstBody = document.getElementById('guestTableBody');
+      const toggleLabel = translations[currentLang].toggleStatus;
+
+      medBody.innerHTML = '';
+      admBody.innerHTML = '';
+      usrBody.innerHTML = '';
+      gstBody.innerHTML = '';
+
+      filteredList.forEach(c => {
+        const badgeClass = c.status === 'Settled' ? 'badge-settled' : 'badge-pending';
+        const statusBadge = `<span class="badge ${badgeClass}">${c.status}</span>`;
+
+        // Mediator Row
+        medBody.innerHTML += `
+          <tr>
+            <td><strong>${c.caseNo}</strong></td>
+            <td>${c.parties}</td>
+            <td>${c.date}</td>
+            <td>${statusBadge}</td>
+            <td><button class="action-btn" onclick="toggleCaseStatus(${c.id})">${toggleLabel}</button></td>
+          </tr>
+        `;
+
+        // Admin Row
+        admBody.innerHTML += `
+          <tr>
+            <td><strong>${c.caseNo}</strong></td>
+            <td>${c.parties}</td>
+            <td>${c.mediator}</td>
+            <td>${c.date}</td>
+            <td>${statusBadge}</td>
+          </tr>
+        `;
+
+        // User Row
+        usrBody.innerHTML += `
+          <tr>
+            <td><strong>${c.caseNo}</strong></td>
+            <td>${c.parties}</td>
+            <td>${c.mediator}</td>
+            <td>${c.date}</td>
+            <td>${statusBadge}</td>
+          </tr>
+        `;
+
+        // Guest Row (Privacy preserved - no party names)
+        gstBody.innerHTML += `
+          <tr>
+            <td><strong>${c.caseNo}</strong></td>
+            <td>${c.date}</td>
+            <td>${statusBadge}</td>
+          </tr>
+        `;
+      });
+
+      // Update Stats
+      const settledCount = cases.filter(c => c.status === 'Settled').length;
+      const pendingCount = cases.length - settledCount;
+      document.getElementById('medTotalCount').textContent = cases.length;
+      document.getElementById('medSettledCount').textContent = settledCount;
+      document.getElementById('medPendingCount').textContent = pendingCount;
+      document.getElementById('admTotalCount').textContent = cases.length;
+    }
+
+    function filterRecords() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const filtered = cases.filter(c =>
+        c.caseNo.toLowerCase().includes(query) ||
+        c.parties.toLowerCase().includes(query) ||
+        c.mediator.toLowerCase().includes(query) ||
+        c.status.toLowerCase().includes(query)
+      );
+      renderTables(filtered);
+    }
+
+    function openModal() {
+      document.getElementById('caseModal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('caseModal').classList.remove('open');
+    }
+
+    function saveNewCase() {
+      const caseNo = document.getElementById('inputCaseNo').value.trim();
+      const parties = document.getElementById('inputParties').value.trim();
+      const mediator = document.getElementById('inputMediator').value.trim() || "Adv. R. Nambiar";
+      const date = document.getElementById('inputDate').value || "2026-12-01";
+      const status = document.getElementById('inputStatus').value;
+
+      if (!caseNo || !parties) return;
+
+      cases.unshift({
+        id: Date.now(),
+        caseNo,
+        parties,
+        mediator,
+        date,
+        status
+      });
+
+      document.getElementById('inputCaseNo').value = '';
+      document.getElementById('inputParties').value = '';
+      document.getElementById('inputMediator').value = '';
+      closeModal();
+      filterRecords();
+    }
+
+    // Initial Render
+    renderTables();
+  </script>
 </body>
 </html>
