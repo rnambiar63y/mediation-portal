@@ -322,9 +322,9 @@
       </select>
       <select id="roleSelect" class="header-select" onchange="switchRole()">
         <option value="advocate" data-i18n="roleAdvocate">Role: Advocate</option>
-        <option value="admin_advocate" data-i18n="roleAdminAdvocate">Role: Admin/Advocate</option>
         <option value="party" data-i18n="roleParty">Role: Party</option>
-        <option value="guest" data-i18n="roleGuest">Role: Guest</option>
+        <option value="court" data-i18n="roleCourt">Role: Court</option>
+        <option value="mediator_center" data-i18n="roleMediator सेंटर">Role: Mediator Center</option>
       </select>
     </div>
   </header>
@@ -374,44 +374,7 @@
       </div>
     </div>
 
-    <!-- 2. ADMIN/ADVOCATE DASHBOARD -->
-    <div id="admin_advocateView" class="dashboard-section">
-      <div class="grid-cards">
-        <div class="stat-card">
-          <h4 data-i18n="totalPortalCases">Total Center Cases</h4>
-          <div class="value" id="admTotalCount">4</div>
-        </div>
-        <div class="stat-card">
-          <h4 data-i18n="activeAdvocates">Active Advocates</h4>
-          <div class="value">6</div>
-        </div>
-        <div class="stat-card">
-          <h4 data-i18n="settlementRate">Settlement Rate</h4>
-          <div class="value">50%</div>
-        </div>
-      </div>
-
-      <div class="card-panel">
-        <div class="panel-header">
-          <h3 data-i18n="adminMasterTitle">Admin/Advocate Master Register & Allocation</h3>
-          <button class="btn-primary" onclick="openModal()" data-i18n="allocateNewBtn">+ Register & Allocate</button>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th data-i18n="thCaseNo">Case No</th>
-              <th data-i18n="thParties">Parties</th>
-              <th data-i18n="thAdvocate">Assigned Advocate</th>
-              <th data-i18n="thNextDate">Next Sitting</th>
-              <th data-i18n="thStatus">Status</th>
-            </tr>
-          </thead>
-          <tbody id="adminTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- 3. PARTY DASHBOARD -->
+    <!-- 2. PARTY DASHBOARD -->
     <div id="partyView" class="dashboard-section">
       <div class="card-panel">
         <div class="panel-header">
@@ -432,21 +395,55 @@
       </div>
     </div>
 
-    <!-- 4. GUEST DASHBOARD -->
-    <div id="guestView" class="dashboard-section">
+    <!-- 3. COURT DASHBOARD -->
+    <div id="courtView" class="dashboard-section">
+      <div class="grid-cards">
+        <div class="stat-card">
+          <h4 data-i18n="totalPortalCases">Total Center Cases</h4>
+          <div class="value" id="crtTotalCount">4</div>
+        </div>
+        <div class="stat-card">
+          <h4 data-i18n="settlementRate">Settlement Rate</h4>
+          <div class="value">50%</div>
+        </div>
+      </div>
+
       <div class="card-panel">
         <div class="panel-header">
-          <h3 data-i18n="guestCauseListTitle">Public Daily Cause List (Read-Only)</h3>
+          <h3 data-i18n="courtMasterTitle">Court Master Register & Allocation</h3>
+          <button class="btn-primary" onclick="openModal()" data-i18n="allocateNewBtn">+ Register & Allocate</button>
         </div>
         <table>
           <thead>
             <tr>
               <th data-i18n="thCaseNo">Case No</th>
+              <th data-i18n="thParties">Parties</th>
+              <th data-i18n="thAdvocate">Assigned Advocate</th>
+              <th data-i18n="thNextDate">Next Sitting</th>
+              <th data-i18n="thStatus">Status</th>
+            </tr>
+          </thead>
+          <tbody id="courtTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. MEDIATOR CENTER DASHBOARD -->
+    <div id="mediator_centerView" class="dashboard-section">
+      <div class="card-panel">
+        <div class="panel-header">
+          <h3 data-i18n="mediatorCenterTitle">Mediator Center Daily Cause List</h3>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="thCaseNo">Case No</th>
+              <th data-i18n="thAdvocate">Mediator/Advocate</th>
               <th data-i18n="thNextDate">Sitting Date</th>
               <th data-i18n="thStatus">Status</th>
             </tr>
           </thead>
-          <tbody id="guestTableBody"></tbody>
+          <tbody id="mediatorCenterTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -498,9 +495,9 @@
       en: {
         appTitle: "Court-Annexed Mediation Portal",
         roleAdvocate: "Role: Advocate",
-        roleAdminAdvocate: "Role: Admin/Advocate",
         roleParty: "Role: Party",
-        roleGuest: "Role: Guest",
+        roleCourt: "Role: Court",
+        roleMediatorCenter: "Role: Mediator Center",
         searchPlaceholder: "Search by Case No, Party Name, or Advocate...",
         assignedCases: "Assigned Cases",
         settledCases: "Settled",
@@ -508,12 +505,11 @@
         advocateRegisterTitle: "Advocate Mediation Session Register",
         addCaseBtn: "+ Add Case Entry",
         totalPortalCases: "Total Center Cases",
-        activeAdvocates: "Active Advocates",
         settlementRate: "Settlement Rate",
-        adminMasterTitle: "Admin/Advocate Master Register & Allocation",
+        courtMasterTitle: "Court Master Register & Allocation",
         allocateNewBtn: "+ Register & Allocate",
         partyCasesTitle: "Party Mediation Cases & Schedule",
-        guestCauseListTitle: "Public Daily Cause List (Read-Only)",
+        mediatorCenterTitle: "Mediator Center Daily Cause List",
         thCaseNo: "Case No",
         thParties: "Parties",
         thAdvocate: "Advocate",
@@ -524,17 +520,17 @@
         cancelBtn: "Cancel",
         saveBtn: "Save",
         badgeAdvocate: "Advocate View",
-        badgeAdminAdvocate: "Admin/Advocate View",
         badgeParty: "Party View",
-        badgeGuest: "Guest Public View",
+        badgeCourt: "Court View",
+        badgeMediatorCenter: "Mediator Center View",
         toggleStatus: "Toggle Status"
       },
       ml: {
         appTitle: "കോടതി അനുബന്ധ മീഡിയേഷൻ പോർട്ടൽ",
-        roleAdvocate: "റോൾ: അഡ്വക്കേറ്റ് (Advocate)",
-        roleAdminAdvocate: "റോൾ: അഡ്മിൻ/അഡ്വക്കേറ്റ് (Admin/Advocate)",
-        roleParty: "റോൾ: പാർട്ടി (Party)",
-        roleGuest: "റോൾ: ഗസ്റ്റ് (Guest)",
+        roleAdvocate: "റോൾ: അഡ്വക്കേറ്റ്",
+        roleParty: "റോൾ: കക്ഷി",
+        roleCourt: "റോൾ: കോടതി",
+        roleMediatorCenter: "റോൾ: മീഡിയേഷൻ സെന്റർ",
         searchPlaceholder: "കേസ് നമ്പർ, കക്ഷിയുടെ പേര്, അഡ്വക്കേറ്റ് എന്നിവ തിരയുക...",
         assignedCases: "നൽകിയ കേസുകൾ",
         settledCases: "തീർപ്പാക്കിയവ",
@@ -542,12 +538,11 @@
         advocateRegisterTitle: "അഡ്വക്കേറ്റ് സെഷൻ രജിസ്റ്റർ",
         addCaseBtn: "+ പുതിയ കേസ് ചേർക്കുക",
         totalPortalCases: "ആകെ കേസുകൾ",
-        activeAdvocates: "സജീവ അഡ്വക്കേറ്റുമാർ",
         settlementRate: "തീർപ്പാക്കൽ നിരക്ക്",
-        adminMasterTitle: "അഡ്മിൻ/അഡ്വക്കേറ്റ് മാസ്റ്റർ രജിസ്റ്റർ",
+        courtMasterTitle: "കോടതി മാസ്റ്റർ രജിസ്റ്റർ",
         allocateNewBtn: "+ രജിസ്റ്റർ ചെയ്യുക",
-        partyCasesTitle: "പാർട്ടി മീഡിയേഷൻ കേസുകൾ",
-        guestCauseListTitle: "പൊതു കോസ് ലിസ്റ്റ് (വായനയ്ക്ക് മാത്രം)",
+        partyCasesTitle: "കക്ഷി മീഡിയേഷൻ കേസുകൾ",
+        mediatorCenterTitle: "മീഡിയേഷൻ സെന്റർ ഡെയ്‌ലി കോസ് ലിസ്റ്റ്",
         thCaseNo: "കേസ് നമ്പർ",
         thParties: "കക്ഷികൾ",
         thAdvocate: "അഡ്വക്കേറ്റ്",
@@ -558,17 +553,17 @@
         cancelBtn: "റദ്ദാക്കുക",
         saveBtn: "സേവ് ചെയ്യുക",
         badgeAdvocate: "അഡ്വക്കേറ്റ് വ്യൂ",
-        badgeAdminAdvocate: "അഡ്മിൻ/അഡ്വക്കേറ്റ് വ്യൂ",
-        badgeParty: "പാർട്ടി വ്യൂ",
-        badgeGuest: "ഗസ്റ്റ് വ്യൂ",
+        badgeParty: "കക്ഷി വ്യൂ",
+        badgeCourt: "കോടതി വ്യൂ",
+        badgeMediatorCenter: "മീഡിയേഷൻ സെന്റർ വ്യൂ",
         toggleStatus: "സ്റ്റാറ്റസ് മാറ്റുക"
       },
       kn: {
         appTitle: "ನ್ಯಾಯಾಲಯದ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ ಪೋರ್ಟಲ್",
-        roleAdvocate: "ಪಾತ್ರ: ವಕೀಲರು (Advocate)",
-        roleAdminAdvocate: "ಪಾತ್ರ: ನಿರ್ವಾಹಕರು/ವಕೀಲರು (Admin/Advocate)",
-        roleParty: "ಪಾತ್ರ: ಪಕ್ಷಗಾರರು (Party)",
-        roleGuest: "ಪಾತ್ರ: ಅತಿಥಿ (Guest)",
+        roleAdvocate: "ಪಾತ್ರ: ವಕೀಲರು",
+        roleParty: "ಪಾತ್ರ: ಪಕ್ಷಗಾರರು",
+        roleCourt: "ಪಾತ್ರ: ನ್ಯಾಯಾಲಯ",
+        roleMediatorCenter: "ಪಾತ್ರ: ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ",
         searchPlaceholder: "ಪ್ರಕರಣ ಸಂಖ್ಯೆ, ಪಕ್ಷಗಾರರ ಹೆಸರು ಅಥವಾ ವಕೀಲರನ್ನು ಹುಡುಕಿ...",
         assignedCases: "ನಿಯೋಜಿಸಲಾದ ಪ್ರಕರಣಗಳು",
         settledCases: "ಇತ್ಯರ್ಥಗೊಂಡವು",
@@ -576,12 +571,11 @@
         advocateRegisterTitle: "ವಕೀಲರ ಅಧಿವೇಶನ ನೋಂದಣಿ",
         addCaseBtn: "+ ಹೊಸ ಪ್ರಕರಣ ಸೇರಿಸಿ",
         totalPortalCases: "ಒಟ್ಟು ಪ್ರಕರಣಗಳು",
-        activeAdvocates: "ಸಕ್ರಿಯ ವಕೀಲರು",
         settlementRate: "ಇತ್ಯರ್ಥ ದರ",
-        adminMasterTitle: "ನಿರ್ವಾಹಕರು/ವಕೀಲರ ಮಾಸ್ಟರ್ ನೋಂದಣಿ",
+        courtMasterTitle: "ನ್ಯಾಯಾಲಯದ ಮಾಸ್ಟರ್ ನೋಂದಣಿ",
         allocateNewBtn: "+ ನೋಂದಾಯಿಸಿ ಮತ್ತು ಹಂಚಿಕೆ ಮಾಡಿ",
         partyCasesTitle: "ಪಕ್ಷಗಾರರ ಮಧ್ಯಸ್ಥಿಕೆ ಪ್ರಕರಣಗಳು",
-        guestCauseListTitle: "ಸಾರ್ವಜನಿಕ ದೈನಂದಿನ ಪಟ್ಟಿ",
+        mediatorCenterTitle: "ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರದ ದೈನಂದಿನ ಪಟ್ಟಿ",
         thCaseNo: "ಪ್ರಕರಣ ಸಂಖ್ಯೆ",
         thParties: "ಪಕ್ಷಗಾರರು",
         thAdvocate: "ವಕೀಲರು",
@@ -592,9 +586,9 @@
         cancelBtn: "ರದ್ದುಮಾಡಿ",
         saveBtn: "ಉಳಿಸಿ",
         badgeAdvocate: "ವಕೀಲರ ನೋಟ",
-        badgeAdminAdvocate: "ನಿರ್ವಾಹಕರು/ವಕೀಲರ ನೋಟ",
         badgeParty: "ಪಕ್ಷಗಾರರ ನೋಟ",
-        badgeGuest: "ಅತಿಥಿ ನೋಟ",
+        badgeCourt: "ನ್ಯಾಯಾಲಯದ ನೋಟ",
+        badgeMediatorCenter: "ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರದ ನೋಟ",
         toggleStatus: "ಸ್ಥಿತಿ ಬದಲಿಸಿ"
       }
     };
@@ -624,9 +618,9 @@
       const dict = translations[currentLang];
       const badgeMap = {
         advocate: dict.badgeAdvocate,
-        admin_advocate: dict.badgeAdminAdvocate,
         party: dict.badgeParty,
-        guest: dict.badgeGuest
+        court: dict.badgeCourt,
+        mediator_center: dict.badgeMediatorCenter
       };
       document.getElementById('activeRoleBadge').textContent = badgeMap[role];
     }
@@ -649,20 +643,21 @@
 
     function renderTables(filteredList = cases) {
       const advBody = document.getElementById('advocateTableBody');
-      const admBody = document.getElementById('adminTableBody');
       const prtBody = document.getElementById('partyTableBody');
-      const gstBody = document.getElementById('guestTableBody');
+      const crtBody = document.getElementById('courtTableBody');
+      const medCenterBody = document.getElementById('mediatorCenterTableBody');
       const toggleLabel = translations[currentLang].toggleStatus;
 
       advBody.innerHTML = '';
-      admBody.innerHTML = '';
       prtBody.innerHTML = '';
-      gstBody.innerHTML = '';
+      crtBody.innerHTML = '';
+      medCenterBody.innerHTML = '';
 
       filteredList.forEach(c => {
         const badgeClass = c.status === 'Settled' ? 'badge-settled' : 'badge-pending';
         const statusBadge = `<span class="badge ${badgeClass}">${c.status}</span>`;
 
+        // Advocate Row
         advBody.innerHTML += `
           <tr>
             <td><strong>${c.caseNo}</strong></td>
@@ -673,16 +668,7 @@
           </tr>
         `;
 
-        admBody.innerHTML += `
-          <tr>
-            <td><strong>${c.caseNo}</strong></td>
-            <td>${c.parties}</td>
-            <td>${c.advocate}</td>
-            <td>${c.date}</td>
-            <td>${statusBadge}</td>
-          </tr>
-        `;
-
+        // Party Row
         prtBody.innerHTML += `
           <tr>
             <td><strong>${c.caseNo}</strong></td>
@@ -693,9 +679,22 @@
           </tr>
         `;
 
-        gstBody.innerHTML += `
+        // Court Row
+        crtBody.innerHTML += `
           <tr>
             <td><strong>${c.caseNo}</strong></td>
+            <td>${c.parties}</td>
+            <td>${c.advocate}</td>
+            <td>${c.date}</td>
+            <td>${statusBadge}</td>
+          </tr>
+        `;
+
+        // Mediator Center Row
+        medCenterBody.innerHTML += `
+          <tr>
+            <td><strong>${c.caseNo}</strong></td>
+            <td>${c.advocate}</td>
             <td>${c.date}</td>
             <td>${statusBadge}</td>
           </tr>
@@ -707,7 +706,7 @@
       document.getElementById('advTotalCount').textContent = cases.length;
       document.getElementById('advSettledCount').textContent = settledCount;
       document.getElementById('advPendingCount').textContent = pendingCount;
-      document.getElementById('admTotalCount').textContent = cases.length;
+      document.getElementById('crtTotalCount').textContent = cases.length;
     }
 
     function filterRecords() {
