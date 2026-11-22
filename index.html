@@ -1,69 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Court-Annexed Mediation Center Register & Portal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mediation Portal</title>
   <style>
     :root {
       --primary: #1a365d;
       --primary-light: #2b4c7e;
       --accent: #2563eb;
       --bg: #f1f5f9;
-      --card: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --success-bg: #dcfce7;
-      --success-text: #166534;
-      --pending-bg: #fef3c7;
-      --pending-text: #92400e;
     }
+    body { background: var(--bg); font-family: sans-serif; padding: 20px; }
+    .dashboard { background: white; padding: 20px; margin-top: 20px; border-radius: 8px; }
+  </style>
+</head>
+<body>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-    body { background: var(--bg); color: var(--text); line-height: 1.5; }
+  <select id="roleSelect" onchange="switchRole()">
+    <option value="mediator">Mediator</option>
+    <option value="admin">Admin</option>
+    <option value="user">User</option>
+    <option value="guest">Guest</option>
+  </select>
 
-    /* Top Header */
-    header {
-      background: var(--primary);
-      color: #fff;
-      padding: 14px 24px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  <div id="mediatorView" class="dashboard">Mediator Dashboard - Access to mediation cases.</div>
+  <div id="adminView" class="dashboard" style="display:none;">Admin Dashboard - System management.</div>
+  <div id="userView" class="dashboard" style="display:none;">User Dashboard - View personal status.</div>
+  <div id="guestView" class="dashboard" style="display:none;">Guest Dashboard - Public information.</div>
+
+  <script>
+    function switchRole() {
+      const role = document.getElementById('roleSelect').value;
+      document.getElementById('mediatorView').style.display = role === 'mediator' ? 'block' : 'none';
+      document.getElementById('adminView').style.display = role === 'admin' ? 'block' : 'none';
+      document.getElementById('userView').style.display = role === 'user' ? 'block' : 'none';
+      document.getElementById('guestView').style.display = role === 'guest' ? 'block' : 'none';
     }
-    .brand { font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-    .header-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  </script>
 
-    .btn-header {
-      background: rgba(255,255,255,0.14);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 7px 13px;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-header:hover { background: rgba(255,255,255,0.25); }
-      font-weight: 600;
-      cursor: pointer;
-    select.role-select {
-      padding: 7px 12px;
-      border-radius: 6px;
-      border: none;<select id="roleSelect" onchange="switchRole()"> <option value="mediator">Mediator</option> <option value="admin">Admin</option> </select>
-<div id="mediatorView">Mediator Dashboard</div> <div id="adminView" style="display:none;">Admin Dashboard</div>
-<script> function switchRole() { const role = document.getElementById('roleSelect').value; document.getElementById('mediatorView').style.display = role === 'mediator' ? 'block' : 'none'; document.getElementById('adminView').style.display = role === 'admin' ? 'block' : 'none'; } </script>
-
-
-      font-size: 0.9rem;<script> function switchRole() { const role = document.getElementById('roleSelect').value; document.getElementById('mediatorView').style.display = role === 'mediator' ? 'block' : 'none'; document.getElementById('adminView').style.display = role === 'admin' ? 'block' : 'none'; } </script>
-      font-weight: 600;<script> function switchRole() { const role = document.getElementById('roleSelect').value; document.getElementById('mediatorView').style.display = role === 'mediator' ? 'block' : 'none'; document.getElementById('adminView').style.display = role === 'admin' ? 'block' : 'none'; } </script>
-      color: var(--primary);<script> function switchRole() { const role = document.getElementById('roleSelect').value; document.getElementById('mediatorView').style.display = role === 'mediator' ? 'block' : 'none'; document.getElementById('adminView').style.display = role === 'admin' ? 'block' : 'none'; } </script>
-      background: #fff;<script> function switchRole() { const role = document.getElementById('roleSelect').value; document.getElementById('mediatorView').style.display = role === 'mediator' ? 'block' : 'none'; document.getElementById('adminView').style.display = role === 'admin' ? 'block' : 'none'; } </script>
-
-
-    
+</body>
+</html>
