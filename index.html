@@ -3,757 +3,1112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Court-Annexed Mediation Center Register & Portal</title>
+  <title>Kasaragod Court-Annexed Mediation Portal</title>
+  <link rel="icon" type="image/png" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#0f2244" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <style>
-    :root {
-      --primary: #1a365d;
-      --primary-light: #2b4c7e;
-      --accent: #2563eb;
-      --bg: #f1f5f9;
-      --card: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --success-bg: #dcfce7;
-      --success-text: #166534;
-      --pending-bg: #fef3c7;
-      --pending-text: #92400e;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    header {
-      background: var(--primary);
-      color: #fff;
-      padding: 14px 24px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
-
-    .brand {
-      font-size: 1.15rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .header-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-header, select.header-select {
-      background: rgba(255, 255, 255, 0.14);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 7px 13px;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn-header:hover, select.header-select:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-
-    select.header-select option {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 24px auto;
-      padding: 0 16px;
-    }
-
-    .controls-bar {
-      background: var(--card);
-      padding: 16px 20px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .search-box {
-      flex: 1;
-      min-width: 240px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 9px 14px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 0.95rem;
-    }
-
-    .search-box input:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    .role-badge {
-      background: var(--primary-light);
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .dashboard-section {
-      display: none;
-    }
-
-    .dashboard-section.active {
-      display: block;
-    }
-
-    .grid-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      background: var(--card);
-      padding: 18px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-
-    .stat-card h4 {
-      color: var(--muted);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .stat-card .value {
-      font-size: 1.65rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .card-panel {
-      background: var(--card);
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 20px;
-      margin-bottom: 20px;
-      overflow-x: auto;
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .panel-header h3 {
-      color: var(--primary);
-      font-size: 1.15rem;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      background: #1d4ed8;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.92rem;
-    }
-
-    th, td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      background: #f8fafc;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .badge {
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      display: inline-block;
-    }
-
-    .badge-settled {
-      background: var(--success-bg);
-      color: var(--success-text);
-    }
-
-    .badge-pending {
-      background: var(--pending-bg);
-      color: var(--pending-text);
-    }
-
-    .action-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.82rem;
-      color: var(--primary);
-    }
-
-    .action-btn:hover {
-      background: var(--bg);
-    }
-
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .modal-overlay.open {
-      display: flex;
-    }
-
-    .modal {
-      background: var(--card);
-      width: 90%;
-      max-width: 440px;
-      padding: 24px;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal h3 {
-      margin-bottom: 14px;
-      color: var(--primary);
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-    }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 16px;
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; }
+      .print-area { box-shadow: none !important; border: none !important; }
     }
   </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-  <header>
-    <div class="brand">
-      <span>⚖️</span>
-      <span data-i18n="appTitle">Court-Annexed Mediation Portal</span>
-    </div>
-    <div class="header-actions">
-      <select id="langSelect" class="header-select" onchange="changeLanguage()">
-        <option value="en">English</option>
-        <option value="ml">മലയാളം (Malayalam)</option>
-        <option value="kn">ಕನ್ನಡ (Kannada)</option>
-      </select>
-      <select id="roleSelect" class="header-select" onchange="switchRole()">
-        <option value="advocate" data-i18n="roleAdvocate">Role: Advocate</option>
-        <option value="party" data-i18n="roleParty">Role: Party</option>
-        <option value="court" data-i18n="roleCourt">Role: Court</option>
-        <option value="mediator_center" data-i18n="roleMediator सेंटर">Role: Mediator Center</option>
-      </select>
+  <!-- Top Header -->
+  <header class="bg-[#0f2244] text-white sticky top-0 z-30 shadow-md no-print">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <img id="appLogoImg" src="./icon-192.png" alt="Court Mediation Icon" class="w-10 h-10 rounded-xl border border-amber-400/50 bg-slate-900 object-cover shrink-0" />
+        <div class="min-w-0">
+          <h1 id="t-appTitle" class="text-sm sm:text-base font-bold leading-tight truncate">Court-Annexed Mediation Center Portal</h1>
+          <p id="t-appSub" class="text-[11px] sm:text-xs text-amber-200 truncate">Kasaragod Mediation Register 2026 • Role-Isolated &amp; Firebase Ready</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- Sync Status Pill -->
+        <button id="syncStatusBtn" type="button" onclick="openSyncModal()" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 hover:bg-white/20 text-slate-100 border border-white/15 transition">
+          <span id="syncDot" class="w-2 h-2 rounded-full bg-amber-400"></span>
+          <span id="syncLabel">Local Mode</span>
+        </button>
+
+        <!-- Language Switcher -->
+        <div class="inline-flex rounded-lg bg-white/10 p-0.5 text-xs font-semibold">
+          <button type="button" onclick="setLang('en')" id="lang-en" class="px-2 py-1 rounded-md">EN</button>
+          <button type="button" onclick="setLang('ml')" id="lang-ml" class="px-2 py-1 rounded-md">മലയാളം</button>
+          <button type="button" onclick="setLang('kn')" id="lang-kn" class="px-2 py-1 rounded-md">ಕನ್ನಡ</button>
+        </div>
+
+        <!-- User Manual Button -->
+        <button type="button" onclick="openManualModal()" id="t-manualBtn" class="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold">Manual</button>
+
+        <!-- Locked Session Badge + Logout (only visible when logged in) -->
+        <div id="sessionControls" class="hidden items-center gap-2">
+          <span id="activeRoleBadge" class="px-2.5 py-1 rounded-full bg-amber-400 text-slate-900 text-xs font-bold"></span>
+          <button type="button" onclick="logout()" id="t-logoutBtn" class="px-2.5 py-1.5 rounded-lg bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold">Logout</button>
+        </div>
+      </div>
     </div>
   </header>
 
-  <div class="container">
-    <div class="controls-bar">
-      <div class="search-box">
-        <input type="text" id="searchInput" onkeyup="filterRecords()" placeholder="Search by Case No, Party Name, or Advocate..." data-i18n-placeholder="searchPlaceholder" />
-      </div>
-      <div class="role-badge" id="activeRoleBadge">Advocate View</div>
+  <!-- Toast Banner -->
+  <div id="toastBox" class="fixed bottom-4 right-4 z-50 hidden max-w-sm bg-slate-900 text-white text-xs sm:text-sm px-4 py-3 rounded-xl shadow-xl border border-slate-700"></div>
+
+  <!-- LOGIN VIEW (4 Strict Role Portals) -->
+  <main id="loginView" class="flex-1 max-w-5xl w-full mx-auto px-4 py-6 sm:py-8">
+    <div class="text-center max-w-2xl mx-auto mb-6">
+      <span id="t-loginBadge" class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold mb-2">Strict Role-Based Access Control</span>
+      <h2 id="t-loginHeading" class="text-xl sm:text-2xl font-extrabold text-[#0f2244]">Select Your Role to Sign In</h2>
+      <p id="t-loginDesc" class="text-xs sm:text-sm text-slate-600 mt-1">Each role only sees its own authorized cases. You cannot view other users' data after signing in.</p>
     </div>
 
-    <!-- 1. ADVOCATE DASHBOARD -->
-    <div id="advocateView" class="dashboard-section active">
-      <div class="grid-cards">
-        <div class="stat-card">
-          <h4 data-i18n="assignedCases">Assigned Cases</h4>
-          <div class="value" id="advTotalCount">4</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Role 1: Court Mediation Centre (Admin) -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-800 text-xs font-bold" id="t-r1Tag">Role 1 • Full Register</span>
+            <span class="text-xs text-slate-400">PIN / Passcode</span>
+          </div>
+          <h3 id="t-r1Title" class="text-base font-bold text-[#0f2244]">Court Mediation Centre (Admin)</h3>
+          <p id="t-r1Desc" class="text-xs text-slate-600 mt-1 mb-4">Manage all Register No. VI cases, assign mediators, configure Firebase Live Sync, and print A4 reports.</p>
+          <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r1InputLbl">Staff Passcode</label>
+          <input id="adminPassInput" type="password" placeholder="ADMIN2026" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f2244]" />
         </div>
-        <div class="stat-card">
-          <h4 data-i18n="settledCases">Settled</h4>
-          <div class="value" id="advSettledCount">2</div>
-        </div>
-        <div class="stat-card">
-          <h4 data-i18n="pendingCases">In Progress</h4>
-          <div class="value" id="advPendingCount">2</div>
+        <div class="mt-4 flex gap-2">
+          <button type="button" onclick="loginAdmin()" id="t-r1Btn" class="flex-1 py-2 px-3 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">Enter as Admin</button>
+          <button type="button" onclick="fillDemo('admin')" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Demo</button>
         </div>
       </div>
 
-      <div class="card-panel">
-        <div class="panel-header">
-          <h3 data-i18n="advocateRegisterTitle">Advocate Mediation Session Register</h3>
-          <button class="btn-primary" onclick="openModal()" data-i18n="addCaseBtn">+ Add Case Entry</button>
+      <!-- Role 2: Mediator -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 text-xs font-bold" id="t-r2Tag">Role 2 • Assigned Cases Only</span>
+            <span class="text-xs text-slate-400">Identity + PIN</span>
+          </div>
+          <h3 id="t-r2Title" class="text-base font-bold text-[#0f2244]">Mediator Login</h3>
+          <p id="t-r2Desc" class="text-xs text-slate-600 mt-1 mb-3">View only cases assigned to you, track Settled / Not Settled / Pending counts, update notes &amp; Sec. 89 drafts.</p>
+          <div class="space-y-2">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r2SelLbl">Select Mediator</label>
+              <select id="mediatorSelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600"></select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r2PinLbl">Mediator PIN</label>
+              <input id="mediatorPinInput" type="password" placeholder="1234" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+            </div>
+          </div>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th data-i18n="thCaseNo">Case No</th>
-              <th data-i18n="thParties">Parties</th>
-              <th data-i18n="thNextDate">Next Sitting</th>
-              <th data-i18n="thStatus">Status</th>
-              <th data-i18n="thAction">Action</th>
-            </tr>
-          </thead>
-          <tbody id="advocateTableBody"></tbody>
-        </table>
+        <div class="mt-4 flex gap-2">
+          <button type="button" onclick="loginMediator()" id="t-r2Btn" class="flex-1 py-2 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">Enter as Mediator</button>
+          <button type="button" onclick="fillDemo('mediator')" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Demo</button>
+        </div>
+      </div>
+
+      <!-- Role 3: Advocate -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 text-xs font-bold" id="t-r3Tag">Role 3 • Own Cases Only</span>
+            <span class="text-xs text-slate-400">Name + OTP</span>
+          </div>
+          <h3 id="t-r3Title" class="text-base font-bold text-[#0f2244]">Advocate Login</h3>
+          <p id="t-r3Desc" class="text-xs text-slate-600 mt-1 mb-3">Access only cases where you appear as Petitioner or Respondent Advocate. View dates &amp; submit remarks.</p>
+          <div class="space-y-2">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r3SelLbl">Select Advocate</label>
+              <select id="advocateSelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-600"></select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r3OtpLbl">Verification OTP</label>
+              <input id="advocateOtpInput" type="password" placeholder="1111" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600" />
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <button type="button" onclick="loginAdvocate()" id="t-r3Btn" class="flex-1 py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold">Enter as Advocate</button>
+          <button type="button" onclick="fillDemo('advocate')" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Demo</button>
+        </div>
+      </div>
+
+      <!-- Role 4: Party / Client -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-800 text-xs font-bold" id="t-r4Tag">Role 4 • Read-Only Own Case</span>
+            <span class="text-xs text-slate-400">Name / Case + OTP</span>
+          </div>
+          <h3 id="t-r4Title" class="text-base font-bold text-[#0f2244]">Party / Client Login</h3>
+          <p id="t-r4Desc" class="text-xs text-slate-600 mt-1 mb-3">View only your own case status, assigned mediator, next mediation session date, and court posting date.</p>
+          <div class="space-y-2">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r4SelLbl">Select Party or Case</label>
+              <select id="partySelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-600"></select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r4OtpLbl">Verification OTP</label>
+              <input id="partyOtpInput" type="password" placeholder="1111" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-600" />
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <button type="button" onclick="loginParty()" id="t-r4Btn" class="flex-1 py-2 px-3 rounded-xl bg-sky-700 hover:bg-sky-800 text-white text-xs font-bold">Enter as Party</button>
+          <button type="button" onclick="fillDemo('party')" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Demo</button>
+        </div>
       </div>
     </div>
+  </main>
 
-    <!-- 2. PARTY DASHBOARD -->
-    <div id="partyView" class="dashboard-section">
-      <div class="card-panel">
-        <div class="panel-header">
-          <h3 data-i18n="partyCasesTitle">Party Mediation Cases & Schedule</h3>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th data-i18n="thCaseNo">Case No</th>
-              <th data-i18n="thParties">Parties</th>
-              <th data-i18n="thAdvocate">Advocate</th>
-              <th data-i18n="thNextDate">Next Sitting</th>
-              <th data-i18n="thStatus">Status</th>
-            </tr>
-          </thead>
-          <tbody id="partyTableBody"></tbody>
-        </table>
+  <!-- DASHBOARD VIEW (Strictly Scoped to Authenticated Role & Identity) -->
+  <main id="dashboardView" class="hidden flex-1 max-w-6xl w-full mx-auto px-4 py-5 space-y-5">
+    <!-- Identity & Isolation Banner -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-wrap items-center justify-between gap-3 no-print">
+      <div>
+        <div class="text-xs font-semibold text-slate-500" id="t-scopeLabel">Authorized Data Scope</div>
+        <h2 id="scopeTitle" class="text-base sm:text-lg font-extrabold text-[#0f2244]"></h2>
+        <p id="scopeDesc" class="text-xs text-slate-600"></p>
       </div>
-    </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button type="button" id="refreshSyncBtn" onclick="pullFromFirebase(true)" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold">Refresh Sync</button>
+        <button type="button" id="addCaseBtn" onclick="openAddCaseModal()" class="hidden px-3 py-2 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">+ Add New Case</button>
+        <button type="button" id="printRegBtn" onclick="window.print()" class="hidden px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 text-xs font-bold">Print A4 Register</button>
+        <button type="button" id="exportCsvBtn" onclick="exportCSV()" class="hidden px-3 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">Export CSV</button>
+      </div>
+    </section>
 
-    <!-- 3. COURT DASHBOARD -->
-    <div id="courtView" class="dashboard-section">
-      <div class="grid-cards">
-        <div class="stat-card">
-          <h4 data-i18n="totalPortalCases">Total Center Cases</h4>
-          <div class="value" id="crtTotalCount">4</div>
+    <!-- Search Bar + At-a-Glance Status Counts (Scoped to Visible Cases Only) -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-3 no-print">
+      <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+        <div class="relative flex-1">
+          <input id="searchInput" type="text" oninput="renderCases()" placeholder="Search case no, party, court..." class="w-full pl-3 pr-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f2244]" />
         </div>
-        <div class="stat-card">
-          <h4 data-i18n="settlementRate">Settlement Rate</h4>
-          <div class="value">50%</div>
+        <div class="flex flex-wrap gap-2" id="statsBar"></div>
+      </div>
+    </section>
+
+    <!-- Cases Table / Cards -->
+    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden print-area">
+      <div class="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+        <h3 id="t-casesHeading" class="text-sm font-bold text-[#0f2244]">Authorized Cases</h3>
+        <span id="visibleCountLabel" class="text-xs font-semibold text-slate-500"></span>
+      </div>
+      <div id="casesContainer" class="divide-y divide-slate-100"></div>
+    </section>
+  </main>
+
+  <!-- CASE DETAIL / EDIT MODAL -->
+  <div id="caseModal" class="fixed inset-0 z-40 hidden bg-slate-900/60 flex items-center justify-center p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 p-5 space-y-4">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-100 pb-3">
+        <div>
+          <span id="modalFolio" class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded"></span>
+          <h3 id="modalTitle" class="text-lg font-extrabold text-[#0f2244] mt-1"></h3>
+          <p id="modalCourt" class="text-xs text-slate-500"></p>
+        </div>
+        <button type="button" onclick="closeModal('caseModal')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold">✕</button>
+      </div>
+
+      <div id="modalDetailsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200"></div>
+
+      <!-- Editable Controls (Role-Gated) -->
+      <div id="modalEditForm" class="space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-mStatus">Status</label>
+            <select id="editStatus" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+              <option value="Pending">Pending</option>
+              <option value="Settled">Settled</option>
+              <option value="Not Settled">Not Settled</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-mNextDate">Next Session Date</label>
+            <input id="editNextDate" type="date" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm" />
+          </div>
+          <div id="editMediatorWrap">
+            <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-mMediator">Assigned Mediator</label>
+            <select id="editMediator" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-mReturnDate">Mediation Return Date</label>
+            <input id="editReturnDate" type="date" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-mNotes">Session / Mediator / Advocate Notes</label>
+          <textarea id="editNotes" rows="3" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm"></textarea>
         </div>
       </div>
 
-      <div class="card-panel">
-        <div class="panel-header">
-          <h3 data-i18n="courtMasterTitle">Court Master Register & Allocation</h3>
-          <button class="btn-primary" onclick="openModal()" data-i18n="allocateNewBtn">+ Register & Allocate</button>
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
+        <button type="button" id="sec89Btn" onclick="openSec89Draft()" class="px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold">Section 89 Draft</button>
+        <div class="flex gap-2">
+          <button type="button" onclick="closeModal('caseModal')" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Close</button>
+          <button type="button" id="saveCaseBtn" onclick="saveCaseChanges()" class="px-4 py-2 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">Save &amp; Sync</button>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th data-i18n="thCaseNo">Case No</th>
-              <th data-i18n="thParties">Parties</th>
-              <th data-i18n="thAdvocate">Assigned Advocate</th>
-              <th data-i18n="thNextDate">Next Sitting</th>
-              <th data-i18n="thStatus">Status</th>
-            </tr>
-          </thead>
-          <tbody id="courtTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- 4. MEDIATOR CENTER DASHBOARD -->
-    <div id="mediator_centerView" class="dashboard-section">
-      <div class="card-panel">
-        <div class="panel-header">
-          <h3 data-i18n="mediatorCenterTitle">Mediator Center Daily Cause List</h3>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th data-i18n="thCaseNo">Case No</th>
-              <th data-i18n="thAdvocate">Mediator/Advocate</th>
-              <th data-i18n="thNextDate">Sitting Date</th>
-              <th data-i18n="thStatus">Status</th>
-            </tr>
-          </thead>
-          <tbody id="mediatorCenterTableBody"></tbody>
-        </table>
       </div>
     </div>
   </div>
 
-  <!-- Add Case Modal -->
-  <div class="modal-overlay" id="caseModal">
-    <div class="modal">
-      <h3 data-i18n="modalTitle">Add New Mediation Entry</h3>
-      <div class="form-group">
-        <label data-i18n="thCaseNo">Case No</label>
-        <input type="text" id="inputCaseNo" placeholder="e.g. OS 104/2026" />
+  <!-- ADD NEW CASE MODAL (Admin Only) -->
+  <div id="addCaseModal" class="fixed inset-0 z-40 hidden bg-slate-900/60 flex items-center justify-center p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-5 space-y-3">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 class="text-base font-extrabold text-[#0f2244]" id="t-addTitle">Add New Register Case</h3>
+        <button type="button" onclick="closeModal('addCaseModal')" class="px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-bold">✕</button>
       </div>
-      <div class="form-group">
-        <label data-i18n="thParties">Parties</label>
-        <input type="text" id="inputParties" placeholder="e.g. Nair vs. Menon" />
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <input id="newCourt" placeholder="Court Name (e.g. Family Court, Kasaragod)" class="px-3 py-2 rounded-xl border border-slate-300" />
+        <input id="newCaseNo" placeholder="Case Number (e.g. OP 101/2026)" class="px-3 py-2 rounded-xl border border-slate-300" />
+        <input id="newPet" placeholder="Petitioner Name" class="px-3 py-2 rounded-xl border border-slate-300" />
+        <input id="newPetAdv" placeholder="Petitioner Advocate" class="px-3 py-2 rounded-xl border border-slate-300" />
+        <input id="newResp" placeholder="Respondent Name" class="px-3 py-2 rounded-xl border border-slate-300" />
+        <input id="newRespAdv" placeholder="Respondent Advocate" class="px-3 py-2 rounded-xl border border-slate-300" />
+        <select id="newMediator" class="px-3 py-2 rounded-xl border border-slate-300 bg-white"></select>
+        <input id="newNextDate" type="date" class="px-3 py-2 rounded-xl border border-slate-300" />
       </div>
-      <div class="form-group">
-        <label data-i18n="thAdvocate">Advocate</label>
-        <input type="text" id="inputAdvocate" placeholder="e.g. Adv. R. K. Nambiar" />
+      <textarea id="newNotes" rows="2" placeholder="Mediator / Posting Book Notes" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs"></textarea>
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="closeModal('addCaseModal')" class="px-3 py-2 rounded-xl bg-slate-100 text-xs font-bold">Cancel</button>
+        <button type="button" onclick="createNewCase()" class="px-4 py-2 rounded-xl bg-[#0f2244] text-white text-xs font-bold">Create &amp; Sync</button>
       </div>
-      <div class="form-group">
-        <label data-i18n="thNextDate">Next Sitting Date</label>
-        <input type="date" id="inputDate" />
+    </div>
+  </div>
+
+  <!-- FIREBASE & COLLECTIVE SYNC MODAL -->
+  <div id="syncModal" class="fixed inset-0 z-40 hidden bg-slate-900/60 flex items-center justify-center p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-5 space-y-4">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 class="text-base font-extrabold text-[#0f2244]" id="t-syncTitle">Firebase Live Sync &amp; Connectivity</h3>
+        <button type="button" onclick="closeModal('syncModal')" class="px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-bold">✕</button>
       </div>
-      <div class="form-group">
-        <label data-i18n="thStatus">Status</label>
-        <select id="inputStatus">
-          <option value="Pending">Pending</option>
-          <option value="Settled">Settled</option>
-        </select>
+
+      <p class="text-xs text-slate-600" id="t-syncHelp">
+        To make changes made by any Mediator, Advocate, or Admin appear collectively on all devices, connect your Firebase Realtime Database URL below.
+      </p>
+
+      <div class="space-y-2">
+        <label class="block text-xs font-bold text-slate-700">Firebase Realtime Database URL</label>
+        <input id="firebaseUrlInput" type="url" placeholder="https://your-project-default-rtdb.firebaseio.com" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono" />
+        <p class="text-[11px] text-slate-500">
+          Ensure Firebase Rules allow read/write: <code class="bg-slate-100 px-1 rounded">{ "rules": { ".read": true, ".write": true } }</code>
+        </p>
       </div>
-      <div class="modal-footer">
-        <button class="action-btn" onclick="closeModal()" data-i18n="cancelBtn">Cancel</button>
-        <button class="btn-primary" onclick="saveNewCase()" data-i18n="saveBtn">Save</button>
+
+      <div id="syncTestResult" class="hidden text-xs p-3 rounded-xl border"></div>
+
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="testAndSaveFirebase()" class="px-3 py-2 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">Test &amp; Save URL</button>
+        <button type="button" onclick="pushAllToFirebase()" class="px-3 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">Push All 14+ Cases to Firebase</button>
+        <button type="button" onclick="pullFromFirebase(true)" class="px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 text-xs font-bold">Pull Latest from Firebase</button>
+        <button type="button" onclick="disconnectFirebase()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Use Local Only</button>
       </div>
+
+      <div class="border-t pt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <span class="font-semibold text-slate-600">Offline / File Backup:</span>
+        <div class="flex gap-2">
+          <button type="button" onclick="exportJSON()" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold">Download JSON</button>
+          <label class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold cursor-pointer">
+            Import JSON
+            <input type="file" accept=".json" onchange="importJSON(event)" class="hidden" />
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 89 DRAFT MODAL -->
+  <div id="sec89Modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-5 space-y-3 shadow-2xl">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 class="text-base font-extrabold text-[#0f2244]">Section 89 CPC — Settlement Memorandum Draft</h3>
+        <button type="button" onclick="closeModal('sec89Modal')" class="px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-bold">✕</button>
+      </div>
+      <textarea id="sec89Text" rows="12" class="w-full p-3 rounded-xl border border-slate-300 text-xs font-mono bg-slate-50"></textarea>
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="copySec89()" class="px-3 py-2 rounded-xl bg-amber-400 text-slate-900 text-xs font-bold">Copy Text</button>
+        <button type="button" onclick="closeModal('sec89Modal')" class="px-3 py-2 rounded-xl bg-[#0f2244] text-white text-xs font-bold">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- IN-PAGE USER MANUAL MODAL -->
+  <div id="manualModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 class="text-base font-extrabold text-[#0f2244]" id="t-manTitle">User Manual &amp; Firebase Troubleshooting</h3>
+        <button type="button" onclick="closeModal('manualModal')" class="px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-bold">✕</button>
+      </div>
+      <div id="manualModalBody" class="space-y-3 text-xs text-slate-700 leading-relaxed"></div>
     </div>
   </div>
 
   <script>
-    let cases = [
-      { id: 1, caseNo: "OS 45/2026", parties: "Ramesh Kumar vs. Suresh Babu", advocate: "Adv. R. Nambiar", date: "2026-11-25", status: "Pending" },
-      { id: 2, caseNo: "MC 112/2026", parties: "Anitha K. vs. Pradeep V.", advocate: "Adv. Meera Nair", date: "2026-11-24", status: "Settled" },
-      { id: 3, caseNo: "CC 89/2026", parties: "State Bank vs. Rajeshwari", advocate: "Adv. R. Nambiar", date: "2026-11-28", status: "Pending" },
-      { id: 4, caseNo: "OP 19/2026", parties: "Abdul Latheef vs. Jameela", advocate: "Adv. K. Krishnan", date: "2026-11-20", status: "Settled" }
+    // --- 1. GROUNDED REGISTER DATA (Kasaragod Mediation Register 2026 - 14 Cases) ---
+    const INITIAL_CASES = [
+      { folio: "1", mediator: "", court: "JFCM Kasaragod", caseNo: "MC 32/2026", petitioner: "Nafeesath Shyma", petAdv: "Brinda Raj K", petContact: "9846000000", respondent: "Haneefa M", respAdv: "Zakir Ahammed", respContact: "9895105313", refDate: "2026-05-21", firstDate: "2026-05-25", postingDate: "2026-08-20", returnDate: "2026-08-20", status: "Pending", nextDate: "2026-05-25", notes: "First appearance scheduled at Kasaragod Mediation Centre" },
+      { folio: "2", mediator: "Ravindran Nambiar (R.N)", court: "Family Court Kasaragod", caseNo: "OP 1117/2026", petitioner: "Anjitha K", petAdv: "Adv. Valsala K", petContact: "9497851613", respondent: "Sreekanth P", respAdv: "Adv. Gangadhar", respContact: "9744851584", refDate: "2026-06-15", firstDate: "2026-06-15", postingDate: "2026-08-14", returnDate: "2026-08-03", status: "Settled", nextDate: "2026-08-03", notes: "Settled on 03/08/2026; Mediator: Ravindran Nambiar" },
+      { folio: "3", mediator: "B.F. AbdulRahman", court: "JFCM II Kasaragod", caseNo: "MC 77", petitioner: "Sathyavathi", petAdv: "Farzana", petContact: "", respondent: "Rameshan", respAdv: "Ravindran Nambiar", respContact: "9447155878", refDate: "", firstDate: "", postingDate: "2026-11-19", returnDate: "", status: "Settled", nextDate: "2026-11-19", notes: "Assigned Mediator: B.F.AbdulRahman" },
+      { folio: "4", mediator: "", court: "Family Court Kasaragod", caseNo: "OP 1125/2025", petitioner: "", petAdv: "", petContact: "", respondent: "", respAdv: "", respContact: "", refDate: "2026-06-16", firstDate: "", postingDate: "", returnDate: "", status: "Pending", nextDate: "", notes: "Year 2025" },
+      { folio: "5", mediator: "USB", court: "Munsiff Court Kasaragod (Prl. Munsiff, Kasaragod)", caseNo: "EP 294/25", petitioner: "Karabadaje Service Co-op Bank Ltd.", petAdv: "Adv. Mohan Prakash", petContact: "9947443759", respondent: "Ammu Poojari", respAdv: "Adv. Naveen S. N.", respContact: "8086955611", refDate: "2026-09-28", firstDate: "2026-09-28", postingDate: "2026-10-12", returnDate: "2026-10-12", status: "Settled", nextDate: "2026-11-09", notes: "Mediator: USB; Posting Book entry dated 09/11/2026 shows 'Settled' (Dis No. 4029/26, MFN 30)" },
+      { folio: "6", mediator: "USB", court: "Munsiff Court Kasaragod (Prl. Munsiff, Kasaragod)", caseNo: "EP 265/25", petitioner: "Karabadaje Service Co-op Bank Ltd.", petAdv: "Adv. Mohan Prakash", petContact: "9947443759", respondent: "Ammu Poojari", respAdv: "Adv. Naveen S. N.", respContact: "8086955611", refDate: "2026-09-28", firstDate: "2026-09-28", postingDate: "2026-10-12", returnDate: "2026-10-12", status: "Settled", nextDate: "2026-11-09", notes: "Mediator: USB; Posting Book entry dated 09/11/2026 shows 'Settled' (Dis No. 4028/26, MFN 30)" },
+      { folio: "7", mediator: "Ravindran Nambiar (R.N)", court: "Family Court, Kasaragod", caseNo: "OP 543/2026", petitioner: "Naveen Kumar", petAdv: "Adv. Manikandan", petContact: "9495417615", respondent: "Vinutha M", respAdv: "Adv. Padmanabhan", respContact: "892137615", refDate: "2026-08-11", firstDate: "2026-08-11", postingDate: "2026-11-18", returnDate: "2026-09-09", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1171/26 (Posting Book Sl. No. 1153/26); Petitioner Adv Contact: 9497480757; Respondent Adv Contact: 9645232111 / 9495610203" },
+      { folio: "8", mediator: "Ravindran Nambiar (R.N)", court: "JFCM Kasaragod", caseNo: "MC 198/25", petitioner: "Nazima Anabagil", petAdv: "Adv. Abdul Nizar M.A", petContact: "", respondent: "Shahanavas", respAdv: "", respContact: "8089375559", refDate: "2026-09-25", firstDate: "2026-09-26", postingDate: "2026-11-21", returnDate: "2026-10-03", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1478/26 (MF: 1461/26); u/s 3(1) of Muslim Women (Protection of Rights on Divorce) Act" },
+      { folio: "9", mediator: "Ravindran Nambiar (R.N)", court: "Family Court, Kasaragod", caseNo: "OP 599/2025", petitioner: "Saritha P.V", petAdv: "Adv. Manoj", petContact: "6235292850", respondent: "Prabhath P", respAdv: "Adv. Manikandan", respContact: "7034828018", refDate: "2026-08-13", firstDate: "2026-08-13", postingDate: "2026-09-14", returnDate: "2026-09-14", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1124/26 (Posting Book Sl. No. 1182/26); Petitioner Adv Contact: 8111817777; Respondent Adv Contact: 9497480757" },
+      { folio: "10", mediator: "", court: "Munsiff Court, Kasaragod", caseNo: "OS 68/22", petitioner: "Mohammed Kunhi", petAdv: "Adv. Vittala Bhat", petContact: "9895658741", respondent: "Smt. Beefathumma", respAdv: "Adv. K.K. Mohammed Shafi", respContact: "", refDate: "2026-09-25", firstDate: "2026-09-30", postingDate: "2026-10-30", returnDate: "2026-10-30", status: "Pending", nextDate: "", notes: "Sl. No. 1410/26; Dis No. 3971/26; MFN 30; Specific performance; Petitioner Adv Contact: 9446772589" },
+      { folio: "11", mediator: "Ravindran Nambiar (R.N)", court: "JFCM Kasaragod", caseNo: "MC 123/26", petitioner: "Ayshath Ashika P.B", petAdv: "Adv. P. Ramanathan", petContact: "7012186294", respondent: "Faisal Kasaragod", respAdv: "", respContact: "9846434323", refDate: "2026-09-22", firstDate: "2026-09-26", postingDate: "2026-11-21", returnDate: "2026-10-01", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1431/26 (Posting Book Sl. No. 1483/26); MFN 30; u/s 12 of DV Act; Petitioner Adv Contact: 9895448018" },
+      { folio: "12", mediator: "Ravindran Nambiar (R.N)", court: "JFCM Kasaragod", caseNo: "MC 152/25", petitioner: "Nazima Anabagil", petAdv: "Adv. Abdul Nizar M.A", petContact: "", respondent: "Shahanavas", respAdv: "", respContact: "8089375559", refDate: "2026-09-26", firstDate: "2026-09-26", postingDate: "2026-11-21", returnDate: "2026-10-03", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1427/26 (Posting Book Sl. No. 1479/26); MFN 30; u/s 12 of DV Act" },
+      { folio: "13", mediator: "", court: "Family Court, Kasaragod", caseNo: "OP 1294/2025", petitioner: "Sajitha M", petAdv: "Adv. Suresh K.P", petContact: "8590117127", respondent: "Madhusudhanan K", respAdv: "Adv. Mohanan Nambiar", respContact: "9048182328", refDate: "2026-05-29", firstDate: "2026-05-29", postingDate: "2026-06-29", returnDate: "2026-06-29", status: "Pending", nextDate: "", notes: "Sl. No. 907/26; Dis No. 1216/26; Petitioner Adv Contact: 9495093809; Respondent Adv Contact: 7012257318" },
+      { folio: "14", mediator: "S.N", court: "District Court, Kasaragod", caseNo: "OP 78/26", petitioner: "Shriram Finance Ltd. (Rept. by Subraya)", petAdv: "Adv. Shafi M", petContact: "", respondent: "1. Sarath Kumar K; 2. Raghava", respAdv: "Adv. Sooryanarayanan", respContact: "9633506112 / 9746786927", refDate: "2026-07-17", firstDate: "", postingDate: "", returnDate: "", status: "Pending", nextDate: "2026-11-28", notes: "Sl. No. 1235/26; Petitioner Adv Contact: 9496251442" }
     ];
 
-    const translations = {
+    const MEDIATORS = ["Ravindran Nambiar (R.N)", "B.F. AbdulRahman", "USB", "S.N"];
+
+    // --- 2. TRANSLATIONS (EN | മലയാളം | ಕನ್ನಡ) ---
+    const I18N = {
       en: {
-        appTitle: "Court-Annexed Mediation Portal",
-        roleAdvocate: "Role: Advocate",
-        roleParty: "Role: Party",
-        roleCourt: "Role: Court",
-        roleMediatorCenter: "Role: Mediator Center",
-        searchPlaceholder: "Search by Case No, Party Name, or Advocate...",
-        assignedCases: "Assigned Cases",
-        settledCases: "Settled",
-        pendingCases: "In Progress",
-        advocateRegisterTitle: "Advocate Mediation Session Register",
-        addCaseBtn: "+ Add Case Entry",
-        totalPortalCases: "Total Center Cases",
-        settlementRate: "Settlement Rate",
-        courtMasterTitle: "Court Master Register & Allocation",
-        allocateNewBtn: "+ Register & Allocate",
-        partyCasesTitle: "Party Mediation Cases & Schedule",
-        mediatorCenterTitle: "Mediator Center Daily Cause List",
-        thCaseNo: "Case No",
-        thParties: "Parties",
-        thAdvocate: "Advocate",
-        thNextDate: "Next Sitting",
-        thStatus: "Status",
-        thAction: "Action",
-        modalTitle: "Add New Mediation Entry",
-        cancelBtn: "Cancel",
-        saveBtn: "Save",
-        badgeAdvocate: "Advocate View",
-        badgeParty: "Party View",
-        badgeCourt: "Court View",
-        badgeMediatorCenter: "Mediator Center View",
-        toggleStatus: "Toggle Status"
+        appTitle: "Court-Annexed Mediation Center Portal",
+        appSub: "Kasaragod Mediation Register 2026 • Role-Isolated & Firebase Live",
+        manualBtn: "Manual",
+        logoutBtn: "Logout",
+        loginBadge: "Strict Role-Based Access Control",
+        loginHeading: "Select Your Role to Sign In",
+        loginDesc: "Each role only sees its own authorized cases. You cannot view other users' data after signing in.",
+        r1Tag: "Role 1 • Full Register", r1Title: "Court Mediation Centre (Admin)",
+        r1Desc: "Manage all Register No. VI cases, assign mediators, configure Firebase Live Sync, and print A4 reports.",
+        r1InputLbl: "Staff Passcode", r1Btn: "Enter as Admin",
+        r2Tag: "Role 2 • Assigned Cases Only", r2Title: "Mediator Login",
+        r2Desc: "View only cases assigned to you, track Settled / Not Settled / Pending counts, update notes & Sec. 89 drafts.",
+        r2SelLbl: "Select Mediator", r2PinLbl: "Mediator PIN", r2Btn: "Enter as Mediator",
+        r3Tag: "Role 3 • Own Cases Only", r3Title: "Advocate Login",
+        r3Desc: "Access only cases where you appear as Petitioner or Respondent Advocate. View dates & submit remarks.",
+        r3SelLbl: "Select Advocate", r3OtpLbl: "Verification OTP", r3Btn: "Enter as Advocate",
+        r4Tag: "Role 4 • Read-Only Own Case", r4Title: "Party / Client Login",
+        r4Desc: "View only your own case status, assigned mediator, next mediation session date, and court posting date.",
+        r4SelLbl: "Select Party or Case", r4OtpLbl: "Verification OTP", r4Btn: "Enter as Party",
+        scopeLabel: "Authorized Data Scope",
+        casesHeading: "Authorized Cases",
+        total: "Total", settled: "Settled", notSettled: "Not Settled", pending: "Pending",
+        all: "All", viewEdit: "Open", readOnly: "View",
+        unassigned: "Unassigned", noCases: "No authorized cases match your filter."
       },
       ml: {
-        appTitle: "കോടതി അനുബന്ധ മീഡിയേഷൻ പോർട്ടൽ",
-        roleAdvocate: "റോൾ: അഡ്വക്കേറ്റ്",
-        roleParty: "റോൾ: കക്ഷി",
-        roleCourt: "റോൾ: കോടതി",
-        roleMediatorCenter: "റോൾ: മീഡിയേഷൻ സെന്റർ",
-        searchPlaceholder: "കേസ് നമ്പർ, കക്ഷിയുടെ പേര്, അഡ്വക്കേറ്റ് എന്നിവ തിരയുക...",
-        assignedCases: "നൽകിയ കേസുകൾ",
-        settledCases: "തീർപ്പാക്കിയവ",
-        pendingCases: "നടപടിയിലുള്ളവ",
-        advocateRegisterTitle: "അഡ്വക്കേറ്റ് സെഷൻ രജിസ്റ്റർ",
-        addCaseBtn: "+ പുതിയ കേസ് ചേർക്കുക",
-        totalPortalCases: "ആകെ കേസുകൾ",
-        settlementRate: "തീർപ്പാക്കൽ നിരക്ക്",
-        courtMasterTitle: "കോടതി മാസ്റ്റർ രജിസ്റ്റർ",
-        allocateNewBtn: "+ രജിസ്റ്റർ ചെയ്യുക",
-        partyCasesTitle: "കക്ഷി മീഡിയേഷൻ കേസുകൾ",
-        mediatorCenterTitle: "മീഡിയേഷൻ സെന്റർ ഡെയ്‌ലി കോസ് ലിസ്റ്റ്",
-        thCaseNo: "കേസ് നമ്പർ",
-        thParties: "കക്ഷികൾ",
-        thAdvocate: "അഡ്വക്കേറ്റ്",
-        thNextDate: "അടുത്ത സിറ്റിംഗ്",
-        thStatus: "നിലവിലെ അവസ്ഥ",
-        thAction: "നടപടി",
-        modalTitle: "പുതിയ മീഡിയേഷൻ വിവരങ്ങൾ ചേർക്കുക",
-        cancelBtn: "റദ്ദാക്കുക",
-        saveBtn: "സേവ് ചെയ്യുക",
-        badgeAdvocate: "അഡ്വക്കേറ്റ് വ്യൂ",
-        badgeParty: "കക്ഷി വ്യൂ",
-        badgeCourt: "കോടതി വ്യൂ",
-        badgeMediatorCenter: "മീഡിയേഷൻ സെന്റർ വ്യൂ",
-        toggleStatus: "സ്റ്റാറ്റസ് മാറ്റുക"
+        appTitle: "കോർട്ട്-അനെക്സ്ഡ് മീഡിയേഷൻ സെന്റർ പോർട്ടൽ",
+        appSub: "കാസർഗോഡ് മീഡിയേഷൻ രജിസ്റ്റർ 2026 • റോൾ നിയന്ത്രണവും Firebase സിങ്കും",
+        manualBtn: "മാനുവൽ",
+        logoutBtn: "ലോഗൗട്ട്",
+        loginBadge: "കർശനമായ റോൾ-അധിഷ്ഠിത ആക്സസ്",
+        loginHeading: "പ്രവേശിക്കാൻ നിങ്ങളുടെ റോൾ തിരഞ്ഞെടുക്കുക",
+        loginDesc: "ഓരോ റോളിനും അവരവരുടെ കേസുകൾ മാത്രമേ കാണാൻ കഴിയൂ. മറ്റുള്ളവരുടെ വിവരങ്ങൾ കാണാൻ സാധിക്കില്ല.",
+        r1Tag: "റോൾ 1 • മുഴുവൻ രജിസ്റ്റർ", r1Title: "കോർട്ട് മീഡിയേഷൻ സെന്റർ (Admin)",
+        r1Desc: "എല്ലാ കേസുകളും നിയന്ത്രിക്കാനും, മീഡിയേറ്റർമാരെ നിയമിക്കാനും, Firebase സിങ്ക് സജ്ജീകരിക്കാനും പ്രിന്റ് എടുക്കാനും.",
+        r1InputLbl: "സ്റ്റാഫ് പാസ്‌കോഡ്", r1Btn: "അഡ്മിൻ ആയി പ്രവേശിക്കുക",
+        r2Tag: "റോൾ 2 • സ്വന്തം കേസുകൾ മാത്രം", r2Title: "മീഡിയേറ്റർ ലോഗിൻ",
+        r2Desc: "നിങ്ങൾക്ക് നൽകിയ കേസുകൾ മാത്രം കാണുക. സെറ്റിൽ ചെയ്തവ/തീർപ്പാകാത്തവ/പെൻഡിംഗ് കണക്കുകളും കുറിപ്പുകളും അപ്‌ഡേറ്റ് ചെയ്യുക.",
+        r2SelLbl: "മീഡിയേറ്ററെ തിരഞ്ഞെടുക്കുക", r2PinLbl: "മീഡിയേറ്റർ PIN", r2Btn: "മീഡിയേറ്റർ ആയി പ്രവേശിക്കുക",
+        r3Tag: "റോൾ 3 • സ്വന്തം കേസുകൾ മാത്രം", r3Title: "അഡ്വക്കേറ്റ് ലോഗിൻ",
+        r3Desc: "നിങ്ങൾ ഹാജരാകുന്ന കേസുകൾ മാത്രം കാണുക. അടുത്ത തീയതികളും അഭിഭാഷക കുറിപ്പുകളും രേഖപ്പെടുത്തുക.",
+        r3SelLbl: "അഡ്വക്കേറ്റിനെ തിരഞ്ഞെടുക്കുക", r3OtpLbl: "വെരിഫിക്കേഷൻ OTP", r3Btn: "അഡ്വക്കേറ്റ് ആയി പ്രവേശിക്കുക",
+        r4Tag: "റോൾ 4 • സ്വന്തം കേസ് മാത്രം", r4Title: "കക്ഷി / പാർട്ടി ലോഗിൻ",
+        r4Desc: "നിങ്ങളുടെ കേസിന്റെ നിലവിലെ അവസ്ഥ, മീഡിയേറ്റർ, അടുത്ത സെഷൻ തീയതി എന്നിവ മാത്രം കാണുക.",
+        r4SelLbl: "കക്ഷി / കേസ് തിരഞ്ഞെടുക്കുക", r4OtpLbl: "വെരിഫിക്കേഷൻ OTP", r4Btn: "പാർട്ടി ആയി പ്രവേശിക്കുക",
+        scopeLabel: "അനുവദിച്ച ഡാറ്റ പരിധി",
+        casesHeading: "അനുവദിച്ച കേസുകൾ",
+        total: "ആകെ", settled: "സെറ്റിൽ ചെയ്തവ", notSettled: "സെറ്റിൽ ആവാത്തവ", pending: "പെൻഡിംഗ്",
+        all: "എല്ലാം", viewEdit: "തുറക്കുക", readOnly: "കാണുക",
+        unassigned: "നിയമിച്ചിട്ടില്ല", noCases: "ഈ വിഭാഗത്തിൽ കേസുകളൊന്നും ലഭ്യമല്ല."
       },
       kn: {
-        appTitle: "ನ್ಯಾಯಾಲಯದ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ ಪೋರ್ಟಲ್",
-        roleAdvocate: "ಪಾತ್ರ: ವಕೀಲರು",
-        roleParty: "ಪಾತ್ರ: ಪಕ್ಷಗಾರರು",
-        roleCourt: "ಪಾತ್ರ: ನ್ಯಾಯಾಲಯ",
-        roleMediatorCenter: "ಪಾತ್ರ: ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ",
-        searchPlaceholder: "ಪ್ರಕರಣ ಸಂಖ್ಯೆ, ಪಕ್ಷಗಾರರ ಹೆಸರು ಅಥವಾ ವಕೀಲರನ್ನು ಹುಡುಕಿ...",
-        assignedCases: "ನಿಯೋಜಿಸಲಾದ ಪ್ರಕರಣಗಳು",
-        settledCases: "ಇತ್ಯರ್ಥಗೊಂಡವು",
-        pendingCases: "ಪ್ರಗತಿಯಲ್ಲಿದೆ",
-        advocateRegisterTitle: "ವಕೀಲರ ಅಧಿವೇಶನ ನೋಂದಣಿ",
-        addCaseBtn: "+ ಹೊಸ ಪ್ರಕರಣ ಸೇರಿಸಿ",
-        totalPortalCases: "ಒಟ್ಟು ಪ್ರಕರಣಗಳು",
-        settlementRate: "ಇತ್ಯರ್ಥ ದರ",
-        courtMasterTitle: "ನ್ಯಾಯಾಲಯದ ಮಾಸ್ಟರ್ ನೋಂದಣಿ",
-        allocateNewBtn: "+ ನೋಂದಾಯಿಸಿ ಮತ್ತು ಹಂಚಿಕೆ ಮಾಡಿ",
-        partyCasesTitle: "ಪಕ್ಷಗಾರರ ಮಧ್ಯಸ್ಥಿಕೆ ಪ್ರಕರಣಗಳು",
-        mediatorCenterTitle: "ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರದ ದೈನಂದಿನ ಪಟ್ಟಿ",
-        thCaseNo: "ಪ್ರಕರಣ ಸಂಖ್ಯೆ",
-        thParties: "ಪಕ್ಷಗಾರರು",
-        thAdvocate: "ವಕೀಲರು",
-        thNextDate: "ಮುಂದಿನ ದಿನಾಂಕ",
-        thStatus: "ಸ್ಥಿತಿ",
-        thAction: "ಕ್ರಿಯೆ",
-        modalTitle: "ಹೊಸ ಮಧ್ಯಸ್ಥಿಕೆ ವಿವರ ಸೇರಿಸಿ",
-        cancelBtn: "ರದ್ದುಮಾಡಿ",
-        saveBtn: "ಉಳಿಸಿ",
-        badgeAdvocate: "ವಕೀಲರ ನೋಟ",
-        badgeParty: "ಪಕ್ಷಗಾರರ ನೋಟ",
-        badgeCourt: "ನ್ಯಾಯಾಲಯದ ನೋಟ",
-        badgeMediatorCenter: "ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರದ ನೋಟ",
-        toggleStatus: "ಸ್ಥಿತಿ ಬದಲಿಸಿ"
+        appTitle: "ನ್ಯಾಯಾಲಯ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ ಪೋರ್ಟಲ್",
+        appSub: "ಕಾಸರಗೋಡು ಮಧ್ಯಸ್ಥಿಕೆ ನೋಂದಣಿ 2026 • ಪಾತ್ರ ನಿಯಂತ್ರಣ ಮತ್ತು Firebase ಸಿಂಕ್",
+        manualBtn: "ಕೈಪಿಡಿ",
+        logoutBtn: "ಲಾಗ್ ಔಟ್",
+        loginBadge: "ಕಟ್ಟುನಿಟ್ಟಾದ ಪಾತ್ರ-ಆಧಾರಿತ ಪ್ರವೇಶ",
+        loginHeading: "ಲಾಗಿನ್ ಆಗಲು ನಿಮ್ಮ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        loginDesc: "ಪ್ರತಿ ಪಾತ್ರವು ತನ್ನದೇ ಆದ ಅಧಿಕೃತ ಪ್ರಕರಣಗಳನ್ನು ಮಾತ್ರ ನೋಡುತ್ತದೆ.",
+        r1Tag: "ಪಾತ್ರ 1 • ಪೂರ್ಣ ನೋಂದಣಿ", r1Title: "ನ್ಯಾಯಾಲಯ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ (Admin)",
+        r1Desc: "ಎಲ್ಲಾ ಪ್ರಕರಣಗಳನ್ನು ನಿರ್ವಹಿಸಿ, ಮಧ್ಯಸ್ಥಗಾರರನ್ನು ನಿಯೋಜಿಸಿ ಮತ್ತು Firebase ಲೈವ್ ಸಿಂಕ್ ಹೊಂದಿಸಿ.",
+        r1InputLbl: "ಸಿಬ್ಬಂದಿ ಪಾಸ್‌ಕೋಡ್", r1Btn: "Admin ಆಗಿ ಪ್ರವೇಶಿಸಿ",
+        r2Tag: "ಪಾತ್ರ 2 • ನಿಯೋಜಿತ ಪ್ರಕರಣಗಳು ಮಾತ್ರ", r2Title: "ಮಧ್ಯಸ್ಥಗಾರರ ಲಾಗಿನ್",
+        r2Desc: "ನಿಮಗೆ ನಿಯೋಜಿಸಲಾದ ಪ್ರಕರಣಗಳನ್ನು ಮಾತ್ರ ವೀಕ್ಷಿಸಿ ಮತ್ತು ಟಿಪ್ಪಣಿಗಳನ್ನು ನವೀಕರಿಸಿ.",
+        r2SelLbl: "ಮಧ್ಯಸ್ಥಗಾರರನ್ನು ಆಯ್ಕೆಮಾಡಿ", r2PinLbl: "ಮಧ್ಯಸ್ಥಗಾರರ PIN", r2Btn: "ಮಧ್ಯಸ್ಥಗಾರರಾಗಿ ಪ್ರವೇಶಿಸಿ",
+        r3Tag: "ಪಾತ್ರ 3 • ಸ್ವಂತ ಪ್ರಕರಣಗಳು ಮಾತ್ರ", r3Title: "ವಕೀಲರ ಲಾಗಿನ್",
+        r3Desc: "ನೀವು ಹಾಜರಾಗುವ ಪ್ರಕರಣಗಳನ್ನು ಮಾತ್ರ ವೀಕ್ಷಿಸಿ.",
+        r3SelLbl: "ವಕೀಲರನ್ನು ಆಯ್ಕೆಮಾಡಿ", r3OtpLbl: "OTP ನಮೂದಿಸಿ", r3Btn: "ವಕೀಲರಾಗಿ ಪ್ರವೇಶಿಸಿ",
+        r4Tag: "ಪಾತ್ರ 4 • ಸ್ವಂತ ಪ್ರಕರಣ ಮಾತ್ರ", r4Title: "ಪಕ್ಷಗಾರರ / ಕ್ಲೈಂಟ್ ಲಾಗಿನ್",
+        r4Desc: "ನಿಮ್ಮ ಸ್ವಂತ ಪ್ರಕರಣದ ಸ್ಥಿತಿ ಮತ್ತು ಮುಂದಿನ ದಿನಾಂಕವನ್ನು ವೀಕ್ಷಿಸಿ.",
+        r4SelLbl: "ಪಕ್ಷಗಾರರನ್ನು ಆಯ್ಕೆಮಾಡಿ", r4OtpLbl: "OTP ನಮೂದಿಸಿ", r4Btn: "ಪಕ್ಷಗಾರರಾಗಿ ಪ್ರವೇಶಿಸಿ",
+        scopeLabel: "ಅಧಿಕೃತ ಡೇಟಾ ವ್ಯಾಪ್ತಿ",
+        casesHeading: "ಅಧಿಕೃತ ಪ್ರಕರಣಗಳು",
+        total: "ಒಟ್ಟು", settled: "ಇತ್ಯರ್ಥ", notSettled: "ಇತ್ಯರ್ಥವಾಗಿಲ್ಲ", pending: "ಬಾಕಿ",
+        all: "ಎಲ್ಲಾ", viewEdit: "ತೆರೆಯಿರಿ", readOnly: "ನೋಡಿ",
+        unassigned: "ನಿಯೋಜಿಸಲಾಗಿಲ್ಲ", noCases: "ಯಾವುದೇ ಪ್ರಕರಣಗಳು ಕಂಡುಬಂದಿಲ್ಲ."
       }
     };
 
-    let currentLang = 'en';
+    // --- 3. STATE & STORAGE ---
+    const STORAGE_KEY = "kasaragod_mediation_cases_v3";
+    const FB_URL_KEY = "kasaragod_mediation_firebase_url";
+    const SESSION_KEY = "kasaragod_mediation_session_v3";
+    const LANG_KEY = "kasaragod_mediation_lang_v3";
 
-    function changeLanguage() {
-      currentLang = document.getElementById('langSelect').value;
-      const dict = translations[currentLang];
+    let cases = [];
+    let currentLang = "ml";
+    let session = null; // { role: 'admin'|'mediator'|'advocate'|'party', identity: string }
+    let statusFilter = "All";
+    let activeFolio = null;
+    let bc = null;
 
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (dict[key]) el.textContent = dict[key];
-      });
-
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (dict[key]) el.placeholder = dict[key];
-      });
-
-      updateRoleBadge();
-      renderTables();
-    }
-
-    function updateRoleBadge() {
-      const role = document.getElementById('roleSelect').value;
-      const dict = translations[currentLang];
-      const badgeMap = {
-        advocate: dict.badgeAdvocate,
-        party: dict.badgeParty,
-        court: dict.badgeCourt,
-        mediator_center: dict.badgeMediatorCenter
+    try {
+      bc = new BroadcastChannel("kasaragod_mediation_sync");
+      bc.onmessage = (ev) => {
+        if (ev.data && ev.data.type === "SYNC_CASES") {
+          cases = ev.data.cases;
+          saveLocalCases(false);
+          if (session) renderDashboard();
+        }
       };
-      document.getElementById('activeRoleBadge').textContent = badgeMap[role];
+    } catch (e) {}
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        cases = raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(INITIAL_CASES));
+      } catch (e) {
+        cases = JSON.parse(JSON.stringify(INITIAL_CASES));
+      }
+      try {
+        const savedLang = localStorage.getItem(LANG_KEY);
+        if (savedLang && I18N[savedLang]) currentLang = savedLang;
+      } catch (e) {}
+      try {
+        const savedSession = localStorage.getItem(SESSION_KEY);
+        if (savedSession) session = JSON.parse(savedSession);
+      } catch (e) {}
     }
 
-    function switchRole() {
-      const role = document.getElementById('roleSelect').value;
-      document.querySelectorAll('.dashboard-section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(role + 'View').classList.add('active');
-      updateRoleBadge();
-      filterRecords();
-    }
-
-    function toggleCaseStatus(id) {
-      const item = cases.find(c => c.id === id);
-      if (item) {
-        item.status = item.status === 'Pending' ? 'Settled' : 'Pending';
-        filterRecords();
+    function saveLocalCases(broadcast = true) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cases)); } catch (e) {}
+      if (broadcast && bc) {
+        try { bc.postMessage({ type: "SYNC_CASES", cases }); } catch (e) {}
       }
     }
 
-    function renderTables(filteredList = cases) {
-      const advBody = document.getElementById('advocateTableBody');
-      const prtBody = document.getElementById('partyTableBody');
-      const crtBody = document.getElementById('courtTableBody');
-      const medCenterBody = document.getElementById('mediatorCenterTableBody');
-      const toggleLabel = translations[currentLang].toggleStatus;
+    function getFirebaseUrl() {
+      try { return (localStorage.getItem(FB_URL_KEY) || "").trim().replace(/\/+$/, ""); } catch (e) { return ""; }
+    }
 
-      advBody.innerHTML = '';
-      prtBody.innerHTML = '';
-      crtBody.innerHTML = '';
-      medCenterBody.innerHTML = '';
+    function updateSyncIndicator(state, customText) {
+      const dot = document.getElementById("syncDot");
+      const lbl = document.getElementById("syncLabel");
+      if (!dot || !lbl) return;
+      if (state === "live") {
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400";
+        lbl.textContent = customText || "Firebase Live";
+      } else if (state === "error") {
+        dot.className = "w-2 h-2 rounded-full bg-rose-400";
+        lbl.textContent = customText || "Sync Error";
+      } else {
+        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+        lbl.textContent = customText || "Local Mode";
+      }
+    }
 
-      filteredList.forEach(c => {
-        const badgeClass = c.status === 'Settled' ? 'badge-settled' : 'badge-pending';
-        const statusBadge = `<span class="badge ${badgeClass}">${c.status}</span>`;
+    async function pullFromFirebase(showToastMsg = false) {
+      const url = getFirebaseUrl();
+      if (!url) {
+        updateSyncIndicator("local", "Local Mode");
+        return;
+      }
+      try {
+        const res = await fetch(url + "/cases.json");
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          cases = data.filter(Boolean);
+          saveLocalCases(true);
+          updateSyncIndicator("live", "Firebase Live");
+          populateLoginSelectors();
+          if (session) renderDashboard();
+          if (showToastMsg) showToast("Synced latest cases from Firebase.");
+        } else if (data && typeof data === "object") {
+          const arr = Object.values(data).filter(Boolean);
+          if (arr.length > 0) {
+            cases = arr;
+            saveLocalCases(true);
+            updateSyncIndicator("live", "Firebase Live");
+            populateLoginSelectors();
+            if (session) renderDashboard();
+            if (showToastMsg) showToast("Synced latest cases from Firebase.");
+          } else {
+            updateSyncIndicator("live", "Firebase Connected (Empty)");
+            if (showToastMsg) showToast("Firebase connected, but database is empty. Admin can click 'Push All Cases'.");
+          }
+        } else {
+          updateSyncIndicator("live", "Firebase Connected (Empty)");
+        }
+      } catch (err) {
+        updateSyncIndicator("error", "Firebase Error");
+        if (showToastMsg) showToast("Firebase sync failed: " + err.message);
+      }
+    }
 
-        // Advocate Row
-        advBody.innerHTML += `
-          <tr>
-            <td><strong>${c.caseNo}</strong></td>
-            <td>${c.parties}</td>
-            <td>${c.date}</td>
-            <td>${statusBadge}</td>
-            <td><button class="action-btn" onclick="toggleCaseStatus(${c.id})">${toggleLabel}</button></td>
-          </tr>
-        `;
+    async function pushCasesToFirebase() {
+      const url = getFirebaseUrl();
+      if (!url) return false;
+      try {
+        const res = await fetch(url + "/cases.json", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cases)
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        updateSyncIndicator("live", "Firebase Live");
+        return true;
+      } catch (err) {
+        updateSyncIndicator("error", "Firebase Error");
+        showToast("Firebase save error: " + err.message);
+        return false;
+      }
+    }
 
-        // Party Row
-        prtBody.innerHTML += `
-          <tr>
-            <td><strong>${c.caseNo}</strong></td>
-            <td>${c.parties}</td>
-            <td>${c.advocate}</td>
-            <td>${c.date}</td>
-            <td>${statusBadge}</td>
-          </tr>
-        `;
+    // --- 4. POPULATE LOGIN DROPDOWNS ---
+    function populateLoginSelectors() {
+      const medSel = document.getElementById("mediatorSelect");
+      const editMedSel = document.getElementById("editMediator");
+      const newMedSel = document.getElementById("newMediator");
+      medSel.innerHTML = MEDIATORS.map(m => `<option value="${m}">${m}</option>`).join("");
+      const medOptsWithBlank = `<option value="">-- Unassigned --</option>` + MEDIATORS.map(m => `<option value="${m}">${m}</option>`).join("");
+      editMedSel.innerHTML = medOptsWithBlank;
+      newMedSel.innerHTML = medOptsWithBlank;
 
-        // Court Row
-        crtBody.innerHTML += `
-          <tr>
-            <td><strong>${c.caseNo}</strong></td>
-            <td>${c.parties}</td>
-            <td>${c.advocate}</td>
-            <td>${c.date}</td>
-            <td>${statusBadge}</td>
-          </tr>
-        `;
-
-        // Mediator Center Row
-        medCenterBody.innerHTML += `
-          <tr>
-            <td><strong>${c.caseNo}</strong></td>
-            <td>${c.advocate}</td>
-            <td>${c.date}</td>
-            <td>${statusBadge}</td>
-          </tr>
-        `;
+      const advSet = new Set();
+      cases.forEach(c => {
+        if (c.petAdv) advSet.add(c.petAdv.trim());
+        if (c.respAdv) advSet.add(c.respAdv.trim());
       });
+      const advList = Array.from(advSet).sort();
+      document.getElementById("advocateSelect").innerHTML = advList.map(a => `<option value="${a}">${a}</option>`).join("");
 
-      const settledCount = cases.filter(c => c.status === 'Settled').length;
-      const pendingCount = cases.length - settledCount;
-      document.getElementById('advTotalCount').textContent = cases.length;
-      document.getElementById('advSettledCount').textContent = settledCount;
-      document.getElementById('advPendingCount').textContent = pendingCount;
-      document.getElementById('crtTotalCount').textContent = cases.length;
-    }
-
-    function filterRecords() {
-      const query = document.getElementById('searchInput').value.toLowerCase().trim();
-      const filtered = cases.filter(c =>
-        c.caseNo.toLowerCase().includes(query) ||
-        c.parties.toLowerCase().includes(query) ||
-        c.advocate.toLowerCase().includes(query) ||
-        c.status.toLowerCase().includes(query)
-      );
-      renderTables(filtered);
-    }
-
-    function openModal() {
-      document.getElementById('caseModal').classList.add('open');
-    }
-
-    function closeModal() {
-      document.getElementById('caseModal').classList.remove('open');
-    }
-
-    function saveNewCase() {
-      const caseNo = document.getElementById('inputCaseNo').value.trim();
-      const parties = document.getElementById('inputParties').value.trim();
-      const advocate = document.getElementById('inputAdvocate').value.trim() || "Adv. R. Nambiar";
-      const date = document.getElementById('inputDate').value || "2026-12-01";
-      const status = document.getElementById('inputStatus').value;
-
-      if (!caseNo || !parties) return;
-
-      cases.unshift({
-        id: Date.now(),
-        caseNo,
-        parties,
-        advocate,
-        date,
-        status
+      const partySet = new Set();
+      cases.forEach(c => {
+        if (c.petitioner) partySet.add(c.petitioner.trim());
+        if (c.respondent) partySet.add(c.respondent.trim());
       });
-
-      document.getElementById('inputCaseNo').value = '';
-      document.getElementById('inputParties').value = '';
-      document.getElementById('inputAdvocate').value = '';
-      closeModal();
-      filterRecords();
+      const partyList = Array.from(partySet).sort();
+      document.getElementById("partySelect").innerHTML = partyList.map(p => `<option value="${p}">${p}</option>`).join("");
     }
 
-    renderTables();
+    // --- 5. AUTHENTICATION (4 STRICT ROLES) ---
+    function fillDemo(role) {
+      if (role === "admin") document.getElementById("adminPassInput").value = "ADMIN2026";
+      if (role === "mediator") document.getElementById("mediatorPinInput").value = "1234";
+      if (role === "advocate") document.getElementById("advocateOtpInput").value = "1111";
+      if (role === "party") document.getElementById("partyOtpInput").value = "1111";
+    }
+
+    function setSession(role, identity) {
+      session = { role, identity };
+      statusFilter = "All";
+      try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)); } catch (e) {}
+      renderApp();
+    }
+
+    function loginAdmin() {
+      const val = document.getElementById("adminPassInput").value.trim();
+      if (val !== "ADMIN2026") {
+        showToast("Invalid Staff Passcode. Use ADMIN2026 (or click Demo).");
+        return;
+      }
+      setSession("admin", "Court Mediation Centre");
+    }
+
+    function loginMediator() {
+      const med = document.getElementById("mediatorSelect").value;
+      const pin = document.getElementById("mediatorPinInput").value.trim();
+      if (pin !== "1234") {
+        showToast("Invalid Mediator PIN. Use 1234 (or click Demo).");
+        return;
+      }
+      setSession("mediator", med);
+    }
+
+    function loginAdvocate() {
+      const adv = document.getElementById("advocateSelect").value;
+      const otp = document.getElementById("advocateOtpInput").value.trim();
+      if (otp !== "1111") {
+        showToast("Invalid OTP. Use 1111 (or click Demo).");
+        return;
+      }
+      setSession("advocate", adv);
+    }
+
+    function loginParty() {
+      const party = document.getElementById("partySelect").value;
+      const otp = document.getElementById("partyOtpInput").value.trim();
+      if (otp !== "1111") {
+        showToast("Invalid OTP. Use 1111 (or click Demo).");
+        return;
+      }
+      setSession("party", party);
+    }
+
+    function logout() {
+      session = null;
+      try { localStorage.removeItem(SESSION_KEY); } catch (e) {}
+      renderApp();
+    }
+
+    // --- 6. STRICT ROLE-BASED DATA ISOLATION ---
+    function getAuthorizedCases() {
+      if (!session) return [];
+      if (session.role === "admin") return cases;
+      if (session.role === "mediator") {
+        return cases.filter(c => (c.mediator || "").toLowerCase() === session.identity.toLowerCase());
+      }
+      if (session.role === "advocate") {
+        const id = session.identity.toLowerCase();
+        return cases.filter(c =>
+          (c.petAdv || "").toLowerCase() === id || (c.respAdv || "").toLowerCase() === id
+        );
+      }
+      if (session.role === "party") {
+        const id = session.identity.toLowerCase();
+        return cases.filter(c =>
+          (c.petitioner || "").toLowerCase() === id || (c.respondent || "").toLowerCase() === id
+        );
+      }
+      return [];
+    }
+
+    // --- 7. RENDERING ---
+    function setLang(lang) {
+      currentLang = lang;
+      try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+      applyTranslations();
+      if (session) renderDashboard();
+    }
+
+    function applyTranslations() {
+      const t = I18N[currentLang] || I18N.en;
+      ["en", "ml", "kn"].forEach(l => {
+        const b = document.getElementById("lang-" + l);
+        b.className = l === currentLang
+          ? "px-2 py-1 rounded-md bg-amber-400 text-slate-900"
+          : "px-2 py-1 rounded-md text-white hover:bg-white/10";
+      });
+      const ids = [
+        "appTitle","appSub","manualBtn","logoutBtn","loginBadge","loginHeading","loginDesc",
+        "r1Tag","r1Title","r1Desc","r1InputLbl","r1Btn",
+        "r2Tag","r2Title","r2Desc","r2SelLbl","r2PinLbl","r2Btn",
+        "r3Tag","r3Title","r3Desc","r3SelLbl","r3OtpLbl","r3Btn",
+        "r4Tag","r4Title","r4Desc","r4SelLbl","r4OtpLbl","r4Btn",
+        "scopeLabel","casesHeading"
+      ];
+      ids.forEach(k => {
+        const el = document.getElementById("t-" + k);
+        if (el && t[k]) el.textContent = t[k];
+      });
+    }
+
+    function renderApp() {
+      applyTranslations();
+      const loginView = document.getElementById("loginView");
+      const dashView = document.getElementById("dashboardView");
+      const sessCtrl = document.getElementById("sessionControls");
+
+      if (!session) {
+        loginView.classList.remove("hidden");
+        dashView.classList.add("hidden");
+        sessCtrl.classList.add("hidden");
+        sessCtrl.classList.remove("flex");
+      } else {
+        loginView.classList.add("hidden");
+        dashView.classList.remove("hidden");
+        sessCtrl.classList.remove("hidden");
+        sessCtrl.classList.add("flex");
+        renderDashboard();
+      }
+    }
+
+    function renderDashboard() {
+      const t = I18N[currentLang] || I18N.en;
+      const roleMap = {
+        admin: "Admin",
+        mediator: "Mediator",
+        advocate: "Advocate",
+        party: "Party"
+      };
+      document.getElementById("activeRoleBadge").textContent = `${roleMap[session.role]}: ${session.identity}`;
+      document.getElementById("scopeTitle").textContent = `${roleMap[session.role]} — ${session.identity}`;
+
+      const scopeDescriptions = {
+        admin: "Full Register No. VI Access (All Cases)",
+        mediator: "Restricted to cases assigned to you as Mediator",
+        advocate: "Restricted to cases where you appear as Advocate",
+        party: "Read-only access to your own case(s) only"
+      };
+      document.getElementById("scopeDesc").textContent = scopeDescriptions[session.role];
+
+      // Role-specific action buttons
+      document.getElementById("addCaseBtn").classList.toggle("hidden", session.role !== "admin");
+      document.getElementById("printRegBtn").classList.toggle("hidden", session.role !== "admin" && session.role !== "mediator");
+      document.getElementById("exportCsvBtn").classList.toggle("hidden", session.role !== "admin");
+
+      const authCases = getAuthorizedCases();
+      const total = authCases.length;
+      const settled = authCases.filter(c => c.status === "Settled").length;
+      const notSettled = authCases.filter(c => c.status === "Not Settled").length;
+      const pending = authCases.filter(c => c.status === "Pending").length;
+
+      const pills = [
+        { key: "All", label: `${t.all}: ${total}`, cls: "bg-slate-100 text-slate-800" },
+        { key: "Settled", label: `${t.settled}: ${settled}`, cls: "bg-emerald-100 text-emerald-800" },
+        { key: "Not Settled", label: `${t.notSettled}: ${notSettled}`, cls: "bg-rose-100 text-rose-800" },
+        { key: "Pending", label: `${t.pending}: ${pending}`, cls: "bg-amber-100 text-amber-900" }
+      ];
+      document.getElementById("statsBar").innerHTML = pills.map(p => `
+        <button type="button" onclick="setStatusFilter('${p.key}')" class="px-3 py-1.5 rounded-xl text-xs font-bold border ${statusFilter === p.key ? 'ring-2 ring-[#0f2244] ' : 'border-transparent '} ${p.cls}">
+          ${p.label}
+        </button>
+      `).join("");
+
+      renderCases();
+    }
+
+    function setStatusFilter(k) {
+      statusFilter = k;
+      renderDashboard();
+    }
+
+    function renderCases() {
+      const t = I18N[currentLang] || I18N.en;
+      const q = (document.getElementById("searchInput").value || "").toLowerCase().trim();
+      let list = getAuthorizedCases();
+      if (statusFilter !== "All") {
+        list = list.filter(c => c.status === statusFilter);
+      }
+      if (q) {
+        list = list.filter(c =>
+          [c.folio, c.caseNo, c.court, c.petitioner, c.respondent, c.petAdv, c.respAdv, c.mediator, c.notes]
+            .some(v => (v || "").toLowerCase().includes(q))
+        );
+      }
+
+      document.getElementById("visibleCountLabel").textContent = `${list.length} / ${getAuthorizedCases().length}`;
+      const container = document.getElementById("casesContainer");
+      if (list.length === 0) {
+        container.innerHTML = `<div class="p-8 text-center text-sm text-slate-500">${t.noCases}</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(c => {
+        const badgeCls = c.status === "Settled"
+          ? "bg-emerald-100 text-emerald-800"
+          : c.status === "Not Settled"
+            ? "bg-rose-100 text-rose-800"
+            : "bg-amber-100 text-amber-900";
+        const btnText = (session.role === "party") ? t.readOnly : t.viewEdit;
+        return `
+          <div class="p-4 hover:bg-slate-50 transition flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="space-y-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2 py-0.5 rounded bg-[#0f2244] text-white text-[11px] font-bold">Folio #${c.folio}</span>
+                <span class="font-bold text-sm text-[#0f2244]">${c.caseNo || "-"}</span>
+                <span class="text-xs text-slate-500">${c.court || "-"}</span>
+                <span class="px-2 py-0.5 rounded-full text-[11px] font-bold ${badgeCls}">${c.status}</span>
+              </div>
+              <div class="text-xs text-slate-700">
+                <b>${c.petitioner || "—"}</b> <span class="text-slate-400">vs</span> <b>${c.respondent || "—"}</b>
+              </div>
+              <div class="text-[11px] text-slate-500 flex flex-wrap gap-x-4 gap-y-1">
+                <span>Mediator: <b>${c.mediator || t.unassigned}</b></span>
+                <span>Next Session: <b>${c.nextDate || "—"}</b></span>
+                <span>Court Posting: <b>${c.postingDate || "—"}</b></span>
+              </div>
+            </div>
+            <div class="shrink-0">
+              <button type="button" onclick="openCaseModal('${c.folio}')" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-[#0f2244] hover:text-white text-slate-800 text-xs font-bold transition">
+                ${btnText}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // --- 8. CASE MODAL & UPDATES ---
+    function openCaseModal(folio) {
+      const c = getAuthorizedCases().find(x => x.folio === folio);
+      if (!c) return;
+      activeFolio = folio;
+      document.getElementById("modalFolio").textContent = `Folio #${c.folio}`;
+      document.getElementById("modalTitle").textContent = `${c.caseNo} — ${c.petitioner || "Petitioner"} vs ${c.respondent || "Respondent"}`;
+      document.getElementById("modalCourt").textContent = c.court;
+
+      document.getElementById("modalDetailsGrid").innerHTML = `
+        <div><span class="text-slate-500">Petitioner:</span> <b>${c.petitioner || "—"}</b></div>
+        <div><span class="text-slate-500">Respondent:</span> <b>${c.respondent || "—"}</b></div>
+        <div><span class="text-slate-500">Pet. Advocate:</span> <b>${c.petAdv || "—"}</b> (${c.petContact || "—"})</div>
+        <div><span class="text-slate-500">Resp. Advocate:</span> <b>${c.respAdv || "—"}</b> (${c.respContact || "—"})</div>
+        <div><span class="text-slate-500">Reference Date:</span> <b>${c.refDate || "—"}</b></div>
+        <div><span class="text-slate-500">Court Posting:</span> <b>${c.postingDate || "—"}</b></div>
+      `;
+
+      document.getElementById("editStatus").value = c.status || "Pending";
+      document.getElementById("editNextDate").value = c.nextDate || "";
+      document.getElementById("editReturnDate").value = c.returnDate || "";
+      document.getElementById("editMediator").value = c.mediator || "";
+      document.getElementById("editNotes").value = c.notes || "";
+
+      const isParty = session.role === "party";
+      const isAdvocate = session.role === "advocate";
+      const isAdmin = session.role === "admin";
+
+      document.getElementById("editStatus").disabled = isParty || isAdvocate;
+      document.getElementById("editNextDate").disabled = isParty || isAdvocate;
+      document.getElementById("editReturnDate").disabled = isParty || isAdvocate;
+      document.getElementById("editMediatorWrap").classList.toggle("hidden", !isAdmin);
+      document.getElementById("editNotes").disabled = isParty;
+      document.getElementById("saveCaseBtn").classList.toggle("hidden", isParty);
+      document.getElementById("sec89Btn").classList.toggle("hidden", isParty);
+
+      document.getElementById("caseModal").classList.remove("hidden");
+    }
+
+    async function saveCaseChanges() {
+      const idx = cases.findIndex(x => x.folio === activeFolio);
+      if (idx === -1) return;
+      if (session.role === "admin" || session.role === "mediator") {
+        cases[idx].status = document.getElementById("editStatus").value;
+        cases[idx].nextDate = document.getElementById("editNextDate").value;
+        cases[idx].returnDate = document.getElementById("editReturnDate").value;
+      }
+      if (session.role === "admin") {
+        cases[idx].mediator = document.getElementById("editMediator").value;
+      }
+      if (session.role !== "party") {
+        cases[idx].notes = document.getElementById("editNotes").value;
+      }
+      saveLocalCases(true);
+      await pushCasesToFirebase();
+      closeModal("caseModal");
+      renderDashboard();
+      showToast("Case updated & synced.");
+    }
+
+    function openAddCaseModal() {
+      if (session.role !== "admin") return;
+      document.getElementById("addCaseModal").classList.remove("hidden");
+    }
+
+    async function createNewCase() {
+      if (session.role !== "admin") return;
+      const nextFolio = String(cases.reduce((m, c) => Math.max(m, parseInt(c.folio, 10) || 0), 0) + 1);
+      const item = {
+        folio: nextFolio,
+        mediator: document.getElementById("newMediator").value,
+        court: document.getElementById("newCourt").value.trim() || "Kasaragod Court",
+        caseNo: document.getElementById("newCaseNo").value.trim() || "NEW/" + nextFolio,
+        petitioner: document.getElementById("newPet").value.trim(),
+        petAdv: document.getElementById("newPetAdv").value.trim(),
+        petContact: "",
+        respondent: document.getElementById("newResp").value.trim(),
+        respAdv: document.getElementById("newRespAdv").value.trim(),
+        respContact: "",
+        refDate: new Date().toISOString().slice(0, 10),
+        firstDate: "",
+        postingDate: "",
+        returnDate: "",
+        status: "Pending",
+        nextDate: document.getElementById("newNextDate").value,
+        notes: document.getElementById("newNotes").value.trim()
+      };
+      cases.push(item);
+      saveLocalCases(true);
+      populateLoginSelectors();
+      await pushCasesToFirebase();
+      closeModal("addCaseModal");
+      renderDashboard();
+      showToast("New case Folio #" + nextFolio + " added & synced.");
+    }
+
+    // --- 9. SECTION 89 DRAFT & EXPORT ---
+    function openSec89Draft() {
+      const c = cases.find(x => x.folio === activeFolio);
+      if (!c) return;
+      document.getElementById("sec89Text").value =
+`BEFORE THE HON'BLE ${c.court.toUpperCase()}
+MEMORANDUM OF SETTLEMENT UNDER SECTION 89 OF CPC
+Mediation Folio No.: ${c.folio} | Case No.: ${c.caseNo}
+Petitioner: ${c.petitioner || "—"} (Adv. ${c.petAdv || "—"})
+Respondent: ${c.respondent || "—"} (Adv. ${c.respAdv || "—"})
+Assigned Mediator: ${c.mediator || "Kasaragod Mediation Centre"}
+
+TERMS OF SETTLEMENT:
+1. Both parties appeared before the Kasaragod Court-Annexed Mediation Centre and mutually agreed to settle the dispute amicably.
+2. Details / Notes: ${c.notes || "As agreed between the parties."}
+3. Mediation Return Date: ${c.returnDate || new Date().toISOString().slice(0, 10)}
+
+Signature of Petitioner          Signature of Respondent          Signature of Mediator`;
+      document.getElementById("sec89Modal").classList.remove("hidden");
+    }
+
+    function copySec89() {
+      const ta = document.getElementById("sec89Text");
+      ta.select();
+      try {
+        if (navigator.clipboard) navigator.clipboard.writeText(ta.value);
+        else document.execCommand("copy");
+      } catch (e) {
+        document.execCommand("copy");
+      }
+      showToast("Settlement draft copied.");
+    }
+
+    function exportCSV() {
+      const headers = ["Folio","Mediator","Court","CaseNo","Petitioner","PetAdv","Respondent","RespAdv","Status","NextSession","CourtPosting","Notes"];
+      const rows = cases.map(c => [c.folio, c.mediator, c.court, c.caseNo, c.petitioner, c.petAdv, c.respondent, c.respAdv, c.status, c.nextDate, c.postingDate, c.notes]
+        .map(v => '"' + String(v || "").replace(/"/g, '""') + '"').join(","));
+      const blob = new Blob([[headers.join(","), ...rows].join("\n")], { type: "text/csv;charset=utf-8;" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "kasaragod_mediation_register_2026.csv";
+      a.click();
+    }
+
+    function exportJSON() {
+      const blob = new Blob([JSON.stringify(cases, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "mediation_cases_backup.json";
+      a.click();
+    }
+
+    function importJSON(ev) {
+      const f = ev.target.files && ev.target.files[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (Array.isArray(parsed)) {
+            cases = parsed;
+            saveLocalCases(true);
+            populateLoginSelectors();
+            await pushCasesToFirebase();
+            if (session) renderDashboard();
+            showToast("Imported " + cases.length + " cases.");
+          }
+        } catch (err) {
+          showToast("Invalid JSON file.");
+        }
+      };
+      reader.readAsText(f);
+    }
+
+    // --- 10. FIREBASE SYNC MODAL ---
+    function openSyncModal() {
+      document.getElementById("firebaseUrlInput").value = getFirebaseUrl();
+      document.getElementById("syncTestResult").classList.add("hidden");
+      document.getElementById("syncModal").classList.remove("hidden");
+    }
+
+    async function testAndSaveFirebase() {
+      const raw = document.getElementById("firebaseUrlInput").value.trim().replace(/\/+$/, "");
+      const resBox = document.getElementById("syncTestResult");
+      if (!raw || !raw.startsWith("https://")) {
+        resBox.className = "text-xs p-3 rounded-xl border bg-rose-50 border-rose-200 text-rose-800";
+        resBox.textContent = "Please enter a valid https:// Firebase Realtime Database URL.";
+        resBox.classList.remove("hidden");
+        return;
+      }
+      try {
+        const r = await fetch(raw + "/cases.json");
+        if (!r.ok) throw new Error("HTTP " + r.status + " (Check Firebase Rules)");
+        try { localStorage.setItem(FB_URL_KEY, raw); } catch (e) {}
+        resBox.className = "text-xs p-3 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-800";
+        resBox.textContent = "Connected! Now click 'Push All 14+ Cases to Firebase' if this is your first setup.";
+        resBox.classList.remove("hidden");
+        updateSyncIndicator("live", "Firebase Live");
+      } catch (err) {
+        resBox.className = "text-xs p-3 rounded-xl border bg-rose-50 border-rose-200 text-rose-800";
+        resBox.textContent = "Connection failed: " + err.message + ". Verify URL and set Rules to .read: true, .write: true.";
+        resBox.classList.remove("hidden");
+        updateSyncIndicator("error", "Firebase Error");
+      }
+    }
+
+    async function pushAllToFirebase() {
+      const ok = await pushCasesToFirebase();
+      const resBox = document.getElementById("syncTestResult");
+      if (ok) {
+        resBox.className = "text-xs p-3 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-800";
+        resBox.textContent = "Successfully pushed all " + cases.length + " cases to Firebase! All devices can now pull live updates.";
+        resBox.classList.remove("hidden");
+      }
+    }
+
+    function disconnectFirebase() {
+      try { localStorage.removeItem(FB_URL_KEY); } catch (e) {}
+      document.getElementById("firebaseUrlInput").value = "";
+      updateSyncIndicator("local", "Local Mode");
+      showToast("Switched to Local Mode.");
+    }
+
+    // --- 11. IN-PAGE MANUAL MODAL ---
+    function openManualModal() {
+      const body = document.getElementById("manualModalBody");
+      body.innerHTML = `
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <h4 class="font-bold text-[#0f2244] mb-1">1. Strict Role Isolation (4 Roles)</h4>
+          <p>• <b>Admin:</b> Passcode <code>ADMIN2026</code> — sees all cases, assigns mediators, manages Firebase Sync.<br>
+          • <b>Mediator:</b> Select Mediator + PIN <code>1234</code> — sees <b>only assigned cases</b>.<br>
+          • <b>Advocate:</b> Select Advocate + OTP <code>1111</code> — sees <b>only own cases</b>.<br>
+          • <b>Party / Client:</b> Select Party + OTP <code>1111</code> — read-only view of <b>own case only</b>.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+          <h4 class="font-bold text-amber-900 mb-1">2. Fixing Firebase Live Sync (Collective Updates)</h4>
+          <p>1. Open Firebase Console &rarr; <b>Realtime Database</b>.<br>
+          2. Copy the exact Database URL (e.g. <code>https://your-project-default-rtdb.firebaseio.com</code>).<br>
+          3. Go to <b>Rules</b> and set <code>{ "rules": { ".read": true, ".write": true } }</code> then click <b>Publish</b>.<br>
+          4. Click <b>Firebase Sync</b> in the top bar, paste the URL, click <b>Test &amp; Save</b>, then click <b>Push All 14+ Cases to Firebase</b>.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+          <h4 class="font-bold text-emerald-900 mb-1">3. Home Screen App Icon</h4>
+          <p>Upload all 5 files from <code>mediation-portal.zip</code> (<code>index.html</code>, <code>manual.html</code>, <code>manifest.json</code>, <code>icon-192.png</code>, <code>icon-512.png</code>) to your GitHub Pages repo root so Android "Add to Home screen" displays the Scales of Justice icon.</p>
+        </div>
+      `;
+      document.getElementById("manualModal").classList.remove("hidden");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add("hidden");
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById("toastBox");
+      box.textContent = msg;
+      box.classList.remove("hidden");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => box.classList.add("hidden"), 3500);
+    }
+
+    // --- 12. INIT ---
+    loadState();
+    populateLoginSelectors();
+    renderApp();
+    if (getFirebaseUrl()) {
+      pullFromFirebase(false);
+    }
   </script>
 </body>
 </html>

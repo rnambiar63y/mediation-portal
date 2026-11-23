@@ -1,15 +1,25 @@
 {
-  "name": "Mediation Management Portal",
-  "short_name": "Mediation App",
+  "name": "Kasaragod Court-Annexed Mediation Portal",
+  "short_name": "Mediation Portal",
+  "description": "Court-Annexed Mediation Center Portal — Kasaragod Mediation Register 2026 (EN / മലയാളം / ಕನ್ನಡ)",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#f4f6f9",
-  "theme_color": "#1B3B6F",
+  "background_color": "#0f2244",
+  "theme_color": "#0f2244",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/2666/2666505.png",
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
