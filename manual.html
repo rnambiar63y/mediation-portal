@@ -1,156 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Manual — Kasaragod Court-Annexed Mediation Portal</title>
-  <link rel="icon" type="image/png" href="./icon-192.png" />
-  <link rel="apple-touch-icon" href="./icon-192.png" />
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <style>
-    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-  </style>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.3.7.2 (Linux)"/>
+	<meta name="created" content="2026-11-24T20:11:00.236301186"/>
+	<meta name="changed" content="2026-11-24T20:18:36.845553197"/>
+	<style type="text/css">
+		@page { size: 21cm 29.7cm; margin: 2cm }
+		p { line-height: 115%; margin-bottom: 0.25cm; background: transparent }
+	</style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen">
-  <header class="bg-[#0f2244] text-white sticky top-0 z-20 shadow">
-    <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <img src="./icon-192.png" alt="Mediation Icon" class="w-9 h-9 rounded-lg border border-amber-400/40" />
-        <div>
-          <h1 id="hdrTitle" class="text-base font-bold leading-tight">Court-Annexed Mediation Portal — User Manual</h1>
-          <p id="hdrSub" class="text-xs text-amber-200">Kasaragod Mediation Centre • Operational &amp; Firebase Setup Guide</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2">
-        <div class="inline-flex rounded-lg bg-white/10 p-0.5 text-xs font-semibold">
-          <button onclick="setLang('en')" id="btn-en" class="px-2.5 py-1 rounded-md bg-amber-400 text-slate-900">EN</button>
-          <button onclick="setLang('ml')" id="btn-ml" class="px-2.5 py-1 rounded-md text-white hover:bg-white/10">മലയാളം</button>
-          <button onclick="setLang('kn')" id="btn-kn" class="px-2.5 py-1 rounded-md text-white hover:bg-white/10">ಕನ್ನಡ</button>
-        </div>
-        <a href="./index.html" id="backLink" class="px-3 py-1.5 rounded-lg bg-amber-400 text-slate-900 text-xs font-bold hover:bg-amber-300">Open Portal</a>
-      </div>
-    </div>
-  </header>
+<body lang="en-IN" link="#000080" vlink="#800000" dir="ltr"><p style="line-height: 100%; margin-bottom: 0cm">
+&lt;!DOCTYPE html&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">&lt;html lang=&quot;en&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">&lt;head&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;meta
+charset=&quot;UTF-8&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;meta
+name=&quot;viewport&quot; content=&quot;width=device-width,
+initial-scale=1.0&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;title&gt;Mediation
+Portal User Manual&lt;/title&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;style&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        :root {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+--primary: #1A365D; --accent: #D4AF37;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">            --bg:
+#F4F6F9; --text: #2D3748;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: var(--bg); color: var(--text); padding: 20px;
+line-height: 1.6; }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        .container {
+max-width: 800px; margin: 0 auto; background: #FFF; padding: 30px;
+border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        h1, h2 {
+color: var(--primary); border-bottom: 2px solid var(--accent);
+padding-bottom: 10px; }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        .section {
+margin-bottom: 25px; }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">       
+.admin-section { margin-top: 40px; border-top: 2px dashed #CBD5E0;
+padding-top: 20px; color: #718096; }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        .pin-box {
+background: #EBF8FF; border-left: 4px solid var(--accent); padding:
+15px; border-radius: 0 8px 8px 0; margin: 10px 0; }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        .note {
+font-style: italic; color: #4A5568; }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        @media print
+{ body { background: #FFF; padding: 0; } .container { box-shadow:
+none; width: 100%; } .admin-section { display: none; } }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;/style&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">&lt;/head&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">&lt;body&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">&lt;div
+class=&quot;container&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">   
+&lt;h1&gt;Court-Annexed Mediation Portal&lt;/h1&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;p&gt;&lt;strong&gt;User
+&amp;amp; Operational Manual&lt;/strong&gt; | &lt;strong&gt;<font face="RIT Rachana"><span lang="hi-IN">കക്ഷികൾക്കും
+മധ്യസ്ഥന്മാർക്കുമുള്ള
+നിർദ്ദേശങ്ങൾ</span></font>&lt;/strong&gt;&lt;/p&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
 
-  <main class="max-w-4xl mx-auto px-4 py-6 space-y-6" id="manualContent"></main>
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;div
+class=&quot;section&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;h2&gt;1.
+Overview &amp;amp; Role-Based Access&lt;/h2&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;p&gt;The
+Mediation Portal provides role-isolated access to case records. Upon
+opening the portal, select your respective role on the login screen
+and enter your authorized PIN:&lt;/p&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;div
+class=&quot;pin-box&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;strong&gt;Mediator (<font face="RIT Rachana"><span lang="hi-IN">മധ്യസ്ഥൻ</span></font>):&lt;/strong&gt;
+Select your name from the dropdown and enter your mediator PIN.&lt;br&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">            &lt;span
+class=&quot;note&quot;&gt;Accesses only the cases explicitly assigned
+to your mediation docket.&lt;/span&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;/div&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;div
+class=&quot;pin-box&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;strong&gt;Advocate (<font face="RIT Rachana"><span lang="hi-IN">അഡ്വക്കേറ്റ്</span></font>):&lt;/strong&gt;
+Select Advocate Login and enter your authorized PIN.&lt;br&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">            &lt;span
+class=&quot;note&quot;&gt;Accesses only the cases where you are
+listed as the Petitioner's or Respondent's advocate.&lt;/span&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;/div&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
 
-  <script>
-    const MANUAL_DATA = {
-      en: {
-        hdrTitle: "Court-Annexed Mediation Portal — User Manual",
-        hdrSub: "Kasaragod Mediation Centre • Operational & Firebase Setup Guide",
-        backLink: "Open Portal",
-        sections: [
-          {
-            title: "1. Strict Role-Based Access Control (4 Roles)",
-            items: [
-              "<b>Court Mediation Centre (Admin / Staff)</b> — Passcode: <code>ADMIN2026</code>. Full access to all Register No. VI cases, add/edit cases, assign mediators, configure Firebase Live Sync, and print A4 Court Reports.",
-              "<b>Mediator</b> — Select Mediator name (e.g., Ravindran Nambiar / R.N, B.F. AbdulRahman, USB, S.N) + PIN <code>1234</code>. <b>Strictly sees only their assigned cases.</b> Search bar displays their Settled, Not Settled, and Pending counts.",
-              "<b>Advocate</b> — Enter your Advocate Name + Passcode (default <code>1111</code>). <b>Strictly sees only cases where you appear as Petitioner or Respondent Advocate.</b>",
-              "<b>Party / Client</b> — Enter your Case Number + Registered Party Name or Mobile Number. <b>Strictly read-only access to your own case only.</b>"
-            ]
-          },
-          {
-            title: "2. Fixing Firebase Live Sync (Collective Multi-Device Updates)",
-            items: [
-              "<b>Step 1 — Open Firebase Console:</b> Go to Realtime Database in your Firebase project.",
-              "<b>Step 2 — Copy Exact Database URL:</b> Copy the full URL (for Mumbai/Asia-South1 it looks like <code>https://your-project-default-rtdb.asia-southeast1.firebasedatabase.app</code> or <code>https://your-project-default-rtdb.firebaseio.com</code>) without a trailing slash.",
-              "<b>Step 3 — Set Database Rules:</b> In Firebase &rarr; Realtime Database &rarr; Rules, ensure read/write is enabled for your portal: <code>{ \"rules\": { \".read\": true, \".write\": true } }</code> and click <b>Publish</b>.",
-              "<b>Step 4 — Connect in Portal:</b> Log in as <b>Court Mediation Centre (Admin)</b> &rarr; click <b>Firebase Sync</b> &rarr; paste the URL &rarr; click <b>Test &amp; Save</b> &rarr; click <b>Push All Cases to Firebase</b> once to seed the 14 register cases."
-            ]
-          },
-          {
-            title: "3. Restoring the Home Screen App Icon (GitHub Pages)",
-            items: [
-              "Upload all 5 files from <code>mediation-portal.zip</code> (<code>index.html</code>, <code>manual.html</code>, <code>manifest.json</code>, <code>icon-192.png</code>, <code>icon-512.png</code>) to the root of your <code>rnambiar63y/mediation-portal</code> GitHub repository.",
-              "Open <code>https://rnambiar63y.github.io/mediation-portal/</code> in Chrome on Android and tap <b>Add to Home screen</b>. The Scales of Justice icon will appear automatically."
-            ]
-          }
-        ]
-      },
-      ml: {
-        hdrTitle: "കോർട്ട്-അനെക്സ്ഡ് മീഡിയേഷൻ പോർട്ടൽ — യൂസർ മാനുവൽ",
-        hdrSub: "കാസർഗോഡ് മീഡിയേഷൻ സെന്റർ • പ്രവർത്തന & Firebase സജ്ജീകരണ സഹായി",
-        backLink: "പോർട്ടൽ തുറക്കുക",
-        sections: [
-          {
-            title: "1. നാല് റോളുകൾക്കും കർശനമായ ആക്സസ് നിയന്ത്രണം",
-            items: [
-              "<b>കോർട്ട് മീഡിയേഷൻ സെന്റർ (Admin)</b> — സ്റ്റാഫ് പാസ്‌കോഡ് (<code>ADMIN2026</code>). എല്ലാ കേസുകളും കാണാനും, മീഡിയേറ്റർമാരുടെ PIN-കൾ മാറ്റാനും (<b>PIN Settings</b>), ഔദ്യോഗിക <b>A4 രജിസ്റ്റർ No. VI</b> പ്രിന്റ് എടുക്കാനും, Firebase സിങ്ക് ക്രമീകരിക്കാനും സാധിക്കും.",
-              "<b>മീഡിയേറ്റർ (Mediator)</b> — നിങ്ങളുടെ പേര് തിരഞ്ഞെടുത്ത് PIN (<code>1234</code>) നൽകുക. <b>നിങ്ങൾക്ക് അനുവദിച്ച കേസുകൾ മാത്രമേ കാണാൻ കഴിയൂ.</b> സെർച്ച് ബാറിൽ നിങ്ങളുടെ സെറ്റിൽ ചെയ്തവ, തീർപ്പാകാത്തവ, പെൻഡിംഗ് കേസുകളുടെ എണ്ണം കാണാം.",
-              "<b>അഡ്വക്കേറ്റ് (Advocate)</b> — നിങ്ങളുടെ പേരും പാസ്‌കോഡും (<code>1111</code>) ടൈപ്പ് ചെയ്ത് നൽകുക. <b>നിങ്ങൾ ഹാജരാകുന്ന കേസുകൾ മാത്രമേ ദൃശ്യമാകൂ.</b>",
-              "<b>കക്ഷി / പാർട്ടി (Party / Client)</b> — കേസ് നമ്പറും രജിസ്റ്റർ ചെയ്ത പേരോ മൊബൈൽ നമ്പറോ നൽകുക. <b>സ്വന്തം കേസിന്റെ വിവരങ്ങൾ മാത്രമേ കാണാൻ സാധിക്കൂ.</b>"
-            ]
-          },
-          {
-            title: "2. Firebase കണക്ടിവിറ്റി ശരിയാക്കാനുള്ള വഴി (എല്ലാ ഉപകരണങ്ങളിലും മാറ്റം വരാൻ)",
-            items: [
-              "<b>ഘട്ടം 1:</b> Firebase Console-ൽ <b>Realtime Database</b> തുറക്കുക.",
-              "<b>ഘട്ടം 2 (ശരിയായ URL):</b> Database-ന്റെ പൂർണ്ണമായ URL പകർത്തുക (ഉദാഹരണത്തിന് <code>https://your-project-default-rtdb.firebaseio.com</code> അല്ലെങ്കിൽ <code>.firebasedatabase.app</code>).",
-              "<b>ഘട്ടം 3 (Rules ശരിയാക്കുക):</b> Firebase-ൽ ഡാറ്റ വരാതിരിക്കാനുള്ള പ്രധാന കാരണം Rules ബ്ലോക്ക് ചെയ്യുന്നതാണ്. Realtime Database &rarr; <b>Rules</b>-ൽ <code>{ \"rules\": { \".read\": true, \".write\": true } }</code> നൽകി <b>Publish</b> ചെയ്യുക.",
-              "<b>ഘട്ടം 4 (പോർട്ടലിൽ ബന്ധിപ്പിക്കുക):</b> പോർട്ടലിൽ <b>Court Mediation Centre (Admin)</b> ആയി ലോഗിൻ ചെയ്ത് <b>Firebase Sync</b> ബട്ടണിൽ ക്ലിക്ക് ചെയ്യുക. URL പേസ്റ്റ് ചെയ്ത് <b>Test &amp; Save</b> അമർത്തുക, തുടർന്ന് <b>Push All Cases to Firebase</b> അമർത്തുക. ഇനി ആര് മാറ്റം വരുത്തിയാലും എല്ലാവർക്കും തത്സമയം കാണാം."
-            ]
-          },
-          {
-            title: "3. ഹോം സ്ക്രീൻ ആപ്പ് ഐക്കൺ തിരികെ ലഭിക്കാൻ (GitHub Pages)",
-            items: [
-              "<code>mediation-portal.zip</code>-ലുള്ള 5 ഫയലുകളും (<code>index.html</code>, <code>manual.html</code>, <code>manifest.json</code>, <code>icon-192.png</code>, <code>icon-512.png</code>) GitHub-ലെ <code>rnambiar63y/mediation-portal</code> റിപ്പോസിറ്ററിയിൽ അപ്‌ലോഡ് ചെയ്യുക.",
-              "Android Chrome-ൽ സൈറ്റ് തുറന്ന് <b>Add to Home screen</b> നൽകിയാൽ പുതിയ തുലാസ് ഐക്കൺ കൃത്യമായി വരും."
-            ]
-          }
-        ]
-      },
-      kn: {
-        hdrTitle: "ನ್ಯಾಯಾಲಯ ಮಧ್ಯಸ್ಥಿಕೆ ಪೋರ್ಟಲ್ — ಬಳಕೆದಾರರ ಕೈಪಿಡಿ",
-        hdrSub: "ಕಾಸರಗೋಡು ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ • ಕಾರ್ಯಾಚರಣೆ ಮತ್ತು Firebase ಮಾರ್ಗದರ್ಶಿ",
-        backLink: "ಪೋರ್ಟಲ್ ತೆರೆಯಿರಿ",
-        sections: [
-          {
-            title: "1. ನಾಲ್ಕು ಪಾತ್ರಗಳಿಗೆ ಕಟ್ಟುನಿಟ್ಟಾದ ಪ್ರವೇಶ ನಿಯಂತ್ರಣ",
-            items: [
-              "<b>ನ್ಯಾಯಾಲಯ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ (Admin)</b> — ಪಾಸ್‌ಕೋಡ್: <code>ADMIN2026</code>. ಎಲ್ಲಾ ಪ್ರಕರಣಗಳನ್ನು ವೀಕ್ಷಿಸಲು, ಸೇರಿಸಲು, ಮಧ್ಯಸ್ಥಗಾರರನ್ನು ನಿಯೋಜಿಸಲು ಮತ್ತು Firebase ಸಿಂಕ್ ಹೊಂದಿಸಲು ಸಂಪೂರ್ಣ ಪ್ರವೇಶ.",
-              "<b>ಮಧ್ಯಸ್ಥಗಾರರು (Mediator)</b> — ನಿಮ್ಮ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ PIN (<code>1234</code>) ನಮೂದಿಸಿ. <b>ನಿಮಗೆ ನಿಯೋಜಿಸಲಾದ ಪ್ರಕರಣಗಳು ಮಾತ್ರ ಕಾಣಿಸುತ್ತವೆ.</b>",
-              "<b>ವಕೀಲರು (Advocate)</b> — ವಕೀಲರ ಹೆಸರು ಮತ್ತು OTP (<code>1111</code>) ನಮೂದಿಸಿ. <b>ನಿಮ್ಮ ಪ್ರಕರಣಗಳು ಮಾತ್ರ ಕಾಣಿಸುತ್ತವೆ.</b>",
-              "<b>ಪಕ್ಷಗಾರರು (Party / Client)</b> — ಪಕ್ಷಗಾರರ ಹೆಸರು ಅಥವಾ ಪ್ರಕರಣ ಸಂಖ್ಯೆ + OTP (<code>1111</code>) ನಮೂದಿಸಿ. <b>ನಿಮ್ಮ ಸ್ವಂತ ಪ್ರಕರಣದ ವಿವರ ಮಾತ್ರ ಕಾಣಿಸುತ್ತದೆ.</b>"
-            ]
-          },
-          {
-            title: "2. Firebase ಲೈವ್ ಸಿಂಕ್ ಸರಿಪಡಿಸುವ ವಿಧಾನ",
-            items: [
-              "Firebase Console ನಲ್ಲಿ <b>Realtime Database</b> ತೆರೆಯಿರಿ ಮತ್ತು ಪೂರ್ಣ URL ಅನ್ನು ನಕಲಿಸಿ.",
-              "<b>Rules</b> ವಿಭಾಗದಲ್ಲಿ <code>{ \"rules\": { \".read\": true, \".write\": true } }</code> ಹೊಂದಿಸಿ <b>Publish</b> ಮಾಡಿ.",
-              "ಪೋರ್ಟಲ್‌ನಲ್ಲಿ Admin ಆಗಿ ಲಾಗಿನ್ ಮಾಡಿ <b>Firebase Sync</b> ಕ್ಲಿಕ್ ಮಾಡಿ, URL ಅಂಟಿಸಿ <b>Test &amp; Save</b> ಮತ್ತು <b>Push All Cases</b> ಒತ್ತಿರಿ."
-            ]
-          },
-          {
-            title: "3. ಆ್ಯಪ್ ಐಕಾನ್ ಪುನಃಸ್ಥಾಪನೆ (GitHub Pages)",
-            items: [
-              "<code>mediation-portal.zip</code> ನಲ್ಲಿರುವ ಎಲ್ಲಾ 5 ಫೈಲ್‌ಗಳನ್ನು (<code>index.html</code>, <code>manual.html</code>, <code>manifest.json</code>, <code>icon-192.png</code>, <code>icon-512.png</code>) GitHub ನಲ್ಲಿ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ."
-            ]
-          }
-        ]
-      }
-    };
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;div
+class=&quot;pin-box&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;strong&gt;Party / Client (<font face="RIT Rachana"><span lang="hi-IN">കക്ഷി</span></font>):&lt;/strong&gt;
+Enter the specific Case Number (e.g., OP 1117/2026) and your party
+PIN.&lt;br&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">            &lt;span
+class=&quot;note&quot;&gt;Accesses exclusively the details, status,
+and scheduled dates for your specific matter.&lt;/span&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;/div&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;/div&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
 
-    function setLang(lang) {
-      const d = MANUAL_DATA[lang] || MANUAL_DATA.en;
-      document.getElementById('hdrTitle').textContent = d.hdrTitle;
-      document.getElementById('hdrSub').textContent = d.hdrSub;
-      document.getElementById('backLink').textContent = d.backLink;
-      ['en','ml','kn'].forEach(l => {
-        const b = document.getElementById('btn-' + l);
-        b.className = l === lang ? 'px-2.5 py-1 rounded-md bg-amber-400 text-slate-900' : 'px-2.5 py-1 rounded-md text-white hover:bg-white/10';
-      });
-      document.getElementById('manualContent').innerHTML = d.sections.map(sec => `
-        <section class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-          <h2 class="text-base font-bold text-[#0f2244] mb-3">${sec.title}</h2>
-          <ul class="space-y-2 text-sm text-slate-700 list-disc pl-5">
-            ${sec.items.map(i => `<li>${i}</li>`).join('')}
-          </ul>
-        </section>
-      `).join('');
-    }
-    setLang('ml');
-  </script>
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;div
+class=&quot;section&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;h2&gt;2.
+Case Dashboard &amp;amp; Status Tracking&lt;/h2&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;p&gt;Once
+authenticated, the dashboard displays your authorized case list:&lt;/p&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;ul&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;li&gt;&lt;strong&gt;Case Identity:&lt;/strong&gt; Displays Folio
+Number, Case Type (e.g., Family Court, JMFC), and Parties
+involved.&lt;/li&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;li&gt;&lt;strong&gt;Status Tag:&lt;/strong&gt; Clearly shows
+whether the matter is &lt;code&gt;Pending&lt;/code&gt;,
+&lt;code&gt;Settled&lt;/code&gt;, or &lt;code&gt;Referred&lt;/code&gt;.&lt;/li&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;li&gt;&lt;strong&gt;Key Dates:&lt;/strong&gt; Highlights the
+&lt;code&gt;Reference Date&lt;/code&gt;, &lt;code&gt;Mediation Return
+Date&lt;/code&gt;, and subsequent &lt;code&gt;Court Posting
+Date&lt;/code&gt;.&lt;/li&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;/ul&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;/div&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;div
+class=&quot;section&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;h2&gt;3.
+Updating &amp;amp; Recording Progress&lt;/h2&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;p&gt;Mediators
+can update case parameters in real time:&lt;/p&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;ul&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;li&gt;&lt;strong&gt;Status Update:&lt;/strong&gt; Update the
+status as mediation progresses (e.g., transitioning from Pending to
+Settled).&lt;/li&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;li&gt;&lt;strong&gt;Date Scheduling:&lt;/strong&gt; Record
+upcoming return dates and court postings.&lt;/li&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;li&gt;&lt;strong&gt;Voice Dictation &amp;amp; Notes:&lt;/strong&gt;
+Utilize the integrated microphone button (Voice Dictation) in the
+notes section to dictate proceedings, mediator observations, or
+advocate notes hands-free, ensuring accurate and efficient
+documentation.&lt;/li&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;/ul&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;/div&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;div
+class=&quot;section&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;h2&gt;4.
+Printing &amp;amp; Documentation&lt;/h2&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;p&gt;At
+any stage, clicking the &lt;strong&gt;Print / Export Case
+Details&lt;/strong&gt; button formats the current case data into a
+clean, A4 landscape-friendly statement suitable for official records
+and court submission.&lt;/p&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;/div&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;!--
+Collapsible/Separated Admin Section --&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;div
+class=&quot;admin-section&quot;&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">       
+&lt;h2&gt;Administrative &amp;amp; Technical Setup (Admin Only)&lt;/h2&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;p&gt;&lt;em&gt;This
+section is intended solely for the system administrator / court IT
+coordinator.&lt;/em&gt;&lt;/p&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;ul&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;li&gt;&lt;strong&gt;Role Management:&lt;/strong&gt; Admins access
+the portal via Register No. VI Passcode to assign cases, edit
+mediator/advocate dockets, and update PINs.&lt;/li&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;li&gt;&lt;strong&gt;Firebase Live Sync:&lt;/strong&gt; Configured
+via the &lt;code&gt;Firebase Live Sync &amp;amp; Config&lt;/code&gt;
+modal using the Realtime Database URL and Web API Key. Security rules
+must strictly enforce &lt;code&gt;&quot;auth != null&quot;&lt;/code&gt;
+for read/write operations.&lt;/li&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;li&gt;&lt;strong&gt;Offline Capability:&lt;/strong&gt; The portal
+incorporates Service Worker caching (&lt;code&gt;sw.js&lt;/code&gt;)
+to allow continuous operation during network fluctuations.&lt;/li&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        &lt;/ul&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;/div&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">&lt;/div&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">&lt;/body&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">&lt;/html&gt;</p>
 </body>
 </html>
