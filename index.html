@@ -12,9 +12,14 @@
   <style>
     body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
     @media print {
+      @page { size: A4 landscape; margin: 10mm; }
       .no-print { display: none !important; }
-      body { background: #fff !important; }
-      .print-area { box-shadow: none !important; border: none !important; }
+      body { background: #fff !important; color: #000 !important; }
+      .print-area { display: none !important; }
+      #printRegisterArea { display: block !important; }
+      table.reg-table { width: 100%; border-collapse: collapse; font-size: 9px; }
+      table.reg-table th, table.reg-table td { border: 1px solid #334155; padding: 4px 5px; text-align: left; vertical-align: top; }
+      table.reg-table th { background: #e2e8f0 !important; font-weight: 700; }
     }
   </style>
 </head>
@@ -74,16 +79,15 @@
         <div>
           <div class="flex items-center justify-between mb-2">
             <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-800 text-xs font-bold" id="t-r1Tag">Role 1 • Full Register</span>
-            <span class="text-xs text-slate-400">PIN / Passcode</span>
+            <span class="text-xs text-slate-400">Staff Passcode</span>
           </div>
           <h3 id="t-r1Title" class="text-base font-bold text-[#0f2244]">Court Mediation Centre (Admin)</h3>
-          <p id="t-r1Desc" class="text-xs text-slate-600 mt-1 mb-4">Manage all Register No. VI cases, assign mediators, configure Firebase Live Sync, and print A4 reports.</p>
+          <p id="t-r1Desc" class="text-xs text-slate-600 mt-1 mb-4">Manage all Register No. VI cases, assign mediators, manage PINs, configure Firebase Sync, and print A4 reports.</p>
           <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r1InputLbl">Staff Passcode</label>
-          <input id="adminPassInput" type="password" placeholder="ADMIN2026" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f2244]" />
+          <input id="adminPassInput" type="password" placeholder="Enter staff passcode" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f2244]" />
         </div>
-        <div class="mt-4 flex gap-2">
-          <button type="button" onclick="loginAdmin()" id="t-r1Btn" class="flex-1 py-2 px-3 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">Enter as Admin</button>
-          <button type="button" onclick="fillDemo('admin')" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Demo</button>
+        <div class="mt-4">
+          <button type="button" onclick="loginAdmin()" id="t-r1Btn" class="w-full py-2.5 px-3 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">Enter as Admin</button>
         </div>
       </div>
 
@@ -92,7 +96,7 @@
         <div>
           <div class="flex items-center justify-between mb-2">
             <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 text-xs font-bold" id="t-r2Tag">Role 2 • Assigned Cases Only</span>
-            <span class="text-xs text-slate-400">Identity + PIN</span>
+            <span class="text-xs text-slate-400">Identity + Personal PIN</span>
           </div>
           <h3 id="t-r2Title" class="text-base font-bold text-[#0f2244]">Mediator Login</h3>
           <p id="t-r2Desc" class="text-xs text-slate-600 mt-1 mb-3">View only cases assigned to you, track Settled / Not Settled / Pending counts, update notes &amp; Sec. 89 drafts.</p>
@@ -103,13 +107,12 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r2PinLbl">Mediator PIN</label>
-              <input id="mediatorPinInput" type="password" placeholder="1234" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+              <input id="mediatorPinInput" type="password" placeholder="Enter your Mediator PIN" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600" />
             </div>
           </div>
         </div>
-        <div class="mt-4 flex gap-2">
-          <button type="button" onclick="loginMediator()" id="t-r2Btn" class="flex-1 py-2 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">Enter as Mediator</button>
-          <button type="button" onclick="fillDemo('mediator')" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Demo</button>
+        <div class="mt-4">
+          <button type="button" onclick="loginMediator()" id="t-r2Btn" class="w-full py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">Enter as Mediator</button>
         </div>
       </div>
 
@@ -118,24 +121,23 @@
         <div>
           <div class="flex items-center justify-between mb-2">
             <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 text-xs font-bold" id="t-r3Tag">Role 3 • Own Cases Only</span>
-            <span class="text-xs text-slate-400">Name + OTP</span>
+            <span class="text-xs text-slate-400">Name + Access Code</span>
           </div>
           <h3 id="t-r3Title" class="text-base font-bold text-[#0f2244]">Advocate Login</h3>
-          <p id="t-r3Desc" class="text-xs text-slate-600 mt-1 mb-3">Access only cases where you appear as Petitioner or Respondent Advocate. View dates &amp; submit remarks.</p>
+          <p id="t-r3Desc" class="text-xs text-slate-600 mt-1 mb-3">Enter your registered name to access only cases where you appear as Advocate.</p>
           <div class="space-y-2">
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r3SelLbl">Select Advocate</label>
-              <select id="advocateSelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-600"></select>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r3SelLbl">Advocate Name</label>
+              <input id="advocateNameInput" type="text" placeholder="e.g. Adv. Valsala K or Manikandan" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600" />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r3OtpLbl">Verification OTP</label>
-              <input id="advocateOtpInput" type="password" placeholder="1111" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r3OtpLbl">Access Passcode / OTP</label>
+              <input id="advocateOtpInput" type="password" placeholder="Enter passcode" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600" />
             </div>
           </div>
         </div>
-        <div class="mt-4 flex gap-2">
-          <button type="button" onclick="loginAdvocate()" id="t-r3Btn" class="flex-1 py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold">Enter as Advocate</button>
-          <button type="button" onclick="fillDemo('advocate')" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Demo</button>
+        <div class="mt-4">
+          <button type="button" onclick="loginAdvocate()" id="t-r3Btn" class="w-full py-2.5 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold">Enter as Advocate</button>
         </div>
       </div>
 
@@ -144,24 +146,23 @@
         <div>
           <div class="flex items-center justify-between mb-2">
             <span class="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-800 text-xs font-bold" id="t-r4Tag">Role 4 • Read-Only Own Case</span>
-            <span class="text-xs text-slate-400">Name / Case + OTP</span>
+            <span class="text-xs text-slate-400">Case No + Name / Mobile</span>
           </div>
           <h3 id="t-r4Title" class="text-base font-bold text-[#0f2244]">Party / Client Login</h3>
-          <p id="t-r4Desc" class="text-xs text-slate-600 mt-1 mb-3">View only your own case status, assigned mediator, next mediation session date, and court posting date.</p>
+          <p id="t-r4Desc" class="text-xs text-slate-600 mt-1 mb-3">Enter your Case Number and registered Party Name or Mobile to view your case status.</p>
           <div class="space-y-2">
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r4SelLbl">Select Party or Case</label>
-              <select id="partySelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-600"></select>
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r4SelLbl">Case Number</label>
+              <input id="partyCaseInput" type="text" placeholder="e.g. OP 543/2026 or MC 32/2026" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-600" />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r4OtpLbl">Verification OTP</label>
-              <input id="partyOtpInput" type="password" placeholder="1111" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-600" />
+              <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r4OtpLbl">Party Name or Mobile Number</label>
+              <input id="partyIdentityInput" type="text" placeholder="Registered name or 10-digit mobile" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-600" />
             </div>
           </div>
         </div>
-        <div class="mt-4 flex gap-2">
-          <button type="button" onclick="loginParty()" id="t-r4Btn" class="flex-1 py-2 px-3 rounded-xl bg-sky-700 hover:bg-sky-800 text-white text-xs font-bold">Enter as Party</button>
-          <button type="button" onclick="fillDemo('party')" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Demo</button>
+        <div class="mt-4">
+          <button type="button" onclick="loginParty()" id="t-r4Btn" class="w-full py-2.5 px-3 rounded-xl bg-sky-700 hover:bg-sky-800 text-white text-xs font-bold">Enter as Party</button>
         </div>
       </div>
     </div>
@@ -179,7 +180,8 @@
       <div class="flex flex-wrap items-center gap-2">
         <button type="button" id="refreshSyncBtn" onclick="pullFromFirebase(true)" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold">Refresh Sync</button>
         <button type="button" id="addCaseBtn" onclick="openAddCaseModal()" class="hidden px-3 py-2 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">+ Add New Case</button>
-        <button type="button" id="printRegBtn" onclick="window.print()" class="hidden px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 text-xs font-bold">Print A4 Register</button>
+        <button type="button" id="pinSettingsBtn" onclick="openPinSettingsModal()" class="hidden px-3 py-2 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold">PIN Settings</button>
+        <button type="button" id="printRegBtn" onclick="printA4Register()" class="hidden px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 text-xs font-bold">Print A4 Register</button>
         <button type="button" id="exportCsvBtn" onclick="exportCSV()" class="hidden px-3 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">Export CSV</button>
       </div>
     </section>
@@ -193,6 +195,9 @@
         <div class="flex flex-wrap gap-2" id="statsBar"></div>
       </div>
     </section>
+
+    <!-- Formal A4 Register No. VI Print Container (Admin Only) -->
+    <section id="printRegisterArea" class="hidden"></section>
 
     <!-- Cases Table / Cards -->
     <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden print-area">
@@ -217,6 +222,7 @@
       </div>
 
       <div id="modalDetailsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200"></div>
+      <div id="modalAuditTrail" class="text-[11px] text-slate-500 bg-slate-50 px-3 py-2 rounded-lg border border-slate-200 hidden"></div>
 
       <!-- Editable Controls (Role-Gated) -->
       <div id="modalEditForm" class="space-y-3">
@@ -243,8 +249,15 @@
           </div>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-mNotes">Session / Mediator / Advocate Notes</label>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <label class="block text-xs font-semibold text-slate-700" id="t-mNotes">Session / Mediator / Advocate Notes</label>
+            <div id="voiceControlsWrap" class="hidden flex flex-wrap items-center gap-1.5">
+              <button type="button" id="dictateNoteBtn" onclick="toggleDictation('editNotes', 'dictateNoteBtn')" class="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-[11px] font-bold">🎤 Dictate Note</button>
+              <button type="button" id="recordAudioBtn" onclick="toggleAudioRecording()" class="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-200 text-[11px] font-bold">🎙️ Record Voice Memo</button>
+            </div>
+          </div>
           <textarea id="editNotes" rows="3" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm"></textarea>
+          <div id="audioMemoList" class="mt-2 space-y-1.5"></div>
         </div>
       </div>
 
@@ -298,8 +311,10 @@
       <div class="space-y-2">
         <label class="block text-xs font-bold text-slate-700">Firebase Realtime Database URL</label>
         <input id="firebaseUrlInput" type="url" placeholder="https://your-project-default-rtdb.firebaseio.com" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono" />
+        <label class="block text-xs font-bold text-slate-700 pt-1">Firebase Web API Key (for Secure <code>auth != null</code> Rules)</label>
+        <input id="firebaseApiKeyInput" type="text" placeholder="AIzaSy..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono" />
         <p class="text-[11px] text-slate-500">
-          Ensure Firebase Rules allow read/write: <code class="bg-slate-100 px-1 rounded">{ "rules": { ".read": true, ".write": true } }</code>
+          Enable <b>Authentication &rarr; Anonymous</b> in Firebase Console and set Rules to: <code class="bg-slate-100 px-1 rounded">{ "rules": { ".read": "auth != null", ".write": "auth != null" } }</code>
         </p>
       </div>
 
@@ -332,10 +347,43 @@
         <h3 class="text-base font-extrabold text-[#0f2244]">Section 89 CPC — Settlement Memorandum Draft</h3>
         <button type="button" onclick="closeModal('sec89Modal')" class="px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-bold">✕</button>
       </div>
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <span class="text-[11px] text-slate-500">Speak in English, Malayalam, or Kannada to dictate terms directly:</span>
+        <button type="button" id="dictateSec89Btn" onclick="toggleDictation('sec89Text', 'dictateSec89Btn')" class="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-[11px] font-bold">🎤 Dictate Agreement</button>
+      </div>
       <textarea id="sec89Text" rows="12" class="w-full p-3 rounded-xl border border-slate-300 text-xs font-mono bg-slate-50"></textarea>
-      <div class="flex justify-end gap-2">
-        <button type="button" onclick="copySec89()" class="px-3 py-2 rounded-xl bg-amber-400 text-slate-900 text-xs font-bold">Copy Text</button>
+      <div class="flex flex-wrap justify-end gap-2">
+        <button type="button" onclick="printSec89()" class="px-3 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">Print Agreement</button>
+        <button type="button" onclick="copySec89()" class="px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 text-xs font-bold">Copy Text</button>
         <button type="button" onclick="closeModal('sec89Modal')" class="px-3 py-2 rounded-xl bg-[#0f2244] text-white text-xs font-bold">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PIN & ACCESS SETTINGS MODAL -->
+  <div id="pinSettingsModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 class="text-base font-extrabold text-[#0f2244]">Admin Access &amp; PIN Settings</h3>
+        <button type="button" onclick="closeModal('pinSettingsModal')" class="px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-bold">✕</button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Admin Staff Passcode</label>
+          <input id="cfgAdminPass" type="text" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono" />
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Advocate Access Passcode</label>
+          <input id="cfgAdvPass" type="text" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono" />
+        </div>
+        <div class="border-t pt-2">
+          <div class="font-bold text-slate-700 mb-2">Per-Mediator PINs</div>
+          <div id="cfgMediatorPins" class="space-y-2"></div>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2 border-t">
+        <button type="button" onclick="closeModal('pinSettingsModal')" class="px-3 py-2 rounded-xl bg-slate-100 text-xs font-bold">Cancel</button>
+        <button type="button" onclick="savePinSettings()" class="px-4 py-2 rounded-xl bg-[#0f2244] text-white text-xs font-bold">Save &amp; Sync PINs</button>
       </div>
     </div>
   </div>
@@ -456,13 +504,28 @@
 
     // --- 3. STATE & STORAGE ---
     const STORAGE_KEY = "kasaragod_mediation_cases_v3";
+    const SETTINGS_KEY = "kasaragod_mediation_settings_v3";
     const FB_URL_KEY = "kasaragod_mediation_firebase_url";
+    const FB_KEY_STORAGE = "kasaragod_mediation_firebase_apikey";
+    let fbIdToken = null;
     const SESSION_KEY = "kasaragod_mediation_session_v3";
     const LANG_KEY = "kasaragod_mediation_lang_v3";
 
+    const DEFAULT_SETTINGS = {
+      adminPass: "ADMIN2026",
+      advocatePass: "1111",
+      mediatorPins: {
+        "Ravindran Nambiar (R.N)": "1234",
+        "B.F. AbdulRahman": "1234",
+        "USB": "1234",
+        "S.N": "1234"
+      }
+    };
+
     let cases = [];
+    let appSettings = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
     let currentLang = "ml";
-    let session = null; // { role: 'admin'|'mediator'|'advocate'|'party', identity: string }
+    let session = null; // { role: 'admin'|'mediator'|'advocate'|'party', identity: string, caseNo?: string }
     let statusFilter = "All";
     let activeFolio = null;
     let bc = null;
@@ -486,6 +549,17 @@
         cases = JSON.parse(JSON.stringify(INITIAL_CASES));
       }
       try {
+        const rawSet = localStorage.getItem(SETTINGS_KEY);
+        if (rawSet) {
+          const parsed = JSON.parse(rawSet);
+          appSettings = {
+            adminPass: parsed.adminPass || DEFAULT_SETTINGS.adminPass,
+            advocatePass: parsed.advocatePass || DEFAULT_SETTINGS.advocatePass,
+            mediatorPins: Object.assign({}, DEFAULT_SETTINGS.mediatorPins, parsed.mediatorPins || {})
+          };
+        }
+      } catch (e) {}
+      try {
         const savedLang = localStorage.getItem(LANG_KEY);
         if (savedLang && I18N[savedLang]) currentLang = savedLang;
       } catch (e) {}
@@ -504,6 +578,33 @@
 
     function getFirebaseUrl() {
       try { return (localStorage.getItem(FB_URL_KEY) || "").trim().replace(/\/+$/, ""); } catch (e) { return ""; }
+    }
+
+    function getFirebaseApiKey() {
+      try { return (localStorage.getItem(FB_KEY_STORAGE) || "").trim(); } catch (e) { return ""; }
+    }
+
+    async function ensureFirebaseToken(apiKeyOverride) {
+      const key = (apiKeyOverride !== undefined ? apiKeyOverride : getFirebaseApiKey()).trim();
+      if (!key) return "";
+      if (fbIdToken && apiKeyOverride === undefined) return fbIdToken;
+      const res = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + encodeURIComponent(key), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ returnSecureToken: true })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.idToken) {
+        throw new Error((data.error && data.error.message) || "Firebase Auth failed (enable Anonymous Sign-In)");
+      }
+      fbIdToken = data.idToken;
+      return fbIdToken;
+    }
+
+    async function buildDbEndpoint(urlOverride, apiKeyOverride, nodePath = "cases") {
+      const url = (urlOverride !== undefined ? urlOverride : getFirebaseUrl()).trim().replace(/\/+$/, "");
+      const token = await ensureFirebaseToken(apiKeyOverride);
+      return token ? `${url}/${nodePath}.json?auth=${encodeURIComponent(token)}` : `${url}/${nodePath}.json`;
     }
 
     function updateSyncIndicator(state, customText) {
@@ -529,7 +630,23 @@
         return;
       }
       try {
-        const res = await fetch(url + "/cases.json");
+        try {
+          const setEp = await buildDbEndpoint(undefined, undefined, "settings");
+          const setRes = await fetch(setEp);
+          if (setRes.ok) {
+            const sData = await setRes.json();
+            if (sData && typeof sData === "object") {
+              appSettings = {
+                adminPass: sData.adminPass || appSettings.adminPass,
+                advocatePass: sData.advocatePass || appSettings.advocatePass,
+                mediatorPins: Object.assign({}, appSettings.mediatorPins, sData.mediatorPins || {})
+              };
+              try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(appSettings)); } catch (e) {}
+            }
+          }
+        } catch (e) {}
+        const endpoint = await buildDbEndpoint(undefined, undefined, "cases");
+        const res = await fetch(endpoint);
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
@@ -565,7 +682,8 @@
       const url = getFirebaseUrl();
       if (!url) return false;
       try {
-        const res = await fetch(url + "/cases.json", {
+        const endpoint = await buildDbEndpoint();
+        const res = await fetch(endpoint, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(cases)
@@ -589,34 +707,11 @@
       const medOptsWithBlank = `<option value="">-- Unassigned --</option>` + MEDIATORS.map(m => `<option value="${m}">${m}</option>`).join("");
       editMedSel.innerHTML = medOptsWithBlank;
       newMedSel.innerHTML = medOptsWithBlank;
-
-      const advSet = new Set();
-      cases.forEach(c => {
-        if (c.petAdv) advSet.add(c.petAdv.trim());
-        if (c.respAdv) advSet.add(c.respAdv.trim());
-      });
-      const advList = Array.from(advSet).sort();
-      document.getElementById("advocateSelect").innerHTML = advList.map(a => `<option value="${a}">${a}</option>`).join("");
-
-      const partySet = new Set();
-      cases.forEach(c => {
-        if (c.petitioner) partySet.add(c.petitioner.trim());
-        if (c.respondent) partySet.add(c.respondent.trim());
-      });
-      const partyList = Array.from(partySet).sort();
-      document.getElementById("partySelect").innerHTML = partyList.map(p => `<option value="${p}">${p}</option>`).join("");
     }
 
     // --- 5. AUTHENTICATION (4 STRICT ROLES) ---
-    function fillDemo(role) {
-      if (role === "admin") document.getElementById("adminPassInput").value = "ADMIN2026";
-      if (role === "mediator") document.getElementById("mediatorPinInput").value = "1234";
-      if (role === "advocate") document.getElementById("advocateOtpInput").value = "1111";
-      if (role === "party") document.getElementById("partyOtpInput").value = "1111";
-    }
-
-    function setSession(role, identity) {
-      session = { role, identity };
+    function setSession(role, identity, caseNo = "") {
+      session = { role, identity, caseNo };
       statusFilter = "All";
       try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)); } catch (e) {}
       renderApp();
@@ -624,8 +719,8 @@
 
     function loginAdmin() {
       const val = document.getElementById("adminPassInput").value.trim();
-      if (val !== "ADMIN2026") {
-        showToast("Invalid Staff Passcode. Use ADMIN2026 (or click Demo).");
+      if (val !== appSettings.adminPass) {
+        showToast("Invalid Staff Passcode.");
         return;
       }
       setSession("admin", "Court Mediation Centre");
@@ -634,31 +729,63 @@
     function loginMediator() {
       const med = document.getElementById("mediatorSelect").value;
       const pin = document.getElementById("mediatorPinInput").value.trim();
-      if (pin !== "1234") {
-        showToast("Invalid Mediator PIN. Use 1234 (or click Demo).");
+      const expected = (appSettings.mediatorPins && appSettings.mediatorPins[med]) || "1234";
+      if (pin !== expected) {
+        showToast("Invalid Mediator PIN for " + med + ".");
         return;
       }
       setSession("mediator", med);
     }
 
+    function normStr(s) {
+      return (s || "").toLowerCase().replace(/^adv\.?\s*/i, "").replace(/\s+/g, " ").trim();
+    }
+
     function loginAdvocate() {
-      const adv = document.getElementById("advocateSelect").value;
+      const rawName = document.getElementById("advocateNameInput").value.trim();
       const otp = document.getElementById("advocateOtpInput").value.trim();
-      if (otp !== "1111") {
-        showToast("Invalid OTP. Use 1111 (or click Demo).");
+      if (!rawName) {
+        showToast("Please enter your Advocate Name.");
         return;
       }
-      setSession("advocate", adv);
+      if (otp !== appSettings.advocatePass) {
+        showToast("Invalid Advocate Passcode.");
+        return;
+      }
+      const q = normStr(rawName);
+      const matched = cases.find(c => normStr(c.petAdv).includes(q) || normStr(c.respAdv).includes(q));
+      if (!matched) {
+        showToast("No cases found for Advocate '" + rawName + "'.");
+        return;
+      }
+      const exactAdv = normStr(matched.petAdv).includes(q) ? matched.petAdv : matched.respAdv;
+      setSession("advocate", exactAdv);
     }
 
     function loginParty() {
-      const party = document.getElementById("partySelect").value;
-      const otp = document.getElementById("partyOtpInput").value.trim();
-      if (otp !== "1111") {
-        showToast("Invalid OTP. Use 1111 (or click Demo).");
+      const rawCase = document.getElementById("partyCaseInput").value.trim();
+      const rawId = document.getElementById("partyIdentityInput").value.trim();
+      if (!rawCase || !rawId) {
+        showToast("Enter both Case Number and Party Name or Mobile Number.");
         return;
       }
-      setSession("party", party);
+      const cq = rawCase.toLowerCase().replace(/\s+/g, "");
+      const iq = rawId.toLowerCase().trim();
+      const matched = cases.find(c => {
+        const cNo = (c.caseNo || "").toLowerCase().replace(/\s+/g, "");
+        if (cNo !== cq && !cNo.includes(cq)) return false;
+        return (c.petitioner || "").toLowerCase().includes(iq) ||
+               (c.respondent || "").toLowerCase().includes(iq) ||
+               (c.petContact || "").includes(iq) ||
+               (c.respContact || "").includes(iq);
+      });
+      if (!matched) {
+        showToast("No matching case found for that Case Number and Party Name/Mobile.");
+        return;
+      }
+      const isPet = (matched.petitioner || "").toLowerCase().includes(iq) || (matched.petContact || "").includes(iq);
+      const partyName = isPet ? (matched.petitioner || rawId) : (matched.respondent || rawId);
+      setSession("party", partyName, matched.caseNo);
     }
 
     function logout() {
@@ -675,15 +802,17 @@
         return cases.filter(c => (c.mediator || "").toLowerCase() === session.identity.toLowerCase());
       }
       if (session.role === "advocate") {
-        const id = session.identity.toLowerCase();
+        const id = normStr(session.identity);
         return cases.filter(c =>
-          (c.petAdv || "").toLowerCase() === id || (c.respAdv || "").toLowerCase() === id
+          normStr(c.petAdv) === id || normStr(c.respAdv) === id
         );
       }
       if (session.role === "party") {
-        const id = session.identity.toLowerCase();
+        const id = (session.identity || "").toLowerCase();
+        const cNo = (session.caseNo || "").toLowerCase();
         return cases.filter(c =>
-          (c.petitioner || "").toLowerCase() === id || (c.respondent || "").toLowerCase() === id
+          (!cNo || (c.caseNo || "").toLowerCase() === cNo) &&
+          ((c.petitioner || "").toLowerCase() === id || (c.respondent || "").toLowerCase() === id)
         );
       }
       return [];
@@ -758,9 +887,10 @@
       };
       document.getElementById("scopeDesc").textContent = scopeDescriptions[session.role];
 
-      // Role-specific action buttons
+      // Role-specific action buttons (PIN Settings, Print A4 Register, Export CSV are Admin-only)
       document.getElementById("addCaseBtn").classList.toggle("hidden", session.role !== "admin");
-      document.getElementById("printRegBtn").classList.toggle("hidden", session.role !== "admin" && session.role !== "mediator");
+      document.getElementById("pinSettingsBtn").classList.toggle("hidden", session.role !== "admin");
+      document.getElementById("printRegBtn").classList.toggle("hidden", session.role !== "admin");
       document.getElementById("exportCsvBtn").classList.toggle("hidden", session.role !== "admin");
 
       const authCases = getAuthorizedCases();
@@ -881,6 +1011,19 @@
       document.getElementById("saveCaseBtn").classList.toggle("hidden", isParty);
       document.getElementById("sec89Btn").classList.toggle("hidden", isParty);
 
+      const canVoice = session.role === "mediator" || session.role === "admin";
+      document.getElementById("voiceControlsWrap").classList.toggle("hidden", !canVoice);
+      document.getElementById("voiceControlsWrap").classList.toggle("flex", canVoice);
+      renderAudioMemos(c);
+
+      const auditEl = document.getElementById("modalAuditTrail");
+      if (c.updatedBy || c.updatedAt) {
+        auditEl.textContent = `Last Updated: ${c.updatedAt || "—"} by ${c.updatedBy || "—"}`;
+        auditEl.classList.remove("hidden");
+      } else {
+        auditEl.classList.add("hidden");
+      }
+
       document.getElementById("caseModal").classList.remove("hidden");
     }
 
@@ -898,6 +1041,8 @@
       if (session.role !== "party") {
         cases[idx].notes = document.getElementById("editNotes").value;
       }
+      cases[idx].updatedBy = `${session.role.toUpperCase()} (${session.identity})`;
+      cases[idx].updatedAt = new Date().toLocaleString("en-IN");
       saveLocalCases(true);
       await pushCasesToFirebase();
       closeModal("caseModal");
@@ -962,6 +1107,136 @@ Signature of Petitioner          Signature of Respondent          Signature of M
       document.getElementById("sec89Modal").classList.remove("hidden");
     }
 
+    // --- 9B. VOICE DICTATION (EN/ML/KN), AUDIO MEMO & PRINT AGREEMENT ---
+    let activeRecognition = null;
+    let activeDictateBtnId = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let recordTimer = null;
+
+    function toggleDictation(targetTextareaId, btnId) {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        showToast("Voice dictation is not supported in this browser. Use Chrome on Android/Desktop.");
+        return;
+      }
+      if (activeRecognition) {
+        try { activeRecognition.stop(); } catch (e) {}
+        return;
+      }
+      const btn = document.getElementById(btnId);
+      const ta = document.getElementById(targetTextareaId);
+      const langMap = { en: "en-IN", ml: "ml-IN", kn: "kn-IN" };
+      try {
+        const rec = new SR();
+        rec.lang = langMap[currentLang] || "en-IN";
+        rec.interimResults = false;
+        rec.continuous = true;
+        activeRecognition = rec;
+        activeDictateBtnId = btnId;
+        if (btn) btn.textContent = "⏹ Stop Dictating";
+        rec.onresult = (ev) => {
+          let added = "";
+          for (let i = ev.resultIndex; i < ev.results.length; i++) {
+            if (ev.results[i].isFinal) {
+              added += ev.results[i][0].transcript + " ";
+            }
+          }
+          if (added) {
+            ta.value = (ta.value ? ta.value.trimEnd() + "\n" : "") + added.trim();
+          }
+        };
+        rec.onerror = (ev) => {
+          showToast("Mic error: " + (ev.error || "Check microphone permission"));
+        };
+        rec.onend = () => {
+          if (btn) btn.textContent = btnId === "dictateSec89Btn" ? "🎤 Dictate Agreement" : "🎤 Dictate Note";
+          activeRecognition = null;
+          activeDictateBtnId = null;
+        };
+        rec.start();
+      } catch (err) {
+        showToast("Could not start microphone: " + err.message);
+      }
+    }
+
+    async function toggleAudioRecording() {
+      const btn = document.getElementById("recordAudioBtn");
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        clearTimeout(recordTimer);
+        return;
+      }
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        showToast("Audio recording is not supported in this browser.");
+        return;
+      }
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recordedChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) recordedChunks.push(e.data);
+        };
+        mediaRecorder.onstop = () => {
+          stream.getTracks().forEach(t => t.stop());
+          btn.textContent = "🎙️ Record Voice Memo";
+          const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || "audio/webm" });
+          const reader = new FileReader();
+          reader.onloadend = async () => {
+            const idx = cases.findIndex(x => x.folio === activeFolio);
+            if (idx === -1) return;
+            if (!Array.isArray(cases[idx].voiceMemos)) cases[idx].voiceMemos = [];
+            cases[idx].voiceMemos.push({
+              by: `${session.role.toUpperCase()} (${session.identity})`,
+              at: new Date().toLocaleString("en-IN"),
+              dataUrl: reader.result
+            });
+            saveLocalCases(true);
+            await pushCasesToFirebase();
+            renderAudioMemos(cases[idx]);
+            showToast("Voice memo attached & synced.");
+          };
+          reader.readAsDataURL(blob);
+        };
+        mediaRecorder.start();
+        btn.textContent = "⏹ Stop Recording (Max 45s)";
+        recordTimer = setTimeout(() => {
+          if (mediaRecorder && mediaRecorder.state === "recording") mediaRecorder.stop();
+        }, 45000);
+      } catch (err) {
+        showToast("Microphone permission denied or unavailable.");
+      }
+    }
+
+    function renderAudioMemos(c) {
+      const wrap = document.getElementById("audioMemoList");
+      if (!wrap) return;
+      const memos = Array.isArray(c.voiceMemos) ? c.voiceMemos : [];
+      if (memos.length === 0 || session.role === "party") {
+        wrap.innerHTML = "";
+        return;
+      }
+      wrap.innerHTML = memos.map((m, i) => `
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-50 border border-slate-200 rounded-xl p-2 text-[11px]">
+          <div>
+            <span class="font-bold text-[#0f2244]">Voice Memo #${i + 1}</span>
+            <span class="text-slate-500">• ${m.by || ""} (${m.at || ""})</span>
+          </div>
+          <audio controls src="${m.dataUrl}" class="h-8 max-w-full"></audio>
+        </div>
+      `).join("");
+    }
+
+    function printSec89() {
+      const txt = document.getElementById("sec89Text").value;
+      const area = document.getElementById("printRegisterArea");
+      area.innerHTML = `
+        <div style="font-family:serif; padding:20px; line-height:1.6; white-space:pre-wrap; font-size:13px; color:#000;">${txt.replace(/</g, "&lt;")}</div>
+      `;
+      window.print();
+    }
+
     function copySec89() {
       const ta = document.getElementById("sec89Text");
       ta.select();
@@ -1018,12 +1293,14 @@ Signature of Petitioner          Signature of Respondent          Signature of M
     // --- 10. FIREBASE SYNC MODAL ---
     function openSyncModal() {
       document.getElementById("firebaseUrlInput").value = getFirebaseUrl();
+      document.getElementById("firebaseApiKeyInput").value = getFirebaseApiKey();
       document.getElementById("syncTestResult").classList.add("hidden");
       document.getElementById("syncModal").classList.remove("hidden");
     }
 
     async function testAndSaveFirebase() {
       const raw = document.getElementById("firebaseUrlInput").value.trim().replace(/\/+$/, "");
+      const apiKey = document.getElementById("firebaseApiKeyInput").value.trim();
       const resBox = document.getElementById("syncTestResult");
       if (!raw || !raw.startsWith("https://")) {
         resBox.className = "text-xs p-3 rounded-xl border bg-rose-50 border-rose-200 text-rose-800";
@@ -1032,16 +1309,24 @@ Signature of Petitioner          Signature of Respondent          Signature of M
         return;
       }
       try {
-        const r = await fetch(raw + "/cases.json");
-        if (!r.ok) throw new Error("HTTP " + r.status + " (Check Firebase Rules)");
-        try { localStorage.setItem(FB_URL_KEY, raw); } catch (e) {}
+        fbIdToken = null;
+        const endpoint = await buildDbEndpoint(raw, apiKey);
+        const r = await fetch(endpoint);
+        if (!r.ok) throw new Error("HTTP " + r.status + " (Check Firebase Rules & Anonymous Auth)");
+        try {
+          localStorage.setItem(FB_URL_KEY, raw);
+          if (apiKey) localStorage.setItem(FB_KEY_STORAGE, apiKey);
+          else localStorage.removeItem(FB_KEY_STORAGE);
+        } catch (e) {}
         resBox.className = "text-xs p-3 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-800";
-        resBox.textContent = "Connected! Now click 'Push All 14+ Cases to Firebase' if this is your first setup.";
+        resBox.textContent = apiKey
+          ? "Authenticated & Connected! Now click 'Push All 14+ Cases to Firebase' if this is your first setup."
+          : "Connected! Now click 'Push All 14+ Cases to Firebase' if this is your first setup.";
         resBox.classList.remove("hidden");
-        updateSyncIndicator("live", "Firebase Live");
+        updateSyncIndicator("live", apiKey ? "Firebase Secure" : "Firebase Live");
       } catch (err) {
         resBox.className = "text-xs p-3 rounded-xl border bg-rose-50 border-rose-200 text-rose-800";
-        resBox.textContent = "Connection failed: " + err.message + ". Verify URL and set Rules to .read: true, .write: true.";
+        resBox.textContent = "Connection failed: " + err.message;
         resBox.classList.remove("hidden");
         updateSyncIndicator("error", "Firebase Error");
       }
@@ -1058,8 +1343,10 @@ Signature of Petitioner          Signature of Respondent          Signature of M
     }
 
     function disconnectFirebase() {
-      try { localStorage.removeItem(FB_URL_KEY); } catch (e) {}
+      fbIdToken = null;
+      try { localStorage.removeItem(FB_URL_KEY); localStorage.removeItem(FB_KEY_STORAGE); } catch (e) {}
       document.getElementById("firebaseUrlInput").value = "";
+      document.getElementById("firebaseApiKeyInput").value = "";
       updateSyncIndicator("local", "Local Mode");
       showToast("Switched to Local Mode.");
     }
@@ -1070,10 +1357,10 @@ Signature of Petitioner          Signature of Respondent          Signature of M
       body.innerHTML = `
         <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
           <h4 class="font-bold text-[#0f2244] mb-1">1. Strict Role Isolation (4 Roles)</h4>
-          <p>• <b>Admin:</b> Passcode <code>ADMIN2026</code> — sees all cases, assigns mediators, manages Firebase Sync.<br>
-          • <b>Mediator:</b> Select Mediator + PIN <code>1234</code> — sees <b>only assigned cases</b>.<br>
-          • <b>Advocate:</b> Select Advocate + OTP <code>1111</code> — sees <b>only own cases</b>.<br>
-          • <b>Party / Client:</b> Select Party + OTP <code>1111</code> — read-only view of <b>own case only</b>.</p>
+          <p>• <b>Admin:</b> Passcode (default <code>ADMIN2026</code>) — sees all cases, assigns mediators, manages PIN Settings, prints Register No. VI, and configures Firebase Sync.<br>
+          • <b>Mediator:</b> Select Mediator + Personal PIN (default <code>1234</code>) — sees <b>only assigned cases</b>.<br>
+          • <b>Advocate:</b> Enter Advocate Name + Passcode (default <code>1111</code>) — sees <b>only own cases</b>.<br>
+          • <b>Party / Client:</b> Enter Case Number + Registered Party Name or Mobile — read-only view of <b>own case only</b>.</p>
         </div>
         <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
           <h4 class="font-bold text-amber-900 mb-1">2. Fixing Firebase Live Sync (Collective Updates)</h4>
@@ -1102,13 +1389,105 @@ Signature of Petitioner          Signature of Respondent          Signature of M
       window.__toastTimer = setTimeout(() => box.classList.add("hidden"), 3500);
     }
 
-    // --- 12. INIT ---
+    // --- 11B. ADMIN A4 REGISTER PRINT & PIN SETTINGS ---
+    function printA4Register() {
+      if (session.role !== "admin") return;
+      const rows = cases.map(c => `
+        <tr>
+          <td>${c.folio || ""}</td>
+          <td>${c.court || ""}</td>
+          <td><b>${c.caseNo || ""}</b></td>
+          <td>${c.petitioner || "—"}<br/><span style="color:#475569">vs</span><br/>${c.respondent || "—"}</td>
+          <td>P: ${c.petAdv || "—"}<br/>R: ${c.respAdv || "—"}</td>
+          <td>Ref: ${c.refDate || "—"}<br/>1st: ${c.firstDate || "—"}<br/>Next: ${c.nextDate || "—"}<br/>Post: ${c.postingDate || "—"}</td>
+          <td>${c.mediator || "Unassigned"}</td>
+          <td><b>${c.status || "Pending"}</b></td>
+          <td>${c.notes || ""}</td>
+        </tr>
+      `).join("");
+      document.getElementById("printRegisterArea").innerHTML = `
+        <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2px solid #0f2244; padding-bottom:6px;">
+          <div>
+            <div style="font-size:14px; font-weight:800; color:#0f2244;">COURT-ANNEXED MEDIATION CENTRE, KASARAGOD</div>
+            <div style="font-size:11px; font-weight:600;">REGISTER NO. VI — MEDIATION CASE REGISTER (2026)</div>
+          </div>
+          <div style="font-size:10px;">Printed: ${new Date().toLocaleString("en-IN")} | Total Cases: ${cases.length}</div>
+        </div>
+        <table class="reg-table">
+          <thead>
+            <tr>
+              <th>Folio</th><th>Court</th><th>Case No.</th><th>Parties</th><th>Advocates</th><th>Dates</th><th>Mediator</th><th>Status</th><th>Remarks / Notes</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <div style="margin-top:18px; display:flex; justify-content:space-between; font-size:10px; font-weight:600;">
+          <span>Prepared By: Mediation Centre Staff</span>
+          <span>Verified By: Co-ordinator / Nodal Officer, Kasaragod Mediation Centre</span>
+        </div>
+      `;
+      window.print();
+    }
+
+    function openPinSettingsModal() {
+      if (session.role !== "admin") return;
+      document.getElementById("cfgAdminPass").value = appSettings.adminPass || "ADMIN2026";
+      document.getElementById("cfgAdvPass").value = appSettings.advocatePass || "1111";
+      document.getElementById("cfgMediatorPins").innerHTML = MEDIATORS.map(m => `
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-slate-700 font-semibold">${m}</span>
+          <input data-med="${m}" type="text" value="${(appSettings.mediatorPins && appSettings.mediatorPins[m]) || "1234"}" class="med-pin-input w-28 px-2.5 py-1.5 rounded-lg border border-slate-300 font-mono text-xs" />
+        </div>
+      `).join("");
+      document.getElementById("pinSettingsModal").classList.remove("hidden");
+    }
+
+    async function savePinSettings() {
+      if (session.role !== "admin") return;
+      const newAdmin = document.getElementById("cfgAdminPass").value.trim();
+      const newAdv = document.getElementById("cfgAdvPass").value.trim();
+      if (!newAdmin || !newAdv) {
+        showToast("Passcodes cannot be empty.");
+        return;
+      }
+      const medPins = {};
+      document.querySelectorAll(".med-pin-input").forEach(inp => {
+        medPins[inp.getAttribute("data-med")] = inp.value.trim() || "1234";
+      });
+      appSettings = { adminPass: newAdmin, advocatePass: newAdv, mediatorPins: medPins };
+      try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(appSettings)); } catch (e) {}
+      const url = getFirebaseUrl();
+      if (url) {
+        try {
+          const ep = await buildDbEndpoint(undefined, undefined, "settings");
+          await fetch(ep, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(appSettings)
+          });
+        } catch (e) {}
+      }
+      closeModal("pinSettingsModal");
+      showToast("PIN & Passcode settings saved.");
+    }
+
+    // --- 12. INIT & AUTO-POLLING ---
     loadState();
     populateLoginSelectors();
     renderApp();
     if (getFirebaseUrl()) {
       pullFromFirebase(false);
     }
+    setInterval(() => {
+      if (getFirebaseUrl() && document.visibilityState === "visible") {
+        pullFromFirebase(false);
+      }
+    }, 20000);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && getFirebaseUrl()) {
+        pullFromFirebase(false);
+      }
+    });
   </script>
 </body>
 </html>
