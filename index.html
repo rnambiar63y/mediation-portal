@@ -1488,6 +1488,11 @@ Signature of Petitioner          Signature of Respondent          Signature of M
         pullFromFirebase(false);
       }
     });
+    if ("serviceWorker" in navigator && (location.protocol === "https:" || location.protocol === "http:")) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>
