@@ -1,233 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mediation App - User Manual</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      max-width: 850px;
-      margin: 20px auto;
-      padding: 0 20px;
-      color: #222;
-      background-color: #f9fafb;
-    }
-    .container {
-      background: #ffffff;
-      padding: 25px 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-    .lang-bar {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #e5e7eb;
-      flex-wrap: wrap;
-    }
-    .lang-btn {
-      padding: 8px 16px;
-      border: 1px solid #2563eb;
-      background: #ffffff;
-      color: #2563eb;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 600;
-    }
-    .lang-btn.active, .lang-btn:hover {
-      background: #2563eb;
-      color: #ffffff;
-    }
-    h1 {
-      color: #1e3a8a;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-    h2 {
-      color: #1d4ed8;
-      font-size: 19px;
-      margin-top: 24px;
-      border-bottom: 1px solid #eff6ff;
-      padding-bottom: 4px;
-    }
-    h3 {
-      color: #111827;
-      font-size: 16px;
-      margin-top: 16px;
-      margin-bottom: 6px;
-    }
-    ul {
-      margin-top: 4px;
-      padding-left: 20px;
-    }
-    li {
-      margin-bottom: 6px;
-    }
-    .lang-section {
-      display: none;
-    }
-    .lang-section.active {
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediation Portal User Manual</title>
+    <style>
+        :root {
+            --primary: #1A365D; --accent: #D4AF37;
+            --bg: #F4F6F9; --text: #2D3748;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); padding: 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; background: #FFF; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1, h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        .section { margin-bottom: 25px; }
+        .pin-box { background: #EBF8FF; border-left: 4px solid var(--accent); padding: 15px; border-radius: 0 8px 8px 0; margin: 10px 0; }
+        .note { font-style: italic; color: #4A5568; }
+        @media print { body { background: #FFF; padding: 0; } .container { box-shadow: none; width: 100%; } }
+    </style>
 </head>
 <body>
-
 <div class="container">
-  <!-- Language Switcher Buttons -->
-  <div class="lang-bar">
-    <button class="lang-btn active" onclick="setLanguage('en', this)">English</button>
-    <button class="lang-btn" onclick="setLanguage('ml', this)">മലയാളം (Malayalam)</button>
-    <button class="lang-btn" onclick="setLanguage('kn', this)">ಕನ್ನಡ (Kannada)</button>
-  </div>
+    <h1>Court-Annexed Mediation Portal</h1>
+    <p><strong>User &amp; Operational Manual</strong> | <strong>കക്ഷികൾക്കും മധ്യസ്ഥന്മാർക്കുമുള്ള നിർദ്ദേശങ്ങൾ</strong></p>
 
-  <!-- ENGLISH SECTION -->
-  <div id="lang-en" class="lang-section active">
-    <h1>Mediation App – User Manual</h1>
-    <p>Welcome to the Mediation Centre Digital Portal. Follow the instructions below based on your user role.</p>
+    <div class="section">
+        <h2>1. Overview &amp; Role-Based Access</h2>
+        <p>The Mediation Portal provides role-isolated access to case records. Upon opening the portal, select your respective role on the login screen and enter your authorized PIN:</p>
+        
+        <div class="pin-box">
+            <strong>Mediator (മധ്യസ്ഥൻ):</strong> Select your name from the dropdown and enter your mediator PIN.<br>
+            <span class="note">Accesses only the cases explicitly assigned to your mediation docket.</span>
+        </div>
+        
+        <div class="pin-box">
+            <strong>Advocate (അഡ്വക്കേറ്റ്):</strong> Select Advocate Login and enter your authorized PIN.<br>
+            <span class="note">Accesses only the cases where you are listed as the Petitioner's or Respondent's advocate.</span>
+        </div>
 
-    <h2>1. Signing In by User Role</h2>
+        <div class="pin-box">
+            <strong>Party / Client (കക്ഷി):</strong> Enter the specific Case Number (e.g., OP 1117/2026) and your party PIN.<br>
+            <span class="note">Accesses exclusively the details, status, and scheduled dates for your specific matter.</span>
+        </div>
+    </div>
 
-    <h3>A. Office Staff</h3>
-    <ul>
-      <li><strong>How to Sign In:</strong> Open the app web link and log in using the official staff credentials (username/email and password).</li>
-      <li><strong>Dashboard Access:</strong> Opens the complete case management dashboard and registration tools.</li>
-      <li><strong>Key Functions:</strong> Register new cases, enter party and advocate details, assign mediators, and update case statuses.</li>
-    </ul>
+    <div class="section">
+        <h2>2. Case Dashboard &amp; Status Tracking</h2>
+        <p>Once authenticated, the dashboard displays your authorized case list:</p>
+        <ul>
+            <li><strong>Case Identity:</strong> Displays Folio Number, Case Type (e.g., Family Court, JMFC), and Parties involved.</li>
+            <li><strong>Status Tag:</strong> Clearly shows whether the matter is <code>Pending</code>, <code>Settled</code>, or <code>Referred</code>.</li>
+            <li><strong>Key Dates:</strong> Highlights the <code>Reference Date</code>, <code>Mediation Return Date</code>, and subsequent <code>Court Posting Date</code>.</li>
+        </ul>
+    </div>
 
-    <h3>B. Mediators</h3>
-    <ul>
-      <li><strong>How to Sign In:</strong> Open the app web link and log in using your assigned mediator ID and password.</li>
-      <li><strong>Dashboard Access:</strong> Displays only the cases assigned to you.</li>
-      <li><strong>Key Functions:</strong> Review case background before sittings, record session notes, update next sitting dates, and mark settlement outcomes.</li>
-    </ul>
+    <div class="section">
+        <h2>3. Updating &amp; Recording Progress</h2>
+        <p>Mediators can update case parameters in real time:</p>
+        <ul>
+            <li><strong>Status Update:</strong> Update the status as mediation progresses (e.g., transitioning from Pending to Settled).</li>
+            <li><strong>Date Scheduling:</strong> Record upcoming return dates and court postings.</li>
+            <li><strong>Voice Dictation &amp; Notes:</strong> Utilize the integrated microphone button (Voice Dictation) in the notes section to dictate proceedings, mediator observations, or advocate notes hands-free, ensuring accurate and efficient documentation.</li>
+        </ul>
+    </div>
 
-    <h3>C. Advocates</h3>
-    <ul>
-      <li><strong>How to Sign In:</strong> Open the app web link and log in using your registered advocate credentials.</li>
-      <li><strong>Dashboard Access:</strong> Lists only the cases in which you appear for a party.</li>
-      <li><strong>Key Functions:</strong> Track live case progress and verify upcoming mediation sitting dates.</li>
-    </ul>
-
-    <h3>D. Clients (Parties)</h3>
-    <ul>
-      <li><strong>How to Sign In:</strong> Open the app web link and log in using the case access credentials provided to you.</li>
-      <li><strong>Dashboard Access:</strong> Restricted strictly to your own case details.</li>
-      <li><strong>Key Functions:</strong> Check your next sitting date and current case status privately.</li>
-    </ul>
-
-    <h2>2. Searching Case Details</h2>
-    <p>Use the <strong>Search Bar</strong> on your dashboard to locate records quickly by entering the Case Number or Party Name.</p>
-
-    <h2>3. Mediator Reports</h2>
-    <p>View real-time summaries of total cases handled, settled matters, and pending sittings from the Reports tab.</p>
-  </div>
-
-  <!-- MALAYALAM SECTION -->
-  <div id="lang-ml" class="lang-section">
-    <h1>മീഡിയേഷൻ ആപ്പ് – യൂസർ മാനുവൽ</h1>
-    <p>മീഡിയേഷൻ സെന്റർ ഡിജിറ്റൽ പോർട്ടലിലേക്ക് സ്വാഗതം. നിങ്ങളുടെ വിഭാഗത്തിന് (Role) അനുസരിച്ചുള്ള നിർദ്ദേശങ്ങൾ താഴെ വായിക്കുക.</p>
-
-    <h2>1. വിവിധ വിഭാഗങ്ങൾ ലോഗിൻ ചെയ്യുന്ന വിധം</h2>
-
-    <h3>A. ഓഫീസ് സ്റ്റാഫ് (Office Staff)</h3>
-    <ul>
-      <li><strong>ലോഗിൻ ചെയ്യുന്ന വിധം:</strong> വെബ് ലിങ്ക് തുറന്ന് ഓഫീസിൽ നിന്നും നൽകിയിട്ടുള്ള സ്റ്റാഫ് യൂസർനെയിമും പാസ്‌വേഡും ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുക.</li>
-      <li><strong>കാണുന്ന വിവരങ്ങൾ:</strong> എല്ലാ കേസുകളുടെയും വിവരങ്ങളും പുതിയ കേസ് രജിസ്റ്റർ ചെയ്യാനുള്ള ഡാഷ്‌ബോർഡും ലഭ്യമാകും.</li>
-      <li><strong>പ്രധാന ചുമതലകൾ:</strong> പുതിയ കേസുകൾ രജിസ്റ്റർ ചെയ്യുക, കക്ഷികളുടെയും അഭിഭാഷകരുടെയും വിവരങ്ങൾ ചേർക്കുക, മീഡിയേറ്റർമാരെ നിശ്ചയിക്കുക, കേസ് സ്റ്റാറ്റസ് അപ്‌ഡേറ്റ് ചെയ്യുക.</li>
-    </ul>
-
-    <h3>B. മീഡിയേറ്റർമാർ (Mediators)</h3>
-    <ul>
-      <li><strong>ലോഗിൻ ചെയ്യുന്ന വിധം:</strong> വെബ് ലിങ്ക് തുറന്ന് നിങ്ങൾക്ക് അനുവദിച്ചിട്ടുള്ള മീഡിയേറ്റർ ലോഗിൻ വിവരങ്ങൾ നൽകി പ്രവേശിക്കുക.</li>
-      <li><strong>കാണുന്ന വിവരങ്ങൾ:</strong> നിങ്ങൾക്ക് ചുമതലപ്പെടുത്തിയിട്ടുള്ള കേസുകൾ മാത്രമേ സ്ക്രീനിൽ കാണുകയുള്ളൂ.</li>
-      <li><strong>പ്രധാന ചുമതലകൾ:</strong> സിറ്റിംഗിന് മുമ്പ് കേസ് വിവരങ്ങൾ പരിശോധിക്കുക, സിറ്റിംഗ് കുറിപ്പുകൾ രേഖപ്പെടുത്തുക, അടുത്ത തീയതി നൽകുക, ഒത്തുതീർപ്പ് വിവരങ്ങൾ രേഖപ്പെടുത്തുക.</li>
-    </ul>
-
-    <h3>C. അഡ്വക്കേറ്റ്മാർ (Advocates)</h3>
-    <ul>
-      <li><strong>ലോഗിൻ ചെയ്യുന്ന വിധം:</strong> വെബ് ലിങ്ക് തുറന്ന് രജിസ്റ്റർ ചെയ്ത അഡ്വക്കേറ്റ് ലോഗിൻ വിവരങ്ങൾ ഉപയോഗിച്ച് പ്രവേശിക്കുക.</li>
-      <li><strong>കാണുന്ന വിവരങ്ങൾ:</strong> നിങ്ങൾ ഹാജരാകുന്ന കേസുകളുടെ പട്ടിക മാത്രമാണ് ലഭ്യമാകുക.</li>
-      <li><strong>പ്രധാന ചുമതലകൾ:</strong> കേസുകളുടെ നിലവിലെ സ്ഥിതിയും അടുത്ത മീഡിയേഷൻ സിറ്റിംഗ് തീയതിയും പരിശോധിക്കുക.</li>
-    </ul>
-
-    <h3>D. കക്ഷികൾ (Clients / Parties)</h3>
-    <ul>
-      <li><strong>ലോഗിൻ ചെയ്യുന്ന വിധം:</strong> വെബ് ലിങ്ക് തുറന്ന് നിങ്ങളുടെ കേസിനായി നൽകിയിട്ടുള്ള ലോഗിൻ വിവരങ്ങൾ ഉപയോഗിക്കുക.</li>
-      <li><strong>കാണുന്ന വിവരങ്ങൾ:</strong> നിങ്ങളുടെ സ്വന്തം കേസിന്റെ വിവരങ്ങൾ മാത്രമേ കാണാൻ സാധിക്കൂ.</li>
-      <li><strong>പ്രധാന ചുമതലകൾ:</strong> അടുത്ത സിറ്റിംഗ് തീയതിയും കേസിന്റെ പുരോഗതിയും സുരക്ഷിതമായി അറിയുക.</li>
-    </ul>
-
-    <h2>2. കേസ് വിവരങ്ങൾ തിരയുന്ന വിധം</h2>
-    <p>ഡാഷ്‌ബോർഡിലെ <strong>സെർച്ച് ബാറിൽ (Search Bar)</strong> കേസ് നമ്പറോ കക്ഷിയുടെ പേരോ നൽകി വിവരങ്ങൾ വേഗത്തിൽ കണ്ടെത്താം.</p>
-
-    <h2>3. മീഡിയേറ്റർ റിപ്പോർട്ട്</h2>
-    <p>ആകെ കേസുകൾ, ഒത്തുതീർപ്പായവ, തീർപ്പാകാനുള്ളവ എന്നിവയുടെ കണക്കുകൾ റിപ്പോർട്ട് വിഭാഗത്തിൽ പരിശോധിക്കാം.</p>
-  </div>
-
-  <!-- KANNADA SECTION -->
-  <div id="lang-kn" class="lang-section">
-    <h1>ಮೀಡಿಯೇಷನ್ ಆಪ್ – ಬಳಕೆದಾರರ ಕೈಪಿಡಿ (User Manual)</h1>
-    <p>ಮೀಡಿಯೇಷನ್ ಸೆಂಟರ್ ಡಿಜಿಟಲ್ ಪೋರ್ಟಲ್‌ಗೆ ಸ್ವಾಗತ. ನಿಮ್ಮ ಪಾತ್ರಕ್ಕೆ (Role) ಅನುಗುಣವಾಗಿ ಕೆಳಗಿನ ಸೂಚನೆಗಳನ್ನು ಅನುಸರಿಸಿ.</p>
-
-    <h2>1. ವಿವಿಧ ಬಳಕೆದಾರರು ಲಾಗಿನ್ ಆಗುವ ವಿಧಾನ</h2>
-
-    <h3>A. ಕಚೇರಿ ಸಿಬ್ಬಂದಿ (Office Staff)</h3>
-    <ul>
-      <li><strong>ಲಾಗಿನ್ ವಿಧಾನ:</strong> ವೆಬ್ ಲಿಂಕ್ ತೆರೆದು ಕಚೇರಿಯಿಂದ ನೀಡಲಾದ ಯೂಸರ್‌ನೇಮ್ ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ ಬಳಸಿ ಲಾಗಿನ್ ಆಗಿ.</li>
-      <li><strong>ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಮಾಹಿತಿ:</strong> ಎಲ್ಲಾ ಪ್ರಕರಣಗಳ ನಿರ್ವಹಣೆ ಮತ್ತು ಹೊಸ ಪ್ರಕರಣಗಳನ್ನು ನೋಂದಾಯಿಸುವ ಆಯ್ಕೆಗಳು ಕಾಣಿಸುತ್ತವೆ.</li>
-      <li><strong>ಮುಖ್ಯ ಕಾರ್ಯಗಳು:</strong> ಹೊಸ ಪ್ರಕರಣಗಳನ್ನು ದಾಖಲಿಸುವುದು, ಪಕ್ಷಗಾರರು ಮತ್ತು ವಕೀಲರ ವಿವರಗಳನ್ನು ಸೇರಿಸುವುದು, ಮಧ್ಯಸ್ಥಿಕೆದಾರರನ್ನು ನೇಮಿಸುವುದು ಮತ್ತು ಪ್ರಕರಣದ ಸ್ಥಿತಿಯನ್ನು ನವೀಕರಿಸುವುದು.</li>
-    </ul>
-
-    <h3>B. ಮಧ್ಯಸ್ಥಿಕೆದಾರರು (Mediators)</h3>
-    <ul>
-      <li><strong>ಲಾಗಿನ್ ವಿಧಾನ:</strong> ವೆಬ್ ಲಿಂಕ್ ತೆರೆದು ನಿಮಗೆ ನೀಡಲಾದ ಮೀಡಿಯೇಟರ್ ಲಾಗಿನ್ ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ ಪ್ರವೇಶಿಸಿ.</li>
-      <li><strong>ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಮಾಹಿತಿ:</strong> ನಿಮಗೆ ವಹಿಸಲಾದ ಪ್ರಕರಣಗಳು ಮಾತ್ರ ಪರದೆಯ ಮೇಲೆ ಕಾಣಿಸುತ್ತವೆ.</li>
-      <li><strong>ಮುಖ್ಯ ಕಾರ್ಯಗಳು:</strong> ವಿಚಾರಣೆಗೂ ಮುನ್ನ ಪ್ರಕರಣದ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸುವುದು, ಸಭೆಯ ಟಿಪ್ಪಣಿಗಳನ್ನು ದಾಖಲಿಸುವುದು, ಮುಂದಿನ ದಿನಾಂಕವನ್ನು ನೀಡುವುದು ಮತ್ತು ಇತ್ಯರ್ಥದ ಫಲಿತಾಂಶವನ್ನು ನಮೂದಿಸುವುದು.</li>
-    </ul>
-
-    <h3>C. ವಕೀಲರು (Advocates)</h3>
-    <ul>
-      <li><strong>ಲಾಗಿನ್ ವಿಧಾನ:</strong> ವೆಬ್ ಲಿಂಕ್ ತೆರೆದು ನಿಮ್ಮ ನೋಂದಾಯಿತ ವಕೀಲರ ಲಾಗಿನ್ ವಿವರಗಳೊಂದಿಗೆ ಪ್ರವೇಶಿಸಿ.</li>
-      <li><strong>ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಮಾಹಿತಿ:</strong> ನೀವು ಪ್ರತಿನಿಧಿಸುವ ಪ್ರಕರಣಗಳ ಪಟ್ಟಿ ಮಾತ್ರ ಕಾಣಿಸುತ್ತದೆ.</li>
-      <li><strong>ಮುಖ್ಯ ಕಾರ್ಯಗಳು:</strong> ಪ್ರಕರಣದ ಪ್ರಸ್ತುತ ಸ್ಥಿತಿ ಮತ್ತು ಮುಂದಿನ ಮಧ್ಯಸ್ಥಿಕೆ ವಿಚಾರಣೆಯ ದಿನಾಂಕವನ್ನು ಪರಿಶೀಲಿಸುವುದು.</li>
-    </ul>
-
-    <h3>D. ಕಕ್ಷಿದಾರರು (Clients / Parties)</h3>
-    <ul>
-      <li><strong>ಲಾಗಿನ್ ವಿಧಾನ:</strong> ವೆಬ್ ಲಿಂಕ್ ತೆರೆದು ನಿಮ್ಮ ಪ್ರಕರಣಕ್ಕಾಗಿ ನೀಡಲಾದ ಲಾಗಿನ್ ವಿವರಗಳನ್ನು ಬಳಸಿ.</li>
-      <li><strong>ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಮಾಹಿತಿ:</strong> ನಿಮ್ಮ ಸ್ವಂತ ಪ್ರಕರಣದ ವಿವರಗಳು ಮಾತ್ರ ಗೋಚರಿಸುತ್ತವೆ.</li>
-      <li><strong>ಮುಖ್ಯ ಕಾರ್ಯಗಳು:</strong> ಮುಂದಿನ ವಿಚಾರಣೆಯ ದಿನಾಂಕ ಮತ್ತು ಪ್ರಕರಣದ ಪ್ರಗತಿಯನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ತಿಳಿದುಕೊಳ್ಳುವುದು.</li>
-    </ul>
-
-    <h2>2. ಪ್ರಕರಣದ ವಿವರಗಳನ್ನು ಹುಡುಕುವ ವಿಧಾನ</h2>
-    <p>ಡ್ಯಾಶ್‌ಬೋರ್ಡ್‌ನಲ್ಲಿರುವ <strong>ಸರ್ಚ್ ಬಾರ್ (Search Bar)</strong> ನಲ್ಲಿ ಪ್ರಕರಣದ ಸಂಖ್ಯೆ ಅಥವಾ ಪಕ್ಷಗಾರರ ಹೆಸರನ್ನು ನಮೂದಿಸಿ ವಿವರಗಳನ್ನು ಸುಲಭವಾಗಿ ಹುಡುಕಬಹುದು.</p>
-
-    <h2>3. ಮೀಡಿಯೇಟರ್ ವರದಿಗಳು (Reports)</h2>
-    <p>ಒಟ್ಟು ಪ್ರಕರಣಗಳು, ಇತ್ಯರ್ಥವಾದ ಪ್ರಕರಣಗಳು ಮತ್ತು ಬಾಕಿ ಇರುವ ವಿಚಾರಣೆಗಳ ವಿವರಗಳನ್ನು ವರದಿಗಳ ವಿಭಾಗದಲ್ಲಿ ವೀಕ್ಷಿಸಬಹುದು.</p>
-  </div>
+    <div class="section">
+        <h2>4. Printing &amp; Documentation</h2>
+        <p>At any stage, clicking the <strong>Print / Export Case Details</strong> button formats the current case data into a clean, A4 landscape-friendly statement suitable for official records and court submission.</p>
+    </div>
 </div>
-
-<script>
-  function setLanguage(lang, btn) {
-    // Hide all language sections
-    document.querySelectorAll('.lang-section').forEach(section => {
-      section.classList.remove('active');
-    });
-    // Remove active style from all buttons
-    document.querySelectorAll('.lang-btn').forEach(button => {
-      button.classList.remove('active');
-    });
-    // Show selected language and highlight button
-    document.getElementById('lang-' + lang).classList.add('active');
-    btn.classList.add('active');
-  }
-</script>
-
 </body>
 </html>
-
