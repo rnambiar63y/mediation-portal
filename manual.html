@@ -13,10 +13,9 @@
         .container { max-width: 800px; margin: 0 auto; background: #FFF; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         h1, h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
         .section { margin-bottom: 25px; }
-        .admin-section { margin-top: 40px; border-top: 2px dashed #CBD5E0; padding-top: 20px; color: #718096; }
         .pin-box { background: #EBF8FF; border-left: 4px solid var(--accent); padding: 15px; border-radius: 0 8px 8px 0; margin: 10px 0; }
         .note { font-style: italic; color: #4A5568; }
-        @media print { body { background: #FFF; padding: 0; } .container { box-shadow: none; width: 100%; } .admin-section { display: none; } }
+        @media print { body { background: #FFF; padding: 0; } .container { box-shadow: none; width: 100%; } }
     </style>
 </head>
 <body>
@@ -67,17 +66,6 @@
     <div class="section">
         <h2>4. Printing &amp; Documentation</h2>
         <p>At any stage, clicking the <strong>Print / Export Case Details</strong> button formats the current case data into a clean, A4 landscape-friendly statement suitable for official records and court submission.</p>
-    </div>
-
-    <!-- Collapsible/Separated Admin Section -->
-    <div class="admin-section">
-        <h2>Administrative &amp; Technical Setup (Admin Only)</h2>
-        <p><em>This section is intended solely for the system administrator / court IT coordinator.</em></p>
-        <ul>
-            <li><strong>Role Management:</strong> Admins access the portal via Register No. VI Passcode to assign cases, edit mediator/advocate dockets, and update PINs.</li>
-            <li><strong>Firebase Live Sync:</strong> Configured via the <code>Firebase Live Sync &amp; Config</code> modal using the Realtime Database URL and Web API Key. Security rules must strictly enforce <code>"auth != null"</code> for read/write operations.</li>
-            <li><strong>Offline Capability:</strong> The portal incorporates Service Worker caching (<code>sw.js</code>) to allow continuous operation during network fluctuations.</li>
-        </ul>
     </div>
 </div>
 </body>
