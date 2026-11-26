@@ -32,12 +32,12 @@
         <img id="appLogoImg" src="./icon-192.png" alt="Court Mediation Icon" class="w-10 h-10 rounded-xl border border-amber-400/50 bg-slate-900 object-cover shrink-0" />
         <div class="min-w-0">
           <h1 id="t-appTitle" class="text-sm sm:text-base font-bold leading-tight truncate">Court-Annexed Mediation Center Portal</h1>
-          <p id="t-appSub" class="text-[11px] sm:text-xs text-amber-200 truncate">Kasaragod Mediation Register 2026 • Role-Isolated &amp; Firebase Ready</p>
+          <p id="t-appSub" class="text-[11px] sm:text-xs text-amber-200 truncate">Kasaragod Mediation Register 2026 • Role-Isolated &amp; Firebase Live</p>
         </div>
       </div>
 
       <div class="flex flex-wrap items-center gap-2">
-        <!-- Sync Status Pill -->
+        <!-- Sync Status Pill (Admin-gated modal) -->
         <button id="syncStatusBtn" type="button" onclick="openSyncModal()" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 hover:bg-white/20 text-slate-100 border border-white/15 transition">
           <span id="syncDot" class="w-2 h-2 rounded-full bg-amber-400"></span>
           <span id="syncLabel">Local Mode</span>
@@ -65,12 +65,12 @@
   <!-- Toast Banner -->
   <div id="toastBox" class="fixed bottom-4 right-4 z-50 hidden max-w-sm bg-slate-900 text-white text-xs sm:text-sm px-4 py-3 rounded-xl shadow-xl border border-slate-700"></div>
 
-  <!-- LOGIN VIEW (4 Strict Role Portals) -->
+  <!-- LOGIN VIEW (4 Strict Role Portals with Visible Typed Passwords) -->
   <main id="loginView" class="flex-1 max-w-5xl w-full mx-auto px-4 py-6 sm:py-8">
     <div class="text-center max-w-2xl mx-auto mb-6">
       <span id="t-loginBadge" class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold mb-2">Strict Role-Based Access Control</span>
       <h2 id="t-loginHeading" class="text-xl sm:text-2xl font-extrabold text-[#0f2244]">Select Your Role to Sign In</h2>
-      <p id="t-loginDesc" class="text-xs sm:text-sm text-slate-600 mt-1">Each role only sees its own authorized cases. You cannot view other users' data after signing in.</p>
+      <p id="t-loginDesc" class="text-xs sm:text-sm text-slate-600 mt-1">Each role only sees its own authorized cases. Typed access codes are shown clearly for error-free entry.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -82,9 +82,12 @@
             <span class="text-xs text-slate-400">Staff Passcode</span>
           </div>
           <h3 id="t-r1Title" class="text-base font-bold text-[#0f2244]">Court Mediation Centre (Admin)</h3>
-          <p id="t-r1Desc" class="text-xs text-slate-600 mt-1 mb-4">Manage all Register No. VI cases, assign mediators, manage PINs, configure Firebase Sync, and print A4 reports.</p>
+          <p id="t-r1Desc" class="text-xs text-slate-600 mt-1 mb-4">Manage Register No. VI cases, assign mediators, manage PINs, and print A4 reports.</p>
           <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r1InputLbl">Staff Passcode</label>
-          <input id="adminPassInput" type="password" placeholder="Enter staff passcode" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#0f2244]" />
+          <div class="flex gap-1.5">
+            <input id="adminPassInput" type="text" autocomplete="off" placeholder="Enter staff passcode" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#0f2244]" />
+            <button type="button" onclick="toggleInputMask('adminPassInput', this)" class="px-2.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold shrink-0">Hide</button>
+          </div>
         </div>
         <div class="mt-4">
           <button type="button" onclick="loginAdmin()" id="t-r1Btn" class="w-full py-2.5 px-3 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">Enter as Admin</button>
@@ -99,7 +102,7 @@
             <span class="text-xs text-slate-400">Identity + Personal PIN</span>
           </div>
           <h3 id="t-r2Title" class="text-base font-bold text-[#0f2244]">Mediator Login</h3>
-          <p id="t-r2Desc" class="text-xs text-slate-600 mt-1 mb-3">View only cases assigned to you, track Settled / Not Settled / Pending counts, update notes &amp; Sec. 89 drafts.</p>
+          <p id="t-r2Desc" class="text-xs text-slate-600 mt-1 mb-3">View assigned cases, log effective postings, calculate quarterly remuneration, and draft Sec. 89 settlements.</p>
           <div class="space-y-2">
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r2SelLbl">Select Mediator</label>
@@ -107,7 +110,10 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r2PinLbl">Mediator PIN</label>
-              <input id="mediatorPinInput" type="password" placeholder="Enter your Mediator PIN" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+              <div class="flex gap-1.5">
+                <input id="mediatorPinInput" type="text" autocomplete="off" placeholder="Enter your Mediator PIN" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+                <button type="button" onclick="toggleInputMask('mediatorPinInput', this)" class="px-2.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold shrink-0">Hide</button>
+              </div>
             </div>
           </div>
         </div>
@@ -132,7 +138,10 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-r3OtpLbl">Access Passcode / OTP</label>
-              <input id="advocateOtpInput" type="password" placeholder="Enter passcode" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              <div class="flex gap-1.5">
+                <input id="advocateOtpInput" type="text" autocomplete="off" placeholder="Enter passcode" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-amber-600" />
+                <button type="button" onclick="toggleInputMask('advocateOtpInput', this)" class="px-2.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold shrink-0">Hide</button>
+              </div>
             </div>
           </div>
         </div>
@@ -186,7 +195,64 @@
       </div>
     </section>
 
-    <!-- Search Bar + At-a-Glance Status Counts (Scoped to Visible Cases Only) -->
+    <!-- MEDIATOR QUARTERLY EFFECTIVE POSTINGS & REMUNERATION PANEL (Mediator Role Only) -->
+    <section id="mediatorQuarterlyPanel" class="hidden bg-white rounded-2xl border border-emerald-200 p-4 shadow-sm space-y-3 no-print">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold">Mediator Quarterly Honorarium &amp; Effective Postings</span>
+          <h3 class="text-base font-extrabold text-[#0f2244] mt-1">Quarterly Effective Postings &amp; Remuneration Summary</h3>
+          <p class="text-[11px] text-slate-500">Uniform Rate (HC &amp; Lower Courts): <b>₹4,500</b> per Settled case • <b>₹1,500</b> per Not-Settled case with <b>&ge; 3 Effective Postings</b> (both parties present &amp; mediated) • <b>₹0</b> if &lt; 3 effective postings.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <select id="qSelect" onchange="renderQuarterlyPanel()" class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs font-bold bg-white">
+            <option value="ALL">All Quarters (2026)</option>
+            <option value="Q1">Q1 (Jan – Mar)</option>
+            <option value="Q2">Q2 (Apr – Jun)</option>
+            <option value="Q3">Q3 (Jul – Sep)</option>
+            <option value="Q4">Q4 (Oct – Dec)</option>
+          </select>
+          <select id="qYearSelect" onchange="renderQuarterlyPanel()" class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs font-bold bg-white">
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2027">2027</option>
+          </select>
+          <button type="button" onclick="printQuarterlyClaim()" class="px-3 py-1.5 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">🖨️ Print Claim Statement</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-center">
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="text-[11px] text-slate-500 font-semibold">Referred Cases</div>
+          <div id="qmReferred" class="text-lg font-extrabold text-[#0f2244]">0</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+          <div class="text-[11px] text-emerald-700 font-semibold">Settled (₹4,500)</div>
+          <div id="qmSettled" class="text-lg font-extrabold text-emerald-800">0</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-rose-50 border border-rose-200">
+          <div class="text-[11px] text-rose-700 font-semibold">Not Settled</div>
+          <div id="qmNotSettled" class="text-lg font-extrabold text-rose-800">0</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-indigo-50 border border-indigo-200">
+          <div class="text-[11px] text-indigo-700 font-semibold">Settlement %</div>
+          <div id="qmPct" class="text-lg font-extrabold text-indigo-800">0%</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-sky-50 border border-sky-200">
+          <div class="text-[11px] text-sky-700 font-semibold">Effective Postings</div>
+          <div id="qmEffPostings" class="text-lg font-extrabold text-sky-800">0</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200">
+          <div class="text-[11px] text-amber-800 font-semibold">Eligible Not-Settled (&ge;3)</div>
+          <div id="qmEligibleNS" class="text-lg font-extrabold text-amber-900">0</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-[#0f2244] text-white col-span-2 sm:col-span-1">
+          <div class="text-[11px] text-amber-200 font-semibold">Total Remuneration</div>
+          <div id="qmTotalFee" class="text-lg font-extrabold text-amber-300">₹0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Bar + At-a-Glance Status Counts + Today's Cause List Filter -->
     <section class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-3 no-print">
       <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         <div class="relative flex-1">
@@ -196,7 +262,7 @@
       </div>
     </section>
 
-    <!-- Formal A4 Register No. VI Print Container (Admin Only) -->
+    <!-- Formal A4 Register No. VI / Quarterly Claim Print Container -->
     <section id="printRegisterArea" class="hidden"></section>
 
     <!-- Cases Table / Cards -->
@@ -224,12 +290,34 @@
       <div id="modalDetailsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200"></div>
       <div id="modalAuditTrail" class="text-[11px] text-slate-500 bg-slate-50 px-3 py-2 rounded-lg border border-slate-200 hidden"></div>
 
+      <!-- PER-CASE EFFECTIVE POSTINGS LOG (Mediator & Admin) -->
+      <div id="effectivePostingsSection" class="hidden bg-emerald-50/60 border border-emerald-200 rounded-xl p-3 space-y-2.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h4 class="text-xs font-extrabold text-[#0f2244]">Effective Postings &amp; Sitting Attendance Log</h4>
+            <p class="text-[11px] text-slate-600">Tick <b>Effective Posting</b> only when <b>both parties are present and mediated</b> (min. 3 required for ₹1,500 Not-Settled fee).</p>
+          </div>
+          <span id="caseFeeBadge" class="px-2.5 py-1 rounded-full bg-[#0f2244] text-amber-300 text-[11px] font-bold"></span>
+        </div>
+
+        <div id="addPostingRow" class="flex flex-wrap items-center gap-2 bg-white p-2 rounded-lg border border-emerald-200 text-xs">
+          <input type="date" id="newPostingDate" class="px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs" />
+          <label class="inline-flex items-center gap-1.5 font-semibold text-slate-700 cursor-pointer">
+            <input type="checkbox" id="newPostingEffective" checked class="rounded text-emerald-700" />
+            Effective Posting (Both parties present &amp; mediated)
+          </label>
+          <button type="button" onclick="addEffectivePosting()" class="ml-auto px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">+ Add Sitting</button>
+        </div>
+
+        <div id="postingsHistoryList" class="space-y-1 text-xs"></div>
+      </div>
+
       <!-- Editable Controls (Role-Gated) -->
       <div id="modalEditForm" class="space-y-3">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1" id="t-mStatus">Status</label>
-            <select id="editStatus" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+            <select id="editStatus" onchange="refreshModalFeePreview()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white">
               <option value="Pending">Pending</option>
               <option value="Settled">Settled</option>
               <option value="Not Settled">Not Settled</option>
@@ -262,7 +350,10 @@
       </div>
 
       <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
-        <button type="button" id="sec89Btn" onclick="openSec89Draft()" class="px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold">Section 89 Draft</button>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" id="sec89Btn" onclick="openSec89Draft()" class="px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold">Section 89 Draft</button>
+          <button type="button" id="whatsappNoticeBtn" onclick="sendWhatsAppIntimation(activeFolio)" class="px-3 py-2 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 text-xs font-bold">📲 WhatsApp Intimation</button>
+        </div>
         <div class="flex gap-2">
           <button type="button" onclick="closeModal('caseModal')" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Close</button>
           <button type="button" id="saveCaseBtn" onclick="saveCaseChanges()" class="px-4 py-2 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">Save &amp; Sync</button>
@@ -296,7 +387,7 @@
     </div>
   </div>
 
-  <!-- FIREBASE & COLLECTIVE SYNC MODAL -->
+  <!-- FIREBASE & COLLECTIVE SYNC MODAL (Admin Only) -->
   <div id="syncModal" class="fixed inset-0 z-40 hidden bg-slate-900/60 flex items-center justify-center p-4 no-print">
     <div class="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-5 space-y-4">
       <div class="flex items-center justify-between border-b pb-2">
@@ -305,24 +396,21 @@
       </div>
 
       <p class="text-xs text-slate-600" id="t-syncHelp">
-        To make changes made by any Mediator, Advocate, or Admin appear collectively on all devices, connect your Firebase Realtime Database URL below.
+        Connect your Firebase Realtime Database URL below so updates by any Mediator, Advocate, or Admin appear live across all devices.
       </p>
 
       <div class="space-y-2">
         <label class="block text-xs font-bold text-slate-700">Firebase Realtime Database URL</label>
         <input id="firebaseUrlInput" type="url" placeholder="https://your-project-default-rtdb.firebaseio.com" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono" />
-        <label class="block text-xs font-bold text-slate-700 pt-1">Firebase Web API Key (for Secure <code>auth != null</code> Rules)</label>
+        <label class="block text-xs font-bold text-slate-700 pt-1">Firebase Web API Key (Optional for Authenticated Rules)</label>
         <input id="firebaseApiKeyInput" type="text" placeholder="AIzaSy..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono" />
-        <p class="text-[11px] text-slate-500">
-          Enable <b>Authentication &rarr; Anonymous</b> in Firebase Console and set Rules to: <code class="bg-slate-100 px-1 rounded">{ "rules": { ".read": "auth != null", ".write": "auth != null" } }</code>
-        </p>
       </div>
 
       <div id="syncTestResult" class="hidden text-xs p-3 rounded-xl border"></div>
 
       <div class="flex flex-wrap gap-2">
         <button type="button" onclick="testAndSaveFirebase()" class="px-3 py-2 rounded-xl bg-[#0f2244] hover:bg-slate-800 text-white text-xs font-bold">Test &amp; Save URL</button>
-        <button type="button" onclick="pushAllToFirebase()" class="px-3 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">Push All 14+ Cases to Firebase</button>
+        <button type="button" onclick="pushAllToFirebase()" class="px-3 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold">Push All Cases to Firebase</button>
         <button type="button" onclick="pullFromFirebase(true)" class="px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 text-xs font-bold">Pull Latest from Firebase</button>
         <button type="button" onclick="disconnectFirebase()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Use Local Only</button>
       </div>
@@ -388,11 +476,11 @@
     </div>
   </div>
 
-  <!-- IN-PAGE USER MANUAL MODAL -->
+  <!-- ROLE-FILTERED USER MANUAL MODAL (No Developer Portions 2 & 3) -->
   <div id="manualModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4 no-print">
-    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-5 space-y-4 shadow-2xl">
+    <div class="bg-white rounded-2xl max-w-xl w-full max-h-[85vh] overflow-y-auto p-5 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between border-b pb-2">
-        <h3 class="text-base font-extrabold text-[#0f2244]" id="t-manTitle">User Manual &amp; Firebase Troubleshooting</h3>
+        <h3 class="text-base font-extrabold text-[#0f2244]" id="t-manTitle">Portal User Guide</h3>
         <button type="button" onclick="closeModal('manualModal')" class="px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-bold">✕</button>
       </div>
       <div id="manualModalBody" class="space-y-3 text-xs text-slate-700 leading-relaxed"></div>
@@ -402,20 +490,20 @@
   <script>
     // --- 1. GROUNDED REGISTER DATA (Kasaragod Mediation Register 2026 - 14 Cases) ---
     const INITIAL_CASES = [
-      { folio: "1", mediator: "", court: "JFCM Kasaragod", caseNo: "MC 32/2026", petitioner: "Nafeesath Shyma", petAdv: "Brinda Raj K", petContact: "9846000000", respondent: "Haneefa M", respAdv: "Zakir Ahammed", respContact: "9895105313", refDate: "2026-05-21", firstDate: "2026-05-25", postingDate: "2026-08-20", returnDate: "2026-08-20", status: "Pending", nextDate: "2026-05-25", notes: "First appearance scheduled at Kasaragod Mediation Centre" },
-      { folio: "2", mediator: "Ravindran Nambiar (R.N)", court: "Family Court Kasaragod", caseNo: "OP 1117/2026", petitioner: "Anjitha K", petAdv: "Adv. Valsala K", petContact: "9497851613", respondent: "Sreekanth P", respAdv: "Adv. Gangadhar", respContact: "9744851584", refDate: "2026-06-15", firstDate: "2026-06-15", postingDate: "2026-08-14", returnDate: "2026-08-03", status: "Settled", nextDate: "2026-08-03", notes: "Settled on 03/08/2026; Mediator: Ravindran Nambiar" },
-      { folio: "3", mediator: "B.F. AbdulRahman", court: "JFCM II Kasaragod", caseNo: "MC 77", petitioner: "Sathyavathi", petAdv: "Farzana", petContact: "", respondent: "Rameshan", respAdv: "Ravindran Nambiar", respContact: "9447155878", refDate: "", firstDate: "", postingDate: "2026-11-19", returnDate: "", status: "Settled", nextDate: "2026-11-19", notes: "Assigned Mediator: B.F.AbdulRahman" },
-      { folio: "4", mediator: "", court: "Family Court Kasaragod", caseNo: "OP 1125/2025", petitioner: "", petAdv: "", petContact: "", respondent: "", respAdv: "", respContact: "", refDate: "2026-06-16", firstDate: "", postingDate: "", returnDate: "", status: "Pending", nextDate: "", notes: "Year 2025" },
-      { folio: "5", mediator: "USB", court: "Munsiff Court Kasaragod (Prl. Munsiff, Kasaragod)", caseNo: "EP 294/25", petitioner: "Karabadaje Service Co-op Bank Ltd.", petAdv: "Adv. Mohan Prakash", petContact: "9947443759", respondent: "Ammu Poojari", respAdv: "Adv. Naveen S. N.", respContact: "8086955611", refDate: "2026-09-28", firstDate: "2026-09-28", postingDate: "2026-10-12", returnDate: "2026-10-12", status: "Settled", nextDate: "2026-11-09", notes: "Mediator: USB; Posting Book entry dated 09/11/2026 shows 'Settled' (Dis No. 4029/26, MFN 30)" },
-      { folio: "6", mediator: "USB", court: "Munsiff Court Kasaragod (Prl. Munsiff, Kasaragod)", caseNo: "EP 265/25", petitioner: "Karabadaje Service Co-op Bank Ltd.", petAdv: "Adv. Mohan Prakash", petContact: "9947443759", respondent: "Ammu Poojari", respAdv: "Adv. Naveen S. N.", respContact: "8086955611", refDate: "2026-09-28", firstDate: "2026-09-28", postingDate: "2026-10-12", returnDate: "2026-10-12", status: "Settled", nextDate: "2026-11-09", notes: "Mediator: USB; Posting Book entry dated 09/11/2026 shows 'Settled' (Dis No. 4028/26, MFN 30)" },
-      { folio: "7", mediator: "Ravindran Nambiar (R.N)", court: "Family Court, Kasaragod", caseNo: "OP 543/2026", petitioner: "Naveen Kumar", petAdv: "Adv. Manikandan", petContact: "9495417615", respondent: "Vinutha M", respAdv: "Adv. Padmanabhan", respContact: "892137615", refDate: "2026-08-11", firstDate: "2026-08-11", postingDate: "2026-11-18", returnDate: "2026-09-09", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1171/26 (Posting Book Sl. No. 1153/26); Petitioner Adv Contact: 9497480757; Respondent Adv Contact: 9645232111 / 9495610203" },
-      { folio: "8", mediator: "Ravindran Nambiar (R.N)", court: "JFCM Kasaragod", caseNo: "MC 198/25", petitioner: "Nazima Anabagil", petAdv: "Adv. Abdul Nizar M.A", petContact: "", respondent: "Shahanavas", respAdv: "", respContact: "8089375559", refDate: "2026-09-25", firstDate: "2026-09-26", postingDate: "2026-11-21", returnDate: "2026-10-03", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1478/26 (MF: 1461/26); u/s 3(1) of Muslim Women (Protection of Rights on Divorce) Act" },
-      { folio: "9", mediator: "Ravindran Nambiar (R.N)", court: "Family Court, Kasaragod", caseNo: "OP 599/2025", petitioner: "Saritha P.V", petAdv: "Adv. Manoj", petContact: "6235292850", respondent: "Prabhath P", respAdv: "Adv. Manikandan", respContact: "7034828018", refDate: "2026-08-13", firstDate: "2026-08-13", postingDate: "2026-09-14", returnDate: "2026-09-14", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1124/26 (Posting Book Sl. No. 1182/26); Petitioner Adv Contact: 8111817777; Respondent Adv Contact: 9497480757" },
-      { folio: "10", mediator: "", court: "Munsiff Court, Kasaragod", caseNo: "OS 68/22", petitioner: "Mohammed Kunhi", petAdv: "Adv. Vittala Bhat", petContact: "9895658741", respondent: "Smt. Beefathumma", respAdv: "Adv. K.K. Mohammed Shafi", respContact: "", refDate: "2026-09-25", firstDate: "2026-09-30", postingDate: "2026-10-30", returnDate: "2026-10-30", status: "Pending", nextDate: "", notes: "Sl. No. 1410/26; Dis No. 3971/26; MFN 30; Specific performance; Petitioner Adv Contact: 9446772589" },
-      { folio: "11", mediator: "Ravindran Nambiar (R.N)", court: "JFCM Kasaragod", caseNo: "MC 123/26", petitioner: "Ayshath Ashika P.B", petAdv: "Adv. P. Ramanathan", petContact: "7012186294", respondent: "Faisal Kasaragod", respAdv: "", respContact: "9846434323", refDate: "2026-09-22", firstDate: "2026-09-26", postingDate: "2026-11-21", returnDate: "2026-10-01", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1431/26 (Posting Book Sl. No. 1483/26); MFN 30; u/s 12 of DV Act; Petitioner Adv Contact: 9895448018" },
-      { folio: "12", mediator: "Ravindran Nambiar (R.N)", court: "JFCM Kasaragod", caseNo: "MC 152/25", petitioner: "Nazima Anabagil", petAdv: "Adv. Abdul Nizar M.A", petContact: "", respondent: "Shahanavas", respAdv: "", respContact: "8089375559", refDate: "2026-09-26", firstDate: "2026-09-26", postingDate: "2026-11-21", returnDate: "2026-10-03", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1427/26 (Posting Book Sl. No. 1479/26); MFN 30; u/s 12 of DV Act" },
-      { folio: "13", mediator: "", court: "Family Court, Kasaragod", caseNo: "OP 1294/2025", petitioner: "Sajitha M", petAdv: "Adv. Suresh K.P", petContact: "8590117127", respondent: "Madhusudhanan K", respAdv: "Adv. Mohanan Nambiar", respContact: "9048182328", refDate: "2026-05-29", firstDate: "2026-05-29", postingDate: "2026-06-29", returnDate: "2026-06-29", status: "Pending", nextDate: "", notes: "Sl. No. 907/26; Dis No. 1216/26; Petitioner Adv Contact: 9495093809; Respondent Adv Contact: 7012257318" },
-      { folio: "14", mediator: "S.N", court: "District Court, Kasaragod", caseNo: "OP 78/26", petitioner: "Shriram Finance Ltd. (Rept. by Subraya)", petAdv: "Adv. Shafi M", petContact: "", respondent: "1. Sarath Kumar K; 2. Raghava", respAdv: "Adv. Sooryanarayanan", respContact: "9633506112 / 9746786927", refDate: "2026-07-17", firstDate: "", postingDate: "", returnDate: "", status: "Pending", nextDate: "2026-11-28", notes: "Sl. No. 1235/26; Petitioner Adv Contact: 9496251442" }
+      { folio: "1", mediator: "", court: "JFCM Kasaragod", caseNo: "MC 32/2026", petitioner: "Nafeesath Shyma", petAdv: "Brinda Raj K", petContact: "9846000000", respondent: "Haneefa M", respAdv: "Zakir Ahammed", respContact: "9895105313", refDate: "2026-05-21", firstDate: "2026-05-25", postingDate: "2026-08-20", returnDate: "2026-08-20", status: "Pending", nextDate: "2026-05-25", notes: "First appearance scheduled at Kasaragod Mediation Centre", postings: [] },
+      { folio: "2", mediator: "Ravindran Nambiar (R.N)", court: "Family Court Kasaragod", caseNo: "OP 1117/2026", petitioner: "Anjitha K", petAdv: "Adv. Valsala K", petContact: "9497851613", respondent: "Sreekanth P", respAdv: "Adv. Gangadhar", respContact: "9744851584", refDate: "2026-06-15", firstDate: "2026-06-15", postingDate: "2026-08-14", returnDate: "2026-08-03", status: "Settled", nextDate: "2026-08-03", notes: "Settled on 03/08/2026; Mediator: Ravindran Nambiar", postings: [{ date: "2026-06-15", effective: true }, { date: "2026-08-03", effective: true }] },
+      { folio: "3", mediator: "B.F. AbdulRahman", court: "JFCM II Kasaragod", caseNo: "MC 77", petitioner: "Sathyavathi", petAdv: "Farzana", petContact: "", respondent: "Rameshan", respAdv: "Ravindran Nambiar", respContact: "9447155878", refDate: "", firstDate: "", postingDate: "2026-11-19", returnDate: "", status: "Settled", nextDate: "2026-11-19", notes: "Assigned Mediator: B.F.AbdulRahman", postings: [{ date: "2026-11-19", effective: true }] },
+      { folio: "4", mediator: "", court: "Family Court Kasaragod", caseNo: "OP 1125/2025", petitioner: "", petAdv: "", petContact: "", respondent: "", respAdv: "", respContact: "", refDate: "2026-06-16", firstDate: "", postingDate: "", returnDate: "", status: "Pending", nextDate: "", notes: "Year 2025", postings: [] },
+      { folio: "5", mediator: "USB", court: "Munsiff Court Kasaragod (Prl. Munsiff, Kasaragod)", caseNo: "EP 294/25", petitioner: "Karabadaje Service Co-op Bank Ltd.", petAdv: "Adv. Mohan Prakash", petContact: "9947443759", respondent: "Ammu Poojari", respAdv: "Adv. Naveen S. N.", respContact: "8086955611", refDate: "2026-09-28", firstDate: "2026-09-28", postingDate: "2026-10-12", returnDate: "2026-10-12", status: "Settled", nextDate: "2026-11-09", notes: "Mediator: USB; Posting Book entry dated 09/11/2026 shows 'Settled' (Dis No. 4029/26, MFN 30)", postings: [{ date: "2026-09-28", effective: true }, { date: "2026-11-09", effective: true }] },
+      { folio: "6", mediator: "USB", court: "Munsiff Court Kasaragod (Prl. Munsiff, Kasaragod)", caseNo: "EP 265/25", petitioner: "Karabadaje Service Co-op Bank Ltd.", petAdv: "Adv. Mohan Prakash", petContact: "9947443759", respondent: "Ammu Poojari", respAdv: "Adv. Naveen S. N.", respContact: "8086955611", refDate: "2026-09-28", firstDate: "2026-09-28", postingDate: "2026-10-12", returnDate: "2026-10-12", status: "Settled", nextDate: "2026-11-09", notes: "Mediator: USB; Posting Book entry dated 09/11/2026 shows 'Settled' (Dis No. 4028/26, MFN 30)", postings: [{ date: "2026-09-28", effective: true }, { date: "2026-11-09", effective: true }] },
+      { folio: "7", mediator: "Ravindran Nambiar (R.N)", court: "Family Court, Kasaragod", caseNo: "OP 543/2026", petitioner: "Naveen Kumar", petAdv: "Adv. Manikandan", petContact: "9495417615", respondent: "Vinutha M", respAdv: "Adv. Padmanabhan", respContact: "892137615", refDate: "2026-08-11", firstDate: "2026-08-11", postingDate: "2026-11-18", returnDate: "2026-09-09", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1171/26 (Posting Book Sl. No. 1153/26); Petitioner Adv Contact: 9497480757; Respondent Adv Contact: 9645232111 / 9495610203", postings: [{ date: "2026-08-11", effective: true }] },
+      { folio: "8", mediator: "Ravindran Nambiar (R.N)", court: "JFCM Kasaragod", caseNo: "MC 198/25", petitioner: "Nazima Anabagil", petAdv: "Adv. Abdul Nizar M.A", petContact: "", respondent: "Shahanavas", respAdv: "", respContact: "8089375559", refDate: "2026-09-25", firstDate: "2026-09-26", postingDate: "2026-11-21", returnDate: "2026-10-03", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1478/26 (MF: 1461/26); u/s 3(1) of Muslim Women (Protection of Rights on Divorce) Act", postings: [{ date: "2026-09-26", effective: true }] },
+      { folio: "9", mediator: "Ravindran Nambiar (R.N)", court: "Family Court, Kasaragod", caseNo: "OP 599/2025", petitioner: "Saritha P.V", petAdv: "Adv. Manoj", petContact: "6235292850", respondent: "Prabhath P", respAdv: "Adv. Manikandan", respContact: "7034828018", refDate: "2026-08-13", firstDate: "2026-08-13", postingDate: "2026-09-14", returnDate: "2026-09-14", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1124/26 (Posting Book Sl. No. 1182/26); Petitioner Adv Contact: 8111817777; Respondent Adv Contact: 9497480757", postings: [{ date: "2026-08-13", effective: true }] },
+      { folio: "10", mediator: "", court: "Munsiff Court, Kasaragod", caseNo: "OS 68/22", petitioner: "Mohammed Kunhi", petAdv: "Adv. Vittala Bhat", petContact: "9895658741", respondent: "Smt. Beefathumma", respAdv: "Adv. K.K. Mohammed Shafi", respContact: "", refDate: "2026-09-25", firstDate: "2026-09-30", postingDate: "2026-10-30", returnDate: "2026-10-30", status: "Pending", nextDate: "", notes: "Sl. No. 1410/26; Dis No. 3971/26; MFN 30; Specific performance; Petitioner Adv Contact: 9446772589", postings: [] },
+      { folio: "11", mediator: "Ravindran Nambiar (R.N)", court: "JFCM Kasaragod", caseNo: "MC 123/26", petitioner: "Ayshath Ashika P.B", petAdv: "Adv. P. Ramanathan", petContact: "7012186294", respondent: "Faisal Kasaragod", respAdv: "", respContact: "9846434323", refDate: "2026-09-22", firstDate: "2026-09-26", postingDate: "2026-11-21", returnDate: "2026-10-01", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1431/26 (Posting Book Sl. No. 1483/26); MFN 30; u/s 12 of DV Act; Petitioner Adv Contact: 9895448018", postings: [{ date: "2026-09-26", effective: true }] },
+      { folio: "12", mediator: "Ravindran Nambiar (R.N)", court: "JFCM Kasaragod", caseNo: "MC 152/25", petitioner: "Nazima Anabagil", petAdv: "Adv. Abdul Nizar M.A", petContact: "", respondent: "Shahanavas", respAdv: "", respContact: "8089375559", refDate: "2026-09-26", firstDate: "2026-09-26", postingDate: "2026-11-21", returnDate: "2026-10-03", status: "Pending", nextDate: "2026-11-21", notes: "Sl. No. 1427/26 (Posting Book Sl. No. 1479/26); MFN 30; u/s 12 of DV Act", postings: [{ date: "2026-09-26", effective: true }] },
+      { folio: "13", mediator: "", court: "Family Court, Kasaragod", caseNo: "OP 1294/2025", petitioner: "Sajitha M", petAdv: "Adv. Suresh K.P", petContact: "8590117127", respondent: "Madhusudhanan K", respAdv: "Adv. Mohanan Nambiar", respContact: "9048182328", refDate: "2026-05-29", firstDate: "2026-05-29", postingDate: "2026-06-29", returnDate: "2026-06-29", status: "Pending", nextDate: "", notes: "Sl. No. 907/26; Dis No. 1216/26; Petitioner Adv Contact: 9495093809; Respondent Adv Contact: 7012257318", postings: [] },
+      { folio: "14", mediator: "S.N", court: "District Court, Kasaragod", caseNo: "OP 78/26", petitioner: "Shriram Finance Ltd. (Rept. by Subraya)", petAdv: "Adv. Shafi M", petContact: "", respondent: "1. Sarath Kumar K; 2. Raghava", respAdv: "Adv. Sooryanarayanan", respContact: "9633506112 / 9746786927", refDate: "2026-07-17", firstDate: "", postingDate: "", returnDate: "", status: "Pending", nextDate: "2026-11-28", notes: "Sl. No. 1235/26; Petitioner Adv Contact: 9496251442", postings: [] }
     ];
 
     const MEDIATORS = ["Ravindran Nambiar (R.N)", "B.F. AbdulRahman", "USB", "S.N"];
@@ -425,78 +513,78 @@
       en: {
         appTitle: "Court-Annexed Mediation Center Portal",
         appSub: "Kasaragod Mediation Register 2026 • Role-Isolated & Firebase Live",
-        manualBtn: "Manual",
+        manualBtn: "Guide",
         logoutBtn: "Logout",
         loginBadge: "Strict Role-Based Access Control",
         loginHeading: "Select Your Role to Sign In",
-        loginDesc: "Each role only sees its own authorized cases. You cannot view other users' data after signing in.",
+        loginDesc: "Each role only sees its own authorized cases. Typed access codes are shown clearly for error-free entry.",
         r1Tag: "Role 1 • Full Register", r1Title: "Court Mediation Centre (Admin)",
-        r1Desc: "Manage all Register No. VI cases, assign mediators, configure Firebase Live Sync, and print A4 reports.",
+        r1Desc: "Manage Register No. VI cases, assign mediators, manage PINs, and print A4 reports.",
         r1InputLbl: "Staff Passcode", r1Btn: "Enter as Admin",
         r2Tag: "Role 2 • Assigned Cases Only", r2Title: "Mediator Login",
-        r2Desc: "View only cases assigned to you, track Settled / Not Settled / Pending counts, update notes & Sec. 89 drafts.",
+        r2Desc: "View assigned cases, log effective postings, calculate quarterly remuneration, and draft Sec. 89 settlements.",
         r2SelLbl: "Select Mediator", r2PinLbl: "Mediator PIN", r2Btn: "Enter as Mediator",
         r3Tag: "Role 3 • Own Cases Only", r3Title: "Advocate Login",
-        r3Desc: "Access only cases where you appear as Petitioner or Respondent Advocate. View dates & submit remarks.",
-        r3SelLbl: "Select Advocate", r3OtpLbl: "Verification OTP", r3Btn: "Enter as Advocate",
+        r3Desc: "Access only cases where you appear as Petitioner or Respondent Advocate.",
+        r3SelLbl: "Advocate Name", r3OtpLbl: "Access Passcode / OTP", r3Btn: "Enter as Advocate",
         r4Tag: "Role 4 • Read-Only Own Case", r4Title: "Party / Client Login",
-        r4Desc: "View only your own case status, assigned mediator, next mediation session date, and court posting date.",
-        r4SelLbl: "Select Party or Case", r4OtpLbl: "Verification OTP", r4Btn: "Enter as Party",
+        r4Desc: "View your own case status, assigned mediator, and next mediation session date.",
+        r4SelLbl: "Case Number", r4OtpLbl: "Party Name or Mobile Number", r4Btn: "Enter as Party",
         scopeLabel: "Authorized Data Scope",
         casesHeading: "Authorized Cases",
-        total: "Total", settled: "Settled", notSettled: "Not Settled", pending: "Pending",
+        total: "Total", settled: "Settled", notSettled: "Not Settled", pending: "Pending", today: "Today's List",
         all: "All", viewEdit: "Open", readOnly: "View",
         unassigned: "Unassigned", noCases: "No authorized cases match your filter."
       },
       ml: {
         appTitle: "കോർട്ട്-അനെക്സ്ഡ് മീഡിയേഷൻ സെന്റർ പോർട്ടൽ",
         appSub: "കാസർഗോഡ് മീഡിയേഷൻ രജിസ്റ്റർ 2026 • റോൾ നിയന്ത്രണവും Firebase സിങ്കും",
-        manualBtn: "മാനുവൽ",
+        manualBtn: "സഹായം",
         logoutBtn: "ലോഗൗട്ട്",
         loginBadge: "കർശനമായ റോൾ-അധിഷ്ഠിത ആക്സസ്",
         loginHeading: "പ്രവേശിക്കാൻ നിങ്ങളുടെ റോൾ തിരഞ്ഞെടുക്കുക",
-        loginDesc: "ഓരോ റോളിനും അവരവരുടെ കേസുകൾ മാത്രമേ കാണാൻ കഴിയൂ. മറ്റുള്ളവരുടെ വിവരങ്ങൾ കാണാൻ സാധിക്കില്ല.",
+        loginDesc: "ഓരോ റോളിനും അവരവരുടെ കേസുകൾ മാത്രമേ കാണാൻ കഴിയൂ. ടൈപ്പ് ചെയ്യുന്ന അക്ഷരങ്ങൾ വ്യക്തമായി കാണാം.",
         r1Tag: "റോൾ 1 • മുഴുവൻ രജിസ്റ്റർ", r1Title: "കോർട്ട് മീഡിയേഷൻ സെന്റർ (Admin)",
-        r1Desc: "എല്ലാ കേസുകളും നിയന്ത്രിക്കാനും, മീഡിയേറ്റർമാരെ നിയമിക്കാനും, Firebase സിങ്ക് സജ്ജീകരിക്കാനും പ്രിന്റ് എടുക്കാനും.",
+        r1Desc: "എല്ലാ കേസുകളും നിയന്ത്രിക്കാനും, മീഡിയേറ്റർമാരെ നിയമിക്കാനും, പ്രിന്റ് എടുക്കാനും.",
         r1InputLbl: "സ്റ്റാഫ് പാസ്‌കോഡ്", r1Btn: "അഡ്മിൻ ആയി പ്രവേശിക്കുക",
         r2Tag: "റോൾ 2 • സ്വന്തം കേസുകൾ മാത്രം", r2Title: "മീഡിയേറ്റർ ലോഗിൻ",
-        r2Desc: "നിങ്ങൾക്ക് നൽകിയ കേസുകൾ മാത്രം കാണുക. സെറ്റിൽ ചെയ്തവ/തീർപ്പാകാത്തവ/പെൻഡിംഗ് കണക്കുകളും കുറിപ്പുകളും അപ്‌ഡേറ്റ് ചെയ്യുക.",
+        r2Desc: "നിങ്ങൾക്ക് നൽകിയ കേസുകൾ, എഫക്റ്റീവ് പോസ്റ്റിംഗുകൾ, ത്രൈമാസ വേതന കണക്ക് എന്നിവ കാണുക.",
         r2SelLbl: "മീഡിയേറ്ററെ തിരഞ്ഞെടുക്കുക", r2PinLbl: "മീഡിയേറ്റർ PIN", r2Btn: "മീഡിയേറ്റർ ആയി പ്രവേശിക്കുക",
         r3Tag: "റോൾ 3 • സ്വന്തം കേസുകൾ മാത്രം", r3Title: "അഡ്വക്കേറ്റ് ലോഗിൻ",
-        r3Desc: "നിങ്ങൾ ഹാജരാകുന്ന കേസുകൾ മാത്രം കാണുക. അടുത്ത തീയതികളും അഭിഭാഷക കുറിപ്പുകളും രേഖപ്പെടുത്തുക.",
-        r3SelLbl: "അഡ്വക്കേറ്റിനെ തിരഞ്ഞെടുക്കുക", r3OtpLbl: "വെരിഫിക്കേഷൻ OTP", r3Btn: "അഡ്വക്കേറ്റ് ആയി പ്രവേശിക്കുക",
+        r3Desc: "നിങ്ങൾ ഹാജരാകുന്ന കേസുകൾ മാത്രം കാണുക. അടുത്ത തീയതികളും കുറിപ്പുകളും രേഖപ്പെടുത്തുക.",
+        r3SelLbl: "അഡ്വക്കേറ്റിന്റെ പേര്", r3OtpLbl: "ആക്സസ് പാസ്‌കോഡ് / OTP", r3Btn: "അഡ്വക്കേറ്റ് ആയി പ്രവേശിക്കുക",
         r4Tag: "റോൾ 4 • സ്വന്തം കേസ് മാത്രം", r4Title: "കക്ഷി / പാർട്ടി ലോഗിൻ",
         r4Desc: "നിങ്ങളുടെ കേസിന്റെ നിലവിലെ അവസ്ഥ, മീഡിയേറ്റർ, അടുത്ത സെഷൻ തീയതി എന്നിവ മാത്രം കാണുക.",
-        r4SelLbl: "കക്ഷി / കേസ് തിരഞ്ഞെടുക്കുക", r4OtpLbl: "വെരിഫിക്കേഷൻ OTP", r4Btn: "പാർട്ടി ആയി പ്രവേശിക്കുക",
+        r4SelLbl: "കേസ് നമ്പർ", r4OtpLbl: "കക്ഷിയുടെ പേര് അല്ലെങ്കിൽ മൊബൈൽ നമ്പർ", r4Btn: "പാർട്ടി ആയി പ്രവേശിക്കുക",
         scopeLabel: "അനുവദിച്ച ഡാറ്റ പരിധി",
         casesHeading: "അനുവദിച്ച കേസുകൾ",
-        total: "ആകെ", settled: "സെറ്റിൽ ചെയ്തവ", notSettled: "സെറ്റിൽ ആവാത്തവ", pending: "പെൻഡിംഗ്",
+        total: "ആകെ", settled: "സെറ്റിൽ ചെയ്തവ", notSettled: "സെറ്റിൽ ആവാത്തവ", pending: "പെൻഡിംഗ്", today: "ഇന്നത്തെ ലിസ്റ്റ്",
         all: "എല്ലാം", viewEdit: "തുറക്കുക", readOnly: "കാണുക",
         unassigned: "നിയമിച്ചിട്ടില്ല", noCases: "ഈ വിഭാഗത്തിൽ കേസുകളൊന്നും ലഭ്യമല്ല."
       },
       kn: {
         appTitle: "ನ್ಯಾಯಾಲಯ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ ಪೋರ್ಟಲ್",
         appSub: "ಕಾಸರಗೋಡು ಮಧ್ಯಸ್ಥಿಕೆ ನೋಂದಣಿ 2026 • ಪಾತ್ರ ನಿಯಂತ್ರಣ ಮತ್ತು Firebase ಸಿಂಕ್",
-        manualBtn: "ಕೈಪಿಡಿ",
+        manualBtn: "ಮಾರ್ಗದರ್ಶಿ",
         logoutBtn: "ಲಾಗ್ ಔಟ್",
         loginBadge: "ಕಟ್ಟುನಿಟ್ಟಾದ ಪಾತ್ರ-ಆಧಾರಿತ ಪ್ರವೇಶ",
         loginHeading: "ಲಾಗಿನ್ ಆಗಲು ನಿಮ್ಮ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
         loginDesc: "ಪ್ರತಿ ಪಾತ್ರವು ತನ್ನದೇ ಆದ ಅಧಿಕೃತ ಪ್ರಕರಣಗಳನ್ನು ಮಾತ್ರ ನೋಡುತ್ತದೆ.",
         r1Tag: "ಪಾತ್ರ 1 • ಪೂರ್ಣ ನೋಂದಣಿ", r1Title: "ನ್ಯಾಯಾಲಯ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ (Admin)",
-        r1Desc: "ಎಲ್ಲಾ ಪ್ರಕರಣಗಳನ್ನು ನಿರ್ವಹಿಸಿ, ಮಧ್ಯಸ್ಥಗಾರರನ್ನು ನಿಯೋಜಿಸಿ ಮತ್ತು Firebase ಲೈವ್ ಸಿಂಕ್ ಹೊಂದಿಸಿ.",
+        r1Desc: "ಎಲ್ಲಾ ಪ್ರಕರಣಗಳನ್ನು ನಿರ್ವಹಿಸಿ ಮತ್ತು ಮಧ್ಯಸ್ಥಗಾರರನ್ನು ನಿಯೋಜಿಸಿ.",
         r1InputLbl: "ಸಿಬ್ಬಂದಿ ಪಾಸ್‌ಕೋಡ್", r1Btn: "Admin ಆಗಿ ಪ್ರವೇಶಿಸಿ",
         r2Tag: "ಪಾತ್ರ 2 • ನಿಯೋಜಿತ ಪ್ರಕರಣಗಳು ಮಾತ್ರ", r2Title: "ಮಧ್ಯಸ್ಥಗಾರರ ಲಾಗಿನ್",
-        r2Desc: "ನಿಮಗೆ ನಿಯೋಜಿಸಲಾದ ಪ್ರಕರಣಗಳನ್ನು ಮಾತ್ರ ವೀಕ್ಷಿಸಿ ಮತ್ತು ಟಿಪ್ಪಣಿಗಳನ್ನು ನವೀಕರಿಸಿ.",
+        r2Desc: "ನಿಮಗೆ ನಿಯೋಜಿಸಲಾದ ಪ್ರಕರಣಗಳು ಮತ್ತು ತ್ರೈಮಾಸಿಕ ಗೌರವಧನ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ.",
         r2SelLbl: "ಮಧ್ಯಸ್ಥಗಾರರನ್ನು ಆಯ್ಕೆಮಾಡಿ", r2PinLbl: "ಮಧ್ಯಸ್ಥಗಾರರ PIN", r2Btn: "ಮಧ್ಯಸ್ಥಗಾರರಾಗಿ ಪ್ರವೇಶಿಸಿ",
         r3Tag: "ಪಾತ್ರ 3 • ಸ್ವಂತ ಪ್ರಕರಣಗಳು ಮಾತ್ರ", r3Title: "ವಕೀಲರ ಲಾಗಿನ್",
         r3Desc: "ನೀವು ಹಾಜರಾಗುವ ಪ್ರಕರಣಗಳನ್ನು ಮಾತ್ರ ವೀಕ್ಷಿಸಿ.",
-        r3SelLbl: "ವಕೀಲರನ್ನು ಆಯ್ಕೆಮಾಡಿ", r3OtpLbl: "OTP ನಮೂದಿಸಿ", r3Btn: "ವಕೀಲರಾಗಿ ಪ್ರವೇಶಿಸಿ",
+        r3SelLbl: "ವಕೀಲರ ಹೆಸರು", r3OtpLbl: "ಪಾಸ್‌ಕೋಡ್ / OTP", r3Btn: "ವಕೀಲರಾಗಿ ಪ್ರವೇಶಿಸಿ",
         r4Tag: "ಪಾತ್ರ 4 • ಸ್ವಂತ ಪ್ರಕರಣ ಮಾತ್ರ", r4Title: "ಪಕ್ಷಗಾರರ / ಕ್ಲೈಂಟ್ ಲಾಗಿನ್",
         r4Desc: "ನಿಮ್ಮ ಸ್ವಂತ ಪ್ರಕರಣದ ಸ್ಥಿತಿ ಮತ್ತು ಮುಂದಿನ ದಿನಾಂಕವನ್ನು ವೀಕ್ಷಿಸಿ.",
-        r4SelLbl: "ಪಕ್ಷಗಾರರನ್ನು ಆಯ್ಕೆಮಾಡಿ", r4OtpLbl: "OTP ನಮೂದಿಸಿ", r4Btn: "ಪಕ್ಷಗಾರರಾಗಿ ಪ್ರವೇಶಿಸಿ",
+        r4SelLbl: "ಪ್ರಕರಣ ಸಂಖ್ಯೆ", r4OtpLbl: "ಪಕ್ಷಗಾರರ ಹೆಸರು ಅಥವಾ ಮೊಬೈಲ್", r4Btn: "ಪಕ್ಷಗಾರರಾಗಿ ಪ್ರವೇಶಿಸಿ",
         scopeLabel: "ಅಧಿಕೃತ ಡೇಟಾ ವ್ಯಾಪ್ತಿ",
         casesHeading: "ಅಧಿಕೃತ ಪ್ರಕರಣಗಳು",
-        total: "ಒಟ್ಟು", settled: "ಇತ್ಯರ್ಥ", notSettled: "ಇತ್ಯರ್ಥವಾಗಿಲ್ಲ", pending: "ಬಾಕಿ",
+        total: "ಒಟ್ಟು", settled: "ಇತ್ಯರ್ಥ", notSettled: "ಇತ್ಯರ್ಥವಾಗಿಲ್ಲ", pending: "ಬಾಕಿ", today: "ಇಂದಿನ ಪಟ್ಟಿ",
         all: "ಎಲ್ಲಾ", viewEdit: "ತೆರೆಯಿರಿ", readOnly: "ನೋಡಿ",
         unassigned: "ನಿಯೋಜಿಸಲಾಗಿಲ್ಲ", noCases: "ಯಾವುದೇ ಪ್ರಕರಣಗಳು ಕಂಡುಬಂದಿಲ್ಲ."
       }
@@ -525,7 +613,7 @@
     let cases = [];
     let appSettings = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
     let currentLang = "ml";
-    let session = null; // { role: 'admin'|'mediator'|'advocate'|'party', identity: string, caseNo?: string }
+    let session = null;
     let statusFilter = "All";
     let activeFolio = null;
     let bc = null;
@@ -541,6 +629,18 @@
       };
     } catch (e) {}
 
+    function toggleInputMask(inputId, btn) {
+      const inp = document.getElementById(inputId);
+      if (!inp) return;
+      if (inp.type === "text") {
+        inp.type = "password";
+        btn.textContent = "Show";
+      } else {
+        inp.type = "text";
+        btn.textContent = "Hide";
+      }
+    }
+
     function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -548,6 +648,9 @@
       } catch (e) {
         cases = JSON.parse(JSON.stringify(INITIAL_CASES));
       }
+      cases.forEach(c => {
+        if (!Array.isArray(c.postings)) c.postings = [];
+      });
       try {
         const rawSet = localStorage.getItem(SETTINGS_KEY);
         if (rawSet) {
@@ -651,6 +754,7 @@
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
           cases = data.filter(Boolean);
+          cases.forEach(c => { if (!Array.isArray(c.postings)) c.postings = []; });
           saveLocalCases(true);
           updateSyncIndicator("live", "Firebase Live");
           populateLoginSelectors();
@@ -660,6 +764,7 @@
           const arr = Object.values(data).filter(Boolean);
           if (arr.length > 0) {
             cases = arr;
+            cases.forEach(c => { if (!Array.isArray(c.postings)) c.postings = []; });
             saveLocalCases(true);
             updateSyncIndicator("live", "Firebase Live");
             populateLoginSelectors();
@@ -667,7 +772,7 @@
             if (showToastMsg) showToast("Synced latest cases from Firebase.");
           } else {
             updateSyncIndicator("live", "Firebase Connected (Empty)");
-            if (showToastMsg) showToast("Firebase connected, but database is empty. Admin can click 'Push All Cases'.");
+            if (showToastMsg) showToast("Firebase connected, but database is empty.");
           }
         } else {
           updateSyncIndicator("live", "Firebase Connected (Empty)");
@@ -818,6 +923,142 @@
       return [];
     }
 
+    // --- 6B. QUARTERLY EFFECTIVE POSTINGS & REMUNERATION HELPERS ---
+    function getQuarterAndYear(dateStr) {
+      if (!dateStr) return { q: "Q1", y: "2026" };
+      const parts = dateStr.split("-");
+      const y = parts[0] || "2026";
+      const m = parseInt(parts[1], 10) || 1;
+      const q = m <= 3 ? "Q1" : m <= 6 ? "Q2" : m <= 9 ? "Q3" : "Q4";
+      return { q, y };
+    }
+
+    function getCaseEffectiveCount(c) {
+      return (Array.isArray(c.postings) ? c.postings : []).filter(p => p.effective === true).length;
+    }
+
+    function computeCaseRemuneration(c, overrideStatus) {
+      const st = overrideStatus || c.status || "Pending";
+      const eff = getCaseEffectiveCount(c);
+      if (st === "Settled") return 4500;
+      if (st === "Not Settled" && eff >= 3) return 1500;
+      return 0;
+    }
+
+    function getCaseAttributionQuarter(c) {
+      const lastPosting = (Array.isArray(c.postings) && c.postings.length > 0)
+        ? c.postings[c.postings.length - 1].date
+        : "";
+      const anchorDate = c.returnDate || lastPosting || c.nextDate || c.postingDate || c.refDate || "2026-01-01";
+      return getQuarterAndYear(anchorDate);
+    }
+
+    function renderQuarterlyPanel() {
+      const panel = document.getElementById("mediatorQuarterlyPanel");
+      if (!panel) return;
+      if (!session || session.role !== "mediator") {
+        panel.classList.add("hidden");
+        return;
+      }
+      panel.classList.remove("hidden");
+      const selQ = document.getElementById("qSelect").value;
+      const selY = document.getElementById("qYearSelect").value;
+
+      const medCases = getAuthorizedCases().filter(c => {
+        const qy = getCaseAttributionQuarter(c);
+        const yearMatch = String(qy.y) === String(selY);
+        const qMatch = (selQ === "ALL") || (qy.q === selQ);
+        return yearMatch && qMatch;
+      });
+
+      const referred = medCases.length;
+      const settledList = medCases.filter(c => c.status === "Settled");
+      const notSettledList = medCases.filter(c => c.status === "Not Settled");
+      const pct = referred > 0 ? ((settledList.length / referred) * 100).toFixed(1) : "0.0";
+
+      let totalEffPostings = 0;
+      let eligibleNotSettled = 0;
+      let totalFee = 0;
+
+      medCases.forEach(c => {
+        const eff = getCaseEffectiveCount(c);
+        totalEffPostings += eff;
+        if (c.status === "Not Settled" && eff >= 3) {
+          eligibleNotSettled++;
+        }
+        totalFee += computeCaseRemuneration(c);
+      });
+
+      document.getElementById("qmReferred").textContent = referred;
+      document.getElementById("qmSettled").textContent = settledList.length;
+      document.getElementById("qmNotSettled").textContent = notSettledList.length;
+      document.getElementById("qmPct").textContent = `${pct}%`;
+      document.getElementById("qmEffPostings").textContent = totalEffPostings;
+      document.getElementById("qmEligibleNS").textContent = eligibleNotSettled;
+      document.getElementById("qmTotalFee").textContent = `₹${totalFee.toLocaleString("en-IN")}`;
+    }
+
+    function printQuarterlyClaim() {
+      if (!session || session.role !== "mediator") return;
+      const selQ = document.getElementById("qSelect").value;
+      const selY = document.getElementById("qYearSelect").value;
+      const medCases = getAuthorizedCases().filter(c => {
+        const qy = getCaseAttributionQuarter(c);
+        return String(qy.y) === String(selY) && (selQ === "ALL" || qy.q === selQ);
+      });
+
+      let grandTotal = 0;
+      let totalEff = 0;
+      const rows = medCases.map((c, i) => {
+        const effDates = (c.postings || []).filter(p => p.effective).map(p => p.date).join(", ") || "—";
+        const effCount = getCaseEffectiveCount(c);
+        const fee = computeCaseRemuneration(c);
+        totalEff += effCount;
+        grandTotal += fee;
+        return `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${c.folio || ""}</td>
+            <td>${c.court || ""}</td>
+            <td><b>${c.caseNo || ""}</b></td>
+            <td>${c.petitioner || "—"} vs ${c.respondent || "—"}</td>
+            <td>${effCount} (${effDates})</td>
+            <td><b>${c.status || "Pending"}</b></td>
+            <td style="text-align:right;"><b>₹${fee.toLocaleString("en-IN")}</b></td>
+          </tr>
+        `;
+      }).join("");
+
+      document.getElementById("printRegisterArea").innerHTML = `
+        <div style="margin-bottom:10px; border-bottom:2px solid #0f2244; padding-bottom:6px;">
+          <div style="font-size:14px; font-weight:800; color:#0f2244;">COURT-ANNEXED MEDIATION CENTRE, KASARAGOD</div>
+          <div style="font-size:11px; font-weight:700;">QUARTERLY MEDIATOR EFFECTIVE POSTINGS &amp; HONORARIUM CLAIM STATEMENT</div>
+          <div style="font-size:10px; margin-top:3px;">Mediator: <b>${session.identity}</b> | Period: <b>${selQ} (${selY})</b> | Printed: ${new Date().toLocaleString("en-IN")}</div>
+        </div>
+        <table class="reg-table">
+          <thead>
+            <tr>
+              <th>Sl.</th><th>Folio</th><th>Court</th><th>Case No.</th><th>Parties</th><th>Effective Postings &amp; Dates</th><th>Result</th><th style="text-align:right;">Fee Claimed</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows || `<tr><td colspan="8" style="text-align:center;">No cases recorded for selected period.</td></tr>`}
+            <tr style="background:#f1f5f9; font-weight:bold;">
+              <td colspan="5">TOTAL (${medCases.length} Referred Cases)</td>
+              <td>${totalEff} Effective Postings</td>
+              <td>Settled: ₹4,500 | Not Settled (&ge;3 Eff.): ₹1,500</td>
+              <td style="text-align:right;">₹${grandTotal.toLocaleString("en-IN")}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:24px; display:flex; justify-content:space-between; font-size:10px; font-weight:600;">
+          <span>Signature of Accredited Mediator (${session.identity})</span>
+          <span>Verified By: Co-ordinator / Nodal Officer, Kasaragod Mediation Centre</span>
+        </div>
+      `;
+      window.print();
+    }
+
     // --- 7. RENDERING ---
     function setLang(lang) {
       currentLang = lang;
@@ -859,11 +1100,13 @@
         dashView.classList.add("hidden");
         sessCtrl.classList.add("hidden");
         sessCtrl.classList.remove("flex");
+        document.getElementById("syncStatusBtn").classList.add("hidden");
       } else {
         loginView.classList.add("hidden");
         dashView.classList.remove("hidden");
         sessCtrl.classList.remove("hidden");
         sessCtrl.classList.add("flex");
+        document.getElementById("syncStatusBtn").classList.toggle("hidden", session.role !== "admin");
         renderDashboard();
       }
     }
@@ -881,26 +1124,30 @@
 
       const scopeDescriptions = {
         admin: "Full Register No. VI Access (All Cases)",
-        mediator: "Restricted to cases assigned to you as Mediator",
+        mediator: "Restricted to cases assigned to you as Mediator • Effective Postings & Quarterly Fee Enabled",
         advocate: "Restricted to cases where you appear as Advocate",
         party: "Read-only access to your own case(s) only"
       };
       document.getElementById("scopeDesc").textContent = scopeDescriptions[session.role];
 
-      // Role-specific action buttons (PIN Settings, Print A4 Register, Export CSV are Admin-only)
       document.getElementById("addCaseBtn").classList.toggle("hidden", session.role !== "admin");
       document.getElementById("pinSettingsBtn").classList.toggle("hidden", session.role !== "admin");
       document.getElementById("printRegBtn").classList.toggle("hidden", session.role !== "admin");
       document.getElementById("exportCsvBtn").classList.toggle("hidden", session.role !== "admin");
 
+      renderQuarterlyPanel();
+
       const authCases = getAuthorizedCases();
+      const todayStr = new Date().toISOString().slice(0, 10);
       const total = authCases.length;
       const settled = authCases.filter(c => c.status === "Settled").length;
       const notSettled = authCases.filter(c => c.status === "Not Settled").length;
       const pending = authCases.filter(c => c.status === "Pending").length;
+      const todayCount = authCases.filter(c => c.nextDate === todayStr || c.postingDate === todayStr).length;
 
       const pills = [
         { key: "All", label: `${t.all}: ${total}`, cls: "bg-slate-100 text-slate-800" },
+        { key: "Today", label: `📅 ${t.today}: ${todayCount}`, cls: "bg-sky-100 text-sky-900" },
         { key: "Settled", label: `${t.settled}: ${settled}`, cls: "bg-emerald-100 text-emerald-800" },
         { key: "Not Settled", label: `${t.notSettled}: ${notSettled}`, cls: "bg-rose-100 text-rose-800" },
         { key: "Pending", label: `${t.pending}: ${pending}`, cls: "bg-amber-100 text-amber-900" }
@@ -922,8 +1169,11 @@
     function renderCases() {
       const t = I18N[currentLang] || I18N.en;
       const q = (document.getElementById("searchInput").value || "").toLowerCase().trim();
+      const todayStr = new Date().toISOString().slice(0, 10);
       let list = getAuthorizedCases();
-      if (statusFilter !== "All") {
+      if (statusFilter === "Today") {
+        list = list.filter(c => c.nextDate === todayStr || c.postingDate === todayStr);
+      } else if (statusFilter !== "All") {
         list = list.filter(c => c.status === statusFilter);
       }
       if (q) {
@@ -947,6 +1197,16 @@
             ? "bg-rose-100 text-rose-800"
             : "bg-amber-100 text-amber-900";
         const btnText = (session.role === "party") ? t.readOnly : t.viewEdit;
+        const effCount = getCaseEffectiveCount(c);
+        const caseFee = computeCaseRemuneration(c);
+        const medBadges = (session.role === "mediator" || session.role === "admin")
+          ? `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-sky-50 text-sky-800 border border-sky-200">Eff. Postings: ${effCount}</span>
+             <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">Fee: ₹${caseFee.toLocaleString("en-IN")}</span>`
+          : "";
+        const waBtn = (session.role !== "party")
+          ? `<button type="button" onclick="sendWhatsAppIntimation('${c.folio}')" title="Send Sitting Notice on WhatsApp" class="px-2.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-600 hover:text-white text-emerald-800 border border-emerald-200 text-xs font-bold transition">📲 WhatsApp</button>`
+          : "";
+
         return `
           <div class="p-4 hover:bg-slate-50 transition flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div class="space-y-1 min-w-0">
@@ -955,6 +1215,7 @@
                 <span class="font-bold text-sm text-[#0f2244]">${c.caseNo || "-"}</span>
                 <span class="text-xs text-slate-500">${c.court || "-"}</span>
                 <span class="px-2 py-0.5 rounded-full text-[11px] font-bold ${badgeCls}">${c.status}</span>
+                ${medBadges}
               </div>
               <div class="text-xs text-slate-700">
                 <b>${c.petitioner || "—"}</b> <span class="text-slate-400">vs</span> <b>${c.respondent || "—"}</b>
@@ -965,7 +1226,8 @@
                 <span>Court Posting: <b>${c.postingDate || "—"}</b></span>
               </div>
             </div>
-            <div class="shrink-0">
+            <div class="shrink-0 flex items-center gap-2">
+              ${waBtn}
               <button type="button" onclick="openCaseModal('${c.folio}')" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-[#0f2244] hover:text-white text-slate-800 text-xs font-bold transition">
                 ${btnText}
               </button>
@@ -975,11 +1237,39 @@
       }).join("");
     }
 
-    // --- 8. CASE MODAL & UPDATES ---
+    // --- 7B. ONE-TAP WHATSAPP SITTING INTIMATION ---
+    function sendWhatsAppIntimation(folio) {
+      const c = cases.find(x => x.folio === folio);
+      if (!c) return;
+      const nextDt = c.nextDate || c.postingDate || "To be notified";
+      const medName = c.mediator || "Kasaragod Mediation Centre";
+      const msg =
+`*COURT-ANNEXED MEDIATION CENTRE, KASARAGOD*
+Case No.: ${c.caseNo} (${c.court})
+Parties: ${c.petitioner || "Petitioner"} vs ${c.respondent || "Respondent"}
+Mediator: ${medName}
+Next Mediation Sitting Date: *${nextDt}*
+Please appear on time at the Mediation Centre, Civil Station, Kasaragod.
+
+*കോർട്ട്-അനെക്സ്ഡ് മീഡിയേഷൻ സെന്റർ, കാസർഗോഡ്*
+കേസ് നമ്പർ: ${c.caseNo} | അടുത്ത സിറ്റിംഗ് തീയതി: *${nextDt}*
+കക്ഷികളും അഭിഭാഷകരും കൃത്യസമയത്ത് ഹാജരാകുക.`;
+
+      const rawPhone = (c.petContact || c.respContact || "").replace(/\D/g, "");
+      const waPhone = rawPhone.length === 10 ? "91" + rawPhone : rawPhone;
+      const url = waPhone
+        ? `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`
+        : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    }
+
+    // --- 8. CASE MODAL, EFFECTIVE POSTINGS & UPDATES ---
     function openCaseModal(folio) {
       const c = getAuthorizedCases().find(x => x.folio === folio);
       if (!c) return;
       activeFolio = folio;
+      if (!Array.isArray(c.postings)) c.postings = [];
+
       document.getElementById("modalFolio").textContent = `Folio #${c.folio}`;
       document.getElementById("modalTitle").textContent = `${c.caseNo} — ${c.petitioner || "Petitioner"} vs ${c.respondent || "Respondent"}`;
       document.getElementById("modalCourt").textContent = c.court;
@@ -1002,6 +1292,7 @@
       const isParty = session.role === "party";
       const isAdvocate = session.role === "advocate";
       const isAdmin = session.role === "admin";
+      const canManagePostings = session.role === "mediator" || isAdmin;
 
       document.getElementById("editStatus").disabled = isParty || isAdvocate;
       document.getElementById("editNextDate").disabled = isParty || isAdvocate;
@@ -1010,10 +1301,18 @@
       document.getElementById("editNotes").disabled = isParty;
       document.getElementById("saveCaseBtn").classList.toggle("hidden", isParty);
       document.getElementById("sec89Btn").classList.toggle("hidden", isParty);
+      document.getElementById("whatsappNoticeBtn").classList.toggle("hidden", isParty);
 
-      const canVoice = session.role === "mediator" || session.role === "admin";
-      document.getElementById("voiceControlsWrap").classList.toggle("hidden", !canVoice);
-      document.getElementById("voiceControlsWrap").classList.toggle("flex", canVoice);
+      document.getElementById("effectivePostingsSection").classList.toggle("hidden", !canManagePostings);
+      if (canManagePostings) {
+        document.getElementById("newPostingDate").value = new Date().toISOString().slice(0, 10);
+        document.getElementById("newPostingEffective").checked = true;
+        renderPostingsHistory(c);
+        refreshModalFeePreview();
+      }
+
+      document.getElementById("voiceControlsWrap").classList.toggle("hidden", !canManagePostings);
+      document.getElementById("voiceControlsWrap").classList.toggle("flex", canManagePostings);
       renderAudioMemos(c);
 
       const auditEl = document.getElementById("modalAuditTrail");
@@ -1025,6 +1324,62 @@
       }
 
       document.getElementById("caseModal").classList.remove("hidden");
+    }
+
+    function renderPostingsHistory(c) {
+      const listEl = document.getElementById("postingsHistoryList");
+      if (!listEl) return;
+      const arr = Array.isArray(c.postings) ? c.postings : [];
+      if (arr.length === 0) {
+        listEl.innerHTML = `<div class="text-[11px] text-slate-500 italic">No sitting entries logged yet. Add each posting date above.</div>`;
+        return;
+      }
+      listEl.innerHTML = arr.map((p, idx) => `
+        <div class="flex items-center justify-between bg-white px-2.5 py-1.5 rounded-lg border border-slate-200">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-slate-700">#${idx + 1}</span>
+            <span class="font-mono text-slate-800">${p.date}</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${p.effective ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'}">
+              ${p.effective ? '✓ Effective (Both Parties Present)' : 'Adjourned / Party Absent'}
+            </span>
+          </div>
+          <button type="button" onclick="removeEffectivePosting(${idx})" class="text-rose-600 hover:text-rose-800 font-bold text-[11px]">Remove</button>
+        </div>
+      `).join("");
+    }
+
+    function addEffectivePosting() {
+      const idx = cases.findIndex(x => x.folio === activeFolio);
+      if (idx === -1) return;
+      const dt = document.getElementById("newPostingDate").value;
+      const eff = document.getElementById("newPostingEffective").checked;
+      if (!dt) {
+        showToast("Please select a sitting date first.");
+        return;
+      }
+      if (!Array.isArray(cases[idx].postings)) cases[idx].postings = [];
+      cases[idx].postings.push({ date: dt, effective: eff });
+      renderPostingsHistory(cases[idx]);
+      refreshModalFeePreview();
+      showToast(eff ? "Effective posting added (Click 'Save & Sync' to store)." : "Non-effective posting added.");
+    }
+
+    function removeEffectivePosting(pIndex) {
+      const idx = cases.findIndex(x => x.folio === activeFolio);
+      if (idx === -1 || !Array.isArray(cases[idx].postings)) return;
+      cases[idx].postings.splice(pIndex, 1);
+      renderPostingsHistory(cases[idx]);
+      refreshModalFeePreview();
+    }
+
+    function refreshModalFeePreview() {
+      const c = cases.find(x => x.folio === activeFolio);
+      const badge = document.getElementById("caseFeeBadge");
+      if (!c || !badge) return;
+      const st = document.getElementById("editStatus").value;
+      const eff = getCaseEffectiveCount(c);
+      const fee = computeCaseRemuneration(c, st);
+      badge.textContent = `Effective: ${eff} • Eligible Fee: ₹${fee.toLocaleString("en-IN")}`;
     }
 
     async function saveCaseChanges() {
@@ -1075,7 +1430,8 @@
         returnDate: "",
         status: "Pending",
         nextDate: document.getElementById("newNextDate").value,
-        notes: document.getElementById("newNotes").value.trim()
+        notes: document.getElementById("newNotes").value.trim(),
+        postings: []
       };
       cases.push(item);
       saveLocalCases(true);
@@ -1250,8 +1606,8 @@ Signature of Petitioner          Signature of Respondent          Signature of M
     }
 
     function exportCSV() {
-      const headers = ["Folio","Mediator","Court","CaseNo","Petitioner","PetAdv","Respondent","RespAdv","Status","NextSession","CourtPosting","Notes"];
-      const rows = cases.map(c => [c.folio, c.mediator, c.court, c.caseNo, c.petitioner, c.petAdv, c.respondent, c.respAdv, c.status, c.nextDate, c.postingDate, c.notes]
+      const headers = ["Folio","Mediator","Court","CaseNo","Petitioner","PetAdv","Respondent","RespAdv","Status","EffectivePostings","EligibleFee","NextSession","CourtPosting","Notes"];
+      const rows = cases.map(c => [c.folio, c.mediator, c.court, c.caseNo, c.petitioner, c.petAdv, c.respondent, c.respAdv, c.status, getCaseEffectiveCount(c), computeCaseRemuneration(c), c.nextDate, c.postingDate, c.notes]
         .map(v => '"' + String(v || "").replace(/"/g, '""') + '"').join(","));
       const blob = new Blob([[headers.join(","), ...rows].join("\n")], { type: "text/csv;charset=utf-8;" });
       const a = document.createElement("a");
@@ -1277,6 +1633,7 @@ Signature of Petitioner          Signature of Respondent          Signature of M
           const parsed = JSON.parse(e.target.result);
           if (Array.isArray(parsed)) {
             cases = parsed;
+            cases.forEach(c => { if (!Array.isArray(c.postings)) c.postings = []; });
             saveLocalCases(true);
             populateLoginSelectors();
             await pushCasesToFirebase();
@@ -1290,8 +1647,9 @@ Signature of Petitioner          Signature of Respondent          Signature of M
       reader.readAsText(f);
     }
 
-    // --- 10. FIREBASE SYNC MODAL ---
+    // --- 10. FIREBASE SYNC MODAL (Admin Only) ---
     function openSyncModal() {
+      if (!session || session.role !== "admin") return;
       document.getElementById("firebaseUrlInput").value = getFirebaseUrl();
       document.getElementById("firebaseApiKeyInput").value = getFirebaseApiKey();
       document.getElementById("syncTestResult").classList.add("hidden");
@@ -1312,16 +1670,14 @@ Signature of Petitioner          Signature of Respondent          Signature of M
         fbIdToken = null;
         const endpoint = await buildDbEndpoint(raw, apiKey);
         const r = await fetch(endpoint);
-        if (!r.ok) throw new Error("HTTP " + r.status + " (Check Firebase Rules & Anonymous Auth)");
+        if (!r.ok) throw new Error("HTTP " + r.status);
         try {
           localStorage.setItem(FB_URL_KEY, raw);
           if (apiKey) localStorage.setItem(FB_KEY_STORAGE, apiKey);
           else localStorage.removeItem(FB_KEY_STORAGE);
         } catch (e) {}
         resBox.className = "text-xs p-3 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-800";
-        resBox.textContent = apiKey
-          ? "Authenticated & Connected! Now click 'Push All 14+ Cases to Firebase' if this is your first setup."
-          : "Connected! Now click 'Push All 14+ Cases to Firebase' if this is your first setup.";
+        resBox.textContent = "Connected! Click 'Push All Cases to Firebase' if initializing the database.";
         resBox.classList.remove("hidden");
         updateSyncIndicator("live", apiKey ? "Firebase Secure" : "Firebase Live");
       } catch (err) {
@@ -1337,7 +1693,7 @@ Signature of Petitioner          Signature of Respondent          Signature of M
       const resBox = document.getElementById("syncTestResult");
       if (ok) {
         resBox.className = "text-xs p-3 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-800";
-        resBox.textContent = "Successfully pushed all " + cases.length + " cases to Firebase! All devices can now pull live updates.";
+        resBox.textContent = "Successfully pushed all " + cases.length + " cases to Firebase!";
         resBox.classList.remove("hidden");
       }
     }
@@ -1351,29 +1707,62 @@ Signature of Petitioner          Signature of Respondent          Signature of M
       showToast("Switched to Local Mode.");
     }
 
-    // --- 11. IN-PAGE MANUAL MODAL ---
+    // --- 11. ROLE-SPECIFIC USER MANUAL MODAL (Developer Sections 2 & 3 Removed) ---
     function openManualModal() {
       const body = document.getElementById("manualModalBody");
-      body.innerHTML = `
-        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
-          <h4 class="font-bold text-[#0f2244] mb-1">1. Strict Role Isolation (4 Roles)</h4>
-          <p>• <b>Admin:</b> Passcode (default <code>ADMIN2026</code>) — sees all cases, assigns mediators, manages PIN Settings, prints Register No. VI, and configures Firebase Sync.<br>
-          • <b>Mediator:</b> Select Mediator + Personal PIN (default <code>1234</code>) — sees <b>only assigned cases</b>.<br>
-          • <b>Advocate:</b> Enter Advocate Name + Passcode (default <code>1111</code>) — sees <b>only own cases</b>.<br>
-          • <b>Party / Client:</b> Enter Case Number + Registered Party Name or Mobile — read-only view of <b>own case only</b>.</p>
-        </div>
-        <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
-          <h4 class="font-bold text-amber-900 mb-1">2. Fixing Firebase Live Sync (Collective Updates)</h4>
-          <p>1. Open Firebase Console &rarr; <b>Realtime Database</b>.<br>
-          2. Copy the exact Database URL (e.g. <code>https://your-project-default-rtdb.firebaseio.com</code>).<br>
-          3. Go to <b>Rules</b> and set <code>{ "rules": { ".read": true, ".write": true } }</code> then click <b>Publish</b>.<br>
-          4. Click <b>Firebase Sync</b> in the top bar, paste the URL, click <b>Test &amp; Save</b>, then click <b>Push All 14+ Cases to Firebase</b>.</p>
-        </div>
-        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
-          <h4 class="font-bold text-emerald-900 mb-1">3. Home Screen App Icon</h4>
-          <p>Upload all 5 files from <code>mediation-portal.zip</code> (<code>index.html</code>, <code>manual.html</code>, <code>manifest.json</code>, <code>icon-192.png</code>, <code>icon-512.png</code>) to your GitHub Pages repo root so Android "Add to Home screen" displays the Scales of Justice icon.</p>
-        </div>
-      `;
+      const titleEl = document.getElementById("t-manTitle");
+
+      if (!session) {
+        titleEl.textContent = "Portal Access & Navigation Guide";
+        body.innerHTML = `
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <h4 class="font-bold text-[#0f2244]">1. General Portal Access &amp; Navigation</h4>
+            <p>• Select your assigned role card on the home screen (<b>Admin</b>, <b>Mediator</b>, <b>Advocate</b>, or <b>Party / Client</b>).<br>
+            • Switch languages anytime between <b>English (EN)</b>, <b>Malayalam (മലയാളം)</b>, and <b>Kannada (ಕನ್ನಡ)</b> from the top bar.<br>
+            • Typed passcodes and PINs are displayed clearly so you can verify your entry before signing in.</p>
+          </div>
+        `;
+      } else if (session.role === "admin") {
+        titleEl.textContent = "Court Mediation Centre (Admin) Guide";
+        body.innerHTML = `
+          <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-200 space-y-1.5">
+            <h4 class="font-bold text-indigo-950">Admin Register &amp; Operations</h4>
+            <p>• <b>Manage Cases:</b> Add new Register No. VI entries, assign mediators, and update session dates.<br>
+            • <b>PIN &amp; Access Settings:</b> Update staff, advocate, and individual mediator PINs via <b>PIN Settings</b>.<br>
+            • <b>Reports &amp; Intimation:</b> Use <b>Print A4 Register</b>, <b>Export CSV</b>, or send sitting notices via <b>WhatsApp</b>.</p>
+          </div>
+        `;
+      } else if (session.role === "mediator") {
+        titleEl.textContent = "Mediator Portal & Remuneration Guide";
+        body.innerHTML = `
+          <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1.5">
+            <h4 class="font-bold text-emerald-950">Mediator Operations &amp; Quarterly Honorarium</h4>
+            <p>• <b>Effective Postings:</b> Open any assigned case and log each sitting date. Tick <b>Effective Posting</b> only when <b>both parties are present and mediated</b>.<br>
+            • <b>Remuneration Rules (HC &amp; Lower Courts):</b> <b>₹4,500</b> for each <b>Settled</b> case; <b>₹1,500</b> for a <b>Not Settled</b> case with <b>3 or more effective postings</b> (₹0 if fewer than 3 effective postings).<br>
+            • <b>Quarterly Claim Statement:</b> Select the Quarter and Year in the top summary panel and click <b>Print Claim Statement</b> to generate an A4 claim sheet.<br>
+            • <b>Settlement &amp; Intimation:</b> Use <b>Section 89 Draft</b> (with voice dictation) and <b>WhatsApp Intimation</b> to notify parties.</p>
+          </div>
+        `;
+      } else if (session.role === "advocate") {
+        titleEl.textContent = "Advocate Portal Guide";
+        body.innerHTML = `
+          <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 space-y-1.5">
+            <h4 class="font-bold text-amber-950">Advocate Case Access</h4>
+            <p>• View all mediation matters in which you appear as Petitioner or Respondent Counsel.<br>
+            • Check upcoming mediation sitting dates, court posting dates, and add counsel remarks inside each case.</p>
+          </div>
+        `;
+      } else if (session.role === "party") {
+        titleEl.textContent = "Party / Litigant Guide";
+        body.innerHTML = `
+          <div class="p-3 rounded-xl bg-sky-50 border border-sky-200 space-y-1.5">
+            <h4 class="font-bold text-sky-950">Viewing Your Mediation Case Status</h4>
+            <p>• View your assigned Mediator, current mediation status, and next scheduled sitting date at the Kasaragod Mediation Centre.<br>
+            • Please appear on time on your scheduled sitting date along with your counsel.</p>
+          </div>
+        `;
+      }
+
       document.getElementById("manualModal").classList.remove("hidden");
     }
 
@@ -1400,7 +1789,7 @@ Signature of Petitioner          Signature of Respondent          Signature of M
           <td>${c.petitioner || "—"}<br/><span style="color:#475569">vs</span><br/>${c.respondent || "—"}</td>
           <td>P: ${c.petAdv || "—"}<br/>R: ${c.respAdv || "—"}</td>
           <td>Ref: ${c.refDate || "—"}<br/>1st: ${c.firstDate || "—"}<br/>Next: ${c.nextDate || "—"}<br/>Post: ${c.postingDate || "—"}</td>
-          <td>${c.mediator || "Unassigned"}</td>
+          <td>${c.mediator || "Unassigned"}<br/>(Eff: ${getCaseEffectiveCount(c)})</td>
           <td><b>${c.status || "Pending"}</b></td>
           <td>${c.notes || ""}</td>
         </tr>
