@@ -1,72 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mediation Portal User Manual</title>
-    <style>
-        :root {
-            --primary: #1A365D; --accent: #D4AF37;
-            --bg: #F4F6F9; --text: #2D3748;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); padding: 20px; line-height: 1.6; }
-        .container { max-width: 800px; margin: 0 auto; background: #FFF; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1, h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
-        .section { margin-bottom: 25px; }
-        .pin-box { background: #EBF8FF; border-left: 4px solid var(--accent); padding: 15px; border-radius: 0 8px 8px 0; margin: 10px 0; }
-        .note { font-style: italic; color: #4A5568; }
-        @media print { body { background: #FFF; padding: 0; } .container { box-shadow: none; width: 100%; } }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Guide — Kasaragod Court-Annexed Mediation Portal</title>
+  <link rel="icon" type="image/png" href="./icon-192.png" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; color: #000 !important; }
+    }
+  </style>
 </head>
-<body>
-<div class="container">
-    <h1>Court-Annexed Mediation Portal</h1>
-    <p><strong>User &amp; Operational Manual</strong> | <strong>കക്ഷികൾക്കും മധ്യസ്ഥന്മാർക്കുമുള്ള നിർദ്ദേശങ്ങൾ</strong></p>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-    <div class="section">
-        <h2>1. Overview &amp; Role-Based Access</h2>
-        <p>The Mediation Portal provides role-isolated access to case records. Upon opening the portal, select your respective role on the login screen and enter your authorized PIN:</p>
-        
-        <div class="pin-box">
-            <strong>Mediator (മധ്യസ്ഥൻ):</strong> Select your name from the dropdown and enter your mediator PIN.<br>
-            <span class="note">Accesses only the cases explicitly assigned to your mediation docket.</span>
+  <!-- Top Header -->
+  <header class="bg-[#0f2244] text-white sticky top-0 z-30 shadow-md no-print">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <img src="./icon-192.png" alt="Mediation Portal" class="w-9 h-9 rounded-xl border border-amber-400/50 bg-slate-900 object-cover" />
+        <div>
+          <h1 id="m-title" class="text-sm sm:text-base font-bold">Kasaragod Mediation Portal — User Guide</h1>
+          <p id="m-sub" class="text-[11px] text-amber-200">Court-Annexed Mediation Centre, Kasaragod</p>
         </div>
-        
-        <div class="pin-box">
-            <strong>Advocate (അഡ്വക്കേറ്റ്):</strong> Select Advocate Login and enter your authorized PIN.<br>
-            <span class="note">Accesses only the cases where you are listed as the Petitioner's or Respondent's advocate.</span>
-        </div>
+      </div>
 
-        <div class="pin-box">
-            <strong>Party / Client (കക്ഷി):</strong> Enter the specific Case Number (e.g., OP 1117/2026) and your party PIN.<br>
-            <span class="note">Accesses exclusively the details, status, and scheduled dates for your specific matter.</span>
+      <div class="flex items-center gap-2">
+        <!-- Language Switcher -->
+        <div class="inline-flex rounded-lg bg-white/10 p-0.5 text-xs font-semibold">
+          <button type="button" onclick="setManualLang('en')" id="btn-en" class="px-2 py-1 rounded-md">EN</button>
+          <button type="button" onclick="setManualLang('ml')" id="btn-ml" class="px-2 py-1 rounded-md">മലയാളം</button>
+          <button type="button" onclick="setManualLang('kn')" id="btn-kn" class="px-2 py-1 rounded-md">ಕನ್ನಡ</button>
         </div>
+        <button type="button" onclick="window.print()" class="px-2.5 py-1.5 rounded-lg bg-amber-400 text-slate-900 text-xs font-bold">Print</button>
+        <a href="./index.html" id="m-back" class="px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-bold">← Back to Portal</a>
+      </div>
     </div>
+  </header>
 
-    <div class="section">
-        <h2>2. Case Dashboard &amp; Status Tracking</h2>
-        <p>Once authenticated, the dashboard displays your authorized case list:</p>
-        <ul>
-            <li><strong>Case Identity:</strong> Displays Folio Number, Case Type (e.g., Family Court, JMFC), and Parties involved.</li>
-            <li><strong>Status Tag:</strong> Clearly shows whether the matter is <code>Pending</code>, <code>Settled</code>, or <code>Referred</code>.</li>
-            <li><strong>Key Dates:</strong> Highlights the <code>Reference Date</code>, <code>Mediation Return Date</code>, and subsequent <code>Court Posting Date</code>.</li>
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6 space-y-5">
+
+    <!-- 1. General Access & Navigation (Common for All Users) -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-2">
+      <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[11px] font-bold" id="m-cBadge">General Portal Access</span>
+      <h2 class="text-base sm:text-lg font-extrabold text-[#0f2244]" id="m-cTitle">1. General Portal Access &amp; Navigation</h2>
+      <p class="text-xs sm:text-sm text-slate-700 leading-relaxed" id="m-cBody">
+        Select your authorized role card on the home screen (<b>Admin</b>, <b>Mediator</b>, <b>Advocate</b>, or <b>Party / Client</b>), choose your preferred language (<b>English</b>, <b>Malayalam</b>, or <b>Kannada</b>), and sign in. Typed passcodes and PINs are displayed clearly on screen so you can verify your entry before logging in (use the <b>Hide</b> button if someone is nearby).
+      </p>
+    </section>
+
+    <!-- Role Filter Selector -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-wrap items-center justify-between gap-3 no-print">
+      <label for="guideRoleSelect" class="text-xs sm:text-sm font-bold text-[#0f2244]" id="m-selLbl">Select Your Role to View Instructions:</label>
+      <select id="guideRoleSelect" onchange="renderRoleGuide()" class="px-3 py-2 rounded-xl border border-slate-300 text-xs sm:text-sm font-bold bg-slate-50 text-[#0f2244]">
+        <option value="mediator">Mediator</option>
+        <option value="admin">Court Mediation Centre (Admin)</option>
+        <option value="advocate">Advocate</option>
+        <option value="party">Party / Client</option>
+      </select>
+    </section>
+
+    <!-- Role-Specific Instruction Container (Displays ONLY the selected role) -->
+    <section id="roleGuideCard" class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3"></section>
+
+  </main>
+
+  <script>
+    const MANUAL_DATA = {
+      en: {
+        title: "Kasaragod Mediation Portal — User Guide",
+        sub: "Court-Annexed Mediation Centre, Kasaragod",
+        back: "← Back to Portal",
+        cBadge: "General Portal Access",
+        cTitle: "1. General Portal Access & Navigation",
+        cBody: "Select your authorized role card on the home screen (<b>Admin</b>, <b>Mediator</b>, <b>Advocate</b>, or <b>Party / Client</b>), choose your preferred language (<b>English</b>, <b>Malayalam</b>, or <b>Kannada</b>), and sign in. Typed passcodes and PINs are displayed clearly on screen so you can verify your entry before logging in (use the <b>Hide</b> button if someone is nearby).",
+        selLbl: "Select Your Role to View Instructions:",
+        roles: {
+          mediator: {
+            badge: "Role Guide • Accredited Mediator",
+            title: "Mediator Instructions & Quarterly Honorarium Rules",
+            color: "border-emerald-200 bg-emerald-50/40",
+            points: [
+              "<b>Viewing Assigned Cases:</b> Select your name and enter your personal Mediator PIN to view only cases allotted to you.",
+              "<b>Logging Effective Postings:</b> Open any case and record each sitting date. Tick <b>Effective Posting</b> only when <b>both parties are present and mediated</b>.",
+              "<b>Quarterly Remuneration Rules (Uniform for High Court &amp; Lower Courts):</b><br>• <b>Settled Case:</b> <b>₹4,500</b> per case.<br>• <b>Not Settled Case (&ge; 3 Effective Postings):</b> <b>₹1,500</b> per case.<br>• <b>Not Settled Case (&lt; 3 Effective Postings):</b> <b>₹0</b> (no honorarium).",
+              "<b>Quarterly Auto-Calculator &amp; Claim Printout:</b> Choose the Quarter (Q1–Q4) and Year at the top of your dashboard to view total referred cases, settled/not-settled counts, settlement percentage, total effective postings, and total honorarium, then click <b>Print Claim Statement</b>.",
+              "<b>Section 89 Draft &amp; WhatsApp Intimation:</b> Draft settlement agreements (with voice dictation in English, Malayalam, or Kannada) and send next-sitting reminders via <b>WhatsApp</b>."
+            ]
+          },
+          admin: {
+            badge: "Role Guide • Court Mediation Centre Staff",
+            title: "Admin Register & Office Operations",
+            color: "border-indigo-200 bg-indigo-50/40",
+            points: [
+              "<b>Full Register No. VI Management:</b> Add new referred cases, assign mediators, and update session or court return dates.",
+              "<b>PIN &amp; Access Management:</b> Use <b>PIN Settings</b> to update the Staff Passcode, Advocate Passcode, and individual Mediator PINs.",
+              "<b>Reports &amp; Daily Cause List:</b> Filter by <b>Today's List</b> for daily sittings, export records via <b>Export CSV</b>, or print the official landscape <b>A4 Register No. VI</b>."
+            ]
+          },
+          advocate: {
+            badge: "Role Guide • Counsel",
+            title: "Advocate Portal Instructions",
+            color: "border-amber-200 bg-amber-50/40",
+            points: [
+              "<b>Own Cases Only:</b> Enter your registered Advocate Name and Access Passcode to view only cases where you appear for Petitioner or Respondent.",
+              "<b>Tracking &amp; Remarks:</b> View scheduled mediation sittings, court posting dates, and record counsel notes inside each case."
+            ]
+          },
+          party: {
+            badge: "Role Guide • Party / Litigant",
+            title: "Party / Client Instructions",
+            color: "border-sky-200 bg-sky-50/40",
+            points: [
+              "<b>Read-Only Case Status:</b> Enter your Case Number along with your registered Name or 10-digit Mobile Number.",
+              "<b>Sitting Details:</b> Check your assigned Mediator, current status, and next mediation sitting date at the Kasaragod Mediation Centre."
+            ]
+          }
+        }
+      },
+      ml: {
+        title: "കാസർഗോഡ് മീഡിയേഷൻ പോർട്ടൽ — യൂസർ ഗൈഡ്",
+        sub: "കോർട്ട്-അനെക്സ്ഡ് മീഡിയേഷൻ സെന്റർ, കാസർഗോഡ്",
+        back: "← പോർട്ടലിലേക്ക് മടങ്ങുക",
+        cBadge: "പൊതുവായ നിർദ്ദേശങ്ങൾ",
+        cTitle: "1. പോർട്ടൽ പ്രവേശനവും ഉപയോഗവും",
+        cBody: "ഹോം സ്ക്രീനിൽ നിങ്ങളുടെ റോൾ തിരഞ്ഞെടുക്കുക (<b>Admin</b>, <b>Mediator</b>, <b>Advocate</b>, അല്ലെങ്കിൽ <b>Party</b>). മുകളിലുള്ള ബട്ടൺ വഴി <b>മലയാളം</b>, <b>English</b>, <b>ಕನ್ನಡ</b> എന്നീ ഭാഷകൾ തിരഞ്ഞെടുക്കാം. ടൈപ്പ് ചെയ്യുന്ന പാസ്‌കോഡും PIN-ഉം തെറ്റുകൂടാതെ പരിശോധിക്കാൻ സ്ക്രീനിൽ വ്യക്തമായി കാണാവുന്നതാണ്.",
+        selLbl: "നിങ്ങളുടെ റോൾ തിരഞ്ഞെടുക്കുക:",
+        roles: {
+          mediator: {
+            badge: "മീഡിയേറ്റർക്കുള്ള നിർദ്ദേശങ്ങൾ",
+            title: "മീഡിയേറ്റർ ഉപയോഗക്രമവും ത്രൈമാസ വേതന വ്യവസ്ഥകളും",
+            color: "border-emerald-200 bg-emerald-50/40",
+            points: [
+              "<b>കേസുകൾ കാണുന്നത്:</b> നിങ്ങളുടെ പേരും വ്യക്തിഗത PIN-ഉം നൽകി നിങ്ങൾക്ക് അനുവദിച്ച കേസുകൾ മാത്രം കാണുക.",
+              "<b>എഫക്റ്റീവ് പോസ്റ്റിംഗുകൾ (Effective Postings):</b> കേസ് തുറന്ന് ഓരോ സിറ്റിംഗ് തീയതിയും രേഖപ്പെടുത്തുക. <b>ഇരു കക്ഷികളും ഹാജരായി മീഡിയേഷൻ നടന്ന സിറ്റിംഗുകൾക്ക് മാത്രം</b> 'Effective Posting' ടിക്ക് ചെയ്യുക.",
+              "<b>വേതന നിരക്കുകൾ (ഹൈക്കോടതി, കീഴ്ക്കോടതി കേസുകൾക്ക് ഏകീകൃത നിരക്ക്):</b><br>• <b>സെറ്റിൽ ചെയ്ത കേസ്:</b> ഒന്നിന് <b>₹4,500</b>.<br>• <b>സെറ്റിൽ ആവാത്ത കേസ് (കുറഞ്ഞത് 3 Effective Postings ഉള്ളവ):</b> ഒന്നിന് <b>₹1,500</b>.<br>• <b>3 Effective Postings തികയാത്ത സെറ്റിൽ ആവാത്ത കേസുകൾ:</b> വേതനം ഇല്ല (<b>₹0</b>).",
+              "<b>ത്രൈമാസ കണക്കും പ്രിന്റും:</b> മുകളിലുള്ള പാനലിൽ Quarter (Q1–Q4), വർഷം എന്നിവ തിരഞ്ഞെടുത്താൽ ആകെ കേസുകൾ, സെറ്റിൽ ചെയ്തവ, Effective Postings എണ്ണം, ആകെ വേതനം എന്നിവ തനിയെ കണക്കാക്കും. <b>Print Claim Statement</b> വഴി ക്ലെയിം ഫോം പ്രിന്റ് എടുക്കാം.",
+              "<b>സെക്ഷൻ 89 ഡ്രാഫ്റ്റും WhatsApp അറിയിപ്പും:</b> വോയ്സ് ടൈപ്പിംഗ് വഴി ഒത്തുതീർപ്പ് കരാർ തയ്യാറാക്കാനും <b>WhatsApp</b> വഴി അടുത്ത തീയതി അറിയിക്കാനും സാധിക്കും."
+            ]
+          },
+          admin: {
+            badge: "ഓഫീസ് അഡ്മിൻ നിർദ്ദേശങ്ങൾ",
+            title: "കോർട്ട് മീഡിയേഷൻ സെന്റർ (Admin) പ്രവർത്തനങ്ങൾ",
+            color: "border-indigo-200 bg-indigo-50/40",
+            points: [
+              "<b>രജിസ്റ്റർ നമ്പർ VI നിയന്ത്രണം:</b> പുതിയ കേസുകൾ ചേർക്കാനും മീഡിയേറ്റർമാരെ നിയമിക്കാനും തീയതികൾ പുതുക്കാനും സാധിക്കും.",
+              "<b>PIN ക്രമീകരണം:</b> <b>PIN Settings</b> വഴി സ്റ്റാഫ്, അഡ്വക്കേറ്റ്, മീഡിയേറ്റർ PIN-കൾ മാറ്റാവുന്നതാണ്.",
+              "<b>റിപ്പോർട്ടുകൾ:</b> <b>Today's List</b> വഴി ഇന്നത്തെ കേസുകൾ കാണാനും <b>Print A4 Register</b> വഴി രജിസ്റ്റർ പ്രിന്റ് എടുക്കാനും സാധിക്കും."
+            ]
+          },
+          advocate: {
+            badge: "അഭിഭാഷകർക്കുള്ള നിർദ്ദേശങ്ങൾ",
+            title: "അഡ്വക്കേറ്റ് പോർട്ടൽ ഉപയോഗക്രമം",
+            color: "border-amber-200 bg-amber-50/40",
+            points: [
+              "<b>സ്വന്തം കേസുകൾ മാത്രം:</b> നിങ്ങളുടെ പേരും ആക്സസ് പാസ്‌കോഡും നൽകി നിങ്ങൾ ഹാജരാകുന്ന കേസുകൾ മാത്രം പരിശോധിക്കുക.",
+              "<b>തീയതികളും കുറിപ്പുകളും:</b> അടുത്ത മീഡിയേഷൻ തീയതിയും കോടതി പോസ്റ്റിംഗ് തീയതിയും കാണാനും അഭിഭാഷക കുറിപ്പുകൾ ചേർക്കാനും സാധിക്കും."
+            ]
+          },
+          party: {
+            badge: "കക്ഷികൾക്കുള്ള നിർദ്ദേശങ്ങൾ",
+            title: "പാർട്ടി / കക്ഷി ലോഗിൻ നിർദ്ദേശങ്ങൾ",
+            color: "border-sky-200 bg-sky-50/40",
+            points: [
+              "<b>കേസ് വിവരങ്ങൾ:</b> നിങ്ങളുടെ കേസ് നമ്പറും രജിസ്റ്റർ ചെയ്ത പേരോ മൊബൈൽ നമ്പറോ നൽകി കേസിന്റെ നിലവിലെ അവസ്ഥ കാണുക.",
+              "<b>സിറ്റിംഗ് തീയതി:</b> നിയോഗിക്കപ്പെട്ട മീഡിയേറ്ററുടെ പേരും അടുത്ത മീഡിയേഷൻ തീയതിയും പരിശോധിച്ച് കൃത്യസമയത്ത് ഹാജരാകുക."
+            ]
+          }
+        }
+      },
+      kn: {
+        title: "ಕಾಸರಗೋಡು ಮಧ್ಯಸ್ಥಿಕೆ ಪೋರ್ಟಲ್ — ಬಳಕೆದಾರರ ಮಾರ್ಗದರ್ಶಿ",
+        sub: "ನ್ಯಾಯಾಲಯ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ, ಕಾಸರಗೋಡು",
+        back: "← ಪೋರ್ಟಲ್‌ಗೆ ಹಿಂತಿರುಗಿ",
+        cBadge: "ಸಾಮಾನ್ಯ ಪ್ರವೇಶ",
+        cTitle: "1. ಪೋರ್ಟಲ್ ಪ್ರವೇಶ ಮತ್ತು ಬಳಕೆ",
+        cBody: "ಮುಖಪುಟದಲ್ಲಿ ನಿಮ್ಮ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ (<b>Admin</b>, <b>Mediator</b>, <b>Advocate</b>, ಅಥವಾ <b>Party</b>) ಮತ್ತು ಭಾಷೆಯನ್ನು ಬದಲಾಯಿಸಿ. ಟೈಪ್ ಮಾಡುವ ಪಾಸ್‌ಕೋಡ್ ಮತ್ತು PIN ಪರದೆಯ ಮೇಲೆ ಸ್ಪಷ್ಟವಾಗಿ ಕಾಣಿಸುತ್ತದೆ.",
+        selLbl: "ನಿಮ್ಮ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:",
+        roles: {
+          mediator: {
+            badge: "ಮಧ್ಯಸ್ಥಗಾರರ ಮಾರ್ಗದರ್ಶಿ",
+            title: "ಮಧ್ಯಸ್ಥಗಾರರ ಸೂಚನೆಗಳು ಮತ್ತು ತ್ರೈಮಾಸಿಕ ಗೌರವಧನ ನಿಯಮಗಳು",
+            color: "border-emerald-200 bg-emerald-50/40",
+            points: [
+              "<b>ನಿಯೋಜಿತ ಪ್ರಕರಣಗಳು:</b> ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು PIN ನಮೂದಿಸಿ ನಿಮಗೆ ನೀಡಲಾದ ಪ್ರಕರಣಗಳನ್ನು ಮಾತ್ರ ವೀಕ್ಷಿಸಿ.",
+              "<b>Effective Postings:</b> ಪ್ರತಿ ಸಿಟ್ಟಿಂಗ್ ದಿನಾಂಕವನ್ನು ನಮೂದಿಸಿ. <b>ಇಬ್ಬರೂ ಪಕ್ಷಗಾರರು ಹಾಜರಾಗಿ ಮಧ್ಯಸ್ಥಿಕೆ ನಡೆದ ದಿನಗಳಿಗೆ ಮಾತ್ರ</b> Effective Posting ಗುರುತಿಸಿ.",
+              "<b>ಗೌರವಧನ ನಿಯಮಗಳು (ಹೈಕೋರ್ಟ್ ಮತ್ತು ಅಧೀನ ನ್ಯಾಯಾಲಯಗಳಿಗೆ ಏಕರೂಪ ದರ):</b><br>• <b>ಇತ್ಯರ್ಥವಾದ ಪ್ರಕರಣ (Settled):</b> <b>₹4,500</b>.<br>• <b>ಇತ್ಯರ್ಥವಾಗದ ಪ್ರಕರಣ (&ge; 3 Effective Postings):</b> <b>₹1,500</b>.<br>• <b>3 Effective Postings ಪೂರ್ಣಗೊಳ್ಳದ ಇತ್ಯರ್ಥವಾಗದ ಪ್ರಕರಣ:</b> ಗೌರವಧನವಿಲ್ಲ (<b>₹0</b>).",
+              "<b>ತ್ರೈಮಾಸಿಕ ಲೆಕ್ಕಾಚಾರ ಮತ್ತು ಪ್ರಿಂಟ್:</b> Quarter ಮತ್ತು ವರ್ಷವನ್ನು ಆಯ್ಕೆಮಾಡಿ ಒಟ್ಟು ಗೌರವಧನವನ್ನು ವೀಕ್ಷಿಸಿ ಮತ್ತು <b>Print Claim Statement</b> ಮೂಲಕ ಮುದ್ರಿಸಿ."
+            ]
+          },
+          admin: {
+            badge: "ಆಡಳಿತ ಮಾರ್ಗದರ್ಶಿ",
+            title: "ನ್ಯಾಯಾಲಯ ಮಧ್ಯಸ್ಥಿಕೆ ಕೇಂದ್ರ (Admin)",
+            color: "border-indigo-200 bg-indigo-50/40",
+            points: [
+              "<b>ರಿಜಿಸ್ಟರ್ ನಂ. VI ನಿರ್ವಹಣೆ:</b> ಹೊಸ ಪ್ರಕರಣಗಳನ್ನು ಸೇರಿಸಿ, ಮಧ್ಯಸ್ಥಗಾರರನ್ನು ನಿಯೋಜಿಸಿ ಮತ್ತು A4 ವರದಿಗಳನ್ನು ಮುದ್ರಿಸಿ.",
+              "<b>PIN ಸೆಟ್ಟಿಂಗ್‌ಗಳು:</b> ಸಿಬ್ಬಂದಿ, ವಕೀಲರು ಮತ್ತು ಮಧ್ಯಸ್ಥಗಾರರ PIN ಬದಲಾಯಿಸಿ."
+            ]
+          },
+          advocate: {
+            badge: "ವಕೀಲರ ಮಾರ್ಗದರ್ಶಿ",
+            title: "ವಕೀಲರ ಪೋರ್ಟಲ್ ಸೂಚನೆಗಳು",
+            color: "border-amber-200 bg-amber-50/40",
+            points: [
+              "<b>ಸ್ವಂತ ಪ್ರಕರಣಗಳು ಮಾತ್ರ:</b> ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಪಾಸ್‌ಕೋಡ್ ನಮೂದಿಸಿ ನಿಮ್ಮ ಪ್ರಕರಣಗಳ ಮುಂದಿನ ದಿನಾಂಕ ಮತ್ತು ಸ್ಥಿತಿಯನ್ನು ವೀಕ್ಷಿಸಿ."
+            ]
+          },
+          party: {
+            badge: "ಪಕ್ಷಗಾರರ ಮಾರ್ಗದರ್ಶಿ",
+            title: "ಪಕ್ಷಗಾರರ / ಕ್ಲೈಂಟ್ ಸೂಚನೆಗಳು",
+            color: "border-sky-200 bg-sky-50/40",
+            points: [
+              "<b>ಪ್ರಕರಣದ ಸ್ಥಿತಿ:</b> ಪ್ರಕರಣ ಸಂಖ್ಯೆ ಮತ್ತು ನಿಮ್ಮ ಹೆಸರು ಅಥವಾ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ ಮುಂದಿನ ಮಧ್ಯಸ್ಥಿಕೆ ದಿನಾಂಕವನ್ನು ವೀಕ್ಷಿಸಿ."
+            ]
+          }
+        }
+      }
+    };
+
+    let mLang = "en";
+
+    function setManualLang(lang) {
+      mLang = lang;
+      ["en", "ml", "kn"].forEach(l => {
+        const b = document.getElementById("btn-" + l);
+        b.className = l === mLang
+          ? "px-2 py-1 rounded-md bg-amber-400 text-slate-900"
+          : "px-2 py-1 rounded-md text-white hover:bg-white/10";
+      });
+      const d = MANUAL_DATA[mLang];
+      document.getElementById("m-title").textContent = d.title;
+      document.getElementById("m-sub").textContent = d.sub;
+      document.getElementById("m-back").textContent = d.back;
+      document.getElementById("m-cBadge").textContent = d.cBadge;
+      document.getElementById("m-cTitle").textContent = d.cTitle;
+      document.getElementById("m-cBody").innerHTML = d.cBody;
+      document.getElementById("m-selLbl").textContent = d.selLbl;
+      renderRoleGuide();
+    }
+
+    function renderRoleGuide() {
+      const role = document.getElementById("guideRoleSelect").value;
+      const r = MANUAL_DATA[mLang].roles[role];
+      const card = document.getElementById("roleGuideCard");
+      card.className = `rounded-2xl border p-5 shadow-sm space-y-3 ${r.color}`;
+      card.innerHTML = `
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full bg-white text-[#0f2244] border border-slate-200 text-[11px] font-bold">${r.badge}</span>
+          <h3 class="text-base sm:text-lg font-extrabold text-[#0f2244] mt-1">${r.title}</h3>
+        </div>
+        <ul class="space-y-2 text-xs sm:text-sm text-slate-800 list-disc pl-5 leading-relaxed">
+          ${r.points.map(pt => `<li>${pt}</li>`).join("")}
         </ul>
-    </div>
+      `;
+    }
 
-    <div class="section">
-        <h2>3. Updating &amp; Recording Progress</h2>
-        <p>Mediators can update case parameters in real time:</p>
-        <ul>
-            <li><strong>Status Update:</strong> Update the status as mediation progresses (e.g., transitioning from Pending to Settled).</li>
-            <li><strong>Date Scheduling:</strong> Record upcoming return dates and court postings.</li>
-            <li><strong>Voice Dictation &amp; Notes:</strong> Utilize the integrated microphone button (Voice Dictation) in the notes section to dictate proceedings, mediator observations, or advocate notes hands-free, ensuring accurate and efficient documentation.</li>
-        </ul>
-    </div>
-
-    <div class="section">
-        <h2>4. Printing &amp; Documentation</h2>
-        <p>At any stage, clicking the <strong>Print / Export Case Details</strong> button formats the current case data into a clean, A4 landscape-friendly statement suitable for official records and court submission.</p>
-    </div>
-</div>
+    setManualLang("en");
+  </script>
 </body>
 </html>
